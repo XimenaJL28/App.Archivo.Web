@@ -1,0 +1,45 @@
+@import "./themes/md-light-indigo/theme.css";
+
+:root {
+    --primary-color-text: #f5f5f5;
+
+    --var-primary: 0, 70, 134;
+    --primary-color: rgb(var(--var-primary));
+    --primary-color-hover: rgba(var(--var-primary), 0.92);
+    --primary-color-focus: rgba(var(--var-primary), 0.76);
+    --primary-color-active: rgba(var(--var-primary), 0.68);
+    --primary-color-text-button-hover: rgba(var(--var-primary), 0.04);
+    --primary-color-text-button-focus: rgba(var(--var-primary), 0.12);
+    --primary-color-text-button-active: rgba(var(--var-primary), 0.16);
+
+    --var-secondary: 0, 155, 219;
+    --secondary-color: rgb(var(--var-secondary));
+    --secondary-color-hover: rgba(var(--var-secondary), 0.92);
+    --secondary-color-focus: rgba(var(--var-secondary), 0.76);
+    --secondary-color-active: rgba(var(--var-secondary), 0.68);
+    --secondary-color-text-button-hover: rgba(var(--var-secondary), 0.04);
+    --secondary-color-text-button-focus: rgba(var(--var-secondary), 0.12);
+    --secondary-color-text-button-active: rgba(var(--var-secondary), 0.16);
+
+    --var-danger: 243, 59, 0;
+    --danger-color: rgb(var(--var-danger));
+    --danger-color-hover: rgba(var(--var-danger), 0.92);
+    --danger-color-focus: rgba(var(--var-danger), 0.76);
+    --danger-color-active: rgba(var(--var-danger), 0.68);
+    --danger-color-text-button-hover: rgba(var(--var-danger), 0.04);
+    --danger-color-text-button-focus: rgba(var(--var-danger), 0.12);
+    --danger-color-text-button-active: rgba(var(--var-danger), 0.16);
+}
+
+.nav-mobile {
+    ul, a {
+        background: none !important;
+    }
+    .p-tabmenuitem	{
+        flex: 1 1;
+        text-align: center;
+        span, i {
+            margin: auto;
+        }
+    }
+} 

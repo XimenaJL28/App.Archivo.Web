@@ -1,0 +1,188 @@
+.perfil-foto {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}
+
+.perfil-nombre {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.perfil-detalle {
+  font-size: 14px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.section-botton {
+  position: absolute;
+  bottom: 10px;
+  margin: auto;
+  width: 100%;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+.isologo {
+  width: 50px;
+  padding: 5px 0;
+}
+
+.detail-version {
+  font-size: 11px;
+}
+
+.btn-logout {
+  width: 80% !important;
+  margin: auto;
+  display: block;
+  background-color: rgb(243, 59, 0) !important;
+  color: white !important;
+}
+
+a,
+a:hover,
+a:focus {
+  color: #000000de;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.lh-1 {
+  line-height: 1.1 !important;
+}
+.p-button-rounded{
+ background-color:  rgb(0,70,134) !important;
+ color: white !important;
+}
+
+
+/* ---------------------------------------------------
+      SIDEBAR STYLE
+  ----------------------------------------------------- */
+#sidebar {
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  background: #f4f4f4;
+}
+
+#sidebar>ul.components {
+  padding: 0;
+  max-height: 40vh;
+  overflow: auto;
+}
+
+#sidebar>ul li a {
+  padding: 12px;
+  font-size: 0.9em;
+  display: block;
+}
+
+#sidebar>ul li a:hover {
+  background: rgba(0, 0, 0, .04);
+}
+
+#sidebar>ul li.active>a,
+a[aria-expanded="true"] {
+  background: rgba(0, 0, 0, .08);
+  padding-left: 20px;
+}
+
+#sidebar>ul li.active {
+  border-left: 2px solid rgb(0, 70, 134);
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.down {
+  opacity: 0;
+  transition: .3s;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 50%;
+  padding: 8px;
+  top: 0px !important;
+  right: 5px !important;
+}
+
+.down:hover {
+  background-color: #dfdfdf;
+}
+
+#sidebar:hover .down {
+  opacity: 1;
+}
+
+.carrera {
+  width: 70%;
+  margin: auto;
+  transition: .3s;
+}
+
+#sidebar:hover .carrera {
+  transition: 1s;
+  // margin-left: auto;
+}
+
+.listboxcareer {
+  width: 90%;
+  margin: auto;
+}
+
+.listboxcareer2 {
+  font-size: .8em;
+}
+
+.h-0 {
+  // height: 0 !important;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
+  max-height: 0;
+}
+
+.careers {
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
+  max-height: 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+
+    li {
+      padding: 8px;
+      transition: .3s;
+
+      &:hover {
+        background-color: #dfdfdf;
+        cursor: pointer;
+      }
+
+      &.active {
+        background-color: #dfdfdf;
+      }
+    }
+  }
+}

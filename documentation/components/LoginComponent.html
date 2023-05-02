@@ -1,0 +1,1004 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>linea-grafica-upds-angular-prime-ng documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">linea-grafica-upds-angular-prime-ng documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li
+  >
+  LoginComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/login/login.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>MessageService</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-login</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./login.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./login.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargandoData" >cargandoData</a>
+                            </li>
+                            <li>
+                                <a href="#objLogin" >objLogin</a>
+                            </li>
+                            <li>
+                                <a href="#remember" >remember</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <a href="#sedes" >sedes</a>
+                            </li>
+                            <li>
+                                <a href="#token" >token</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#roll" >roll</a>
+                            </li>
+                            <li>
+                                <a href="#selectSede" >selectSede</a>
+                            </li>
+                            <li>
+                                <a href="#verificarCredencial" >verificarCredencial</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, accountService: <a href="../injectables/AccountService.html" target="_self">AccountService</a>, messageService: MessageService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/login/login.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>accountService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AccountService.html" target="_self" >AccountService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>messageService</td>
+                                                  
+                                                        <td>
+                                                                    <code>MessageService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/app/login/login.component.ts:49</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="roll"></a>
+                    <span class="name">
+                        <span ><b>roll</b></span>
+                        <a href="#roll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>roll()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/login/login.component.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>&quot;Funcionario&quot; | &quot;Estudiante&quot; | &quot;&quot;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectSede"></a>
+                    <span class="name">
+                        <span ><b>selectSede</b></span>
+                        <a href="#selectSede"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectSede(sede: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/app/login/login.component.ts:96</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>sede</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verificarCredencial"></a>
+                    <span class="name">
+                        <span ><b>verificarCredencial</b></span>
+                        <a href="#verificarCredencial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>verificarCredencial()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/app/login/login.component.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargandoData"></a>
+                    <span class="name">
+                        <span ><b>cargandoData</b></span>
+                        <a href="#cargandoData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/login/login.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="objLogin"></a>
+                    <span class="name">
+                        <span ><b>objLogin</b></span>
+                        <a href="#objLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: 0,
+    sedeId: 1,
+    appId: 1,
+    tipo: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/login/login.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="remember"></a>
+                    <span class="name">
+                        <span ><b>remember</b></span>
+                        <a href="#remember"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/login/login.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/login/login.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sedes"></a>
+                    <span class="name">
+                        <span ><b>sedes</b></span>
+                        <a href="#sedes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    options: [&#x27;Funcionario&#x27;, &#x27;Estudiante&#x27;],
+    sedesFuncionario: [],
+    sedesEstudiante: [],
+    roll: &#x27;&#x27;,
+    dataCargada: false
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/login/login.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="token"></a>
+                    <span class="name">
+                        <span ><b>token</b></span>
+                        <a href="#token"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/login/login.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+      userName: &quot;&quot;,
+      password: &quot;&quot;,
+      appId: 0
+    }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/login/login.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { MessageService } from &#x27;primeng/api&#x27;;
+import { LoginDTO } from &#x27;../models/login-dto&#x27;;
+import { VerificarCredencialesDTO } from &#x27;../models/verificar-credenciales-dto&#x27;;
+import { AccountService } from &#x27;../services/account.service&#x27;;
+
+@Component({
+  selector: &#x27;app-login&#x27;,
+  templateUrl: &#x27;./login.component.html&#x27;,
+  styleUrls: [&#x27;./login.component.scss&#x27;],
+  providers: [MessageService]
+})
+export class LoginComponent implements OnInit {
+
+  cargandoData &#x3D; false;
+  token &#x3D; &#x27;&#x27;;
+  user &#x3D; {
+      userName: &quot;&quot;,
+      password: &quot;&quot;,
+      appId: 0
+    }
+  remember &#x3D; false;
+
+  objLogin &#x3D; {
+    id: 0,
+    sedeId: 1,
+    appId: 1,
+    tipo: &#x27;&#x27;
+  }
+
+  sedes: any &#x3D; {
+    options: [&#x27;Funcionario&#x27;, &#x27;Estudiante&#x27;],
+    sedesFuncionario: [],
+    sedesEstudiante: [],
+    roll: &#x27;&#x27;,
+    dataCargada: false
+  };
+
+  constructor(  public router: Router, private accountService: AccountService, private messageService: MessageService ) {
+    this.token &#x3D; this.router.parseUrl(this.router.url).queryParams[&#x27;token&#x27;];
+
+    if (this.token !&#x3D; &#x27;&#x27; &amp;&amp; this.token !&#x3D; null) {
+      localStorage.setItem(&#x27;Authorization&#x27;, this.token);
+      router.navigateByUrl(&#x27;/&#x27;);
+    }
+  }
+
+  ngOnInit(): void {
+    if(localStorage.getItem(&#x27;credenciales&#x27;) !&#x3D; null &amp;&amp; localStorage.getItem(&#x27;credenciales&#x27;) !&#x3D; &#x27;&#x27;){
+      let user: any &#x3D; JSON.parse(localStorage.getItem(&#x27;credenciales&#x27;)??&#x27;&#x27;);
+      this.user.userName &#x3D; user.userName;
+      this.user.password &#x3D; user.password??&#x27;&#x27;;
+      this.remember &#x3D; true;
+    }
+  }
+
+  verificarCredencial(){
+    if(this.remember){
+      localStorage.setItem(&#x27;credenciales&#x27;, JSON.stringify(this.user));
+    }else{
+      localStorage.removeItem(&#x27;credenciales&#x27;);
+    }
+
+    this.cargandoData &#x3D; true;
+    this.accountService.verificarCredencial(this.user).then((res: VerificarCredencialesDTO) &#x3D;&gt; {
+      this.sedes.sedesFuncionario &#x3D; res.sedesFuncionario;
+      this.sedes.sedesEstudiante &#x3D; res.sedesEstudiante;
+      this.sedes.dataCargada &#x3D; true;
+      this.sedes.roll &#x3D; this.roll();
+      
+      localStorage.setItem(&#x27;Authorization&#x27;, res.userToken.token);
+      
+      if(this.sedes.sedesEstudiante.length &#x3D;&#x3D; 1){
+        let objEvent &#x3D; {value: this.sedes.sedesEstudiante[0]}
+        this.selectSede(objEvent);
+      }
+
+    }).catch((err: any) &#x3D;&gt; {
+      this.messageService.add({severity:&#x27;error&#x27;, summary: &#x27;Alert!&#x27;, detail: err.error});
+    }).finally(() &#x3D;&gt; {
+      this.cargandoData &#x3D; false;
+    });
+  }
+
+  roll(){
+    if(this.sedes.sedesFuncionario.length &gt; 0 &amp;&amp; this.sedes.sedesEstudiante.length &#x3D;&#x3D; 0){
+      return &quot;Funcionario&quot;;
+    }
+    if(this.sedes.sedesFuncionario.length &#x3D;&#x3D; 0 &amp;&amp; this.sedes.sedesEstudiante.length &gt; 0){
+      return &quot;Estudiante&quot;;
+    }
+    return &quot;&quot;;
+  }
+
+  selectSede(sede: any){
+    this.cargandoData &#x3D; true;
+    this.objLogin.sedeId &#x3D; sede.value.id;
+    this.objLogin.tipo &#x3D; this.sedes.roll;
+    this.accountService.logIn(this.objLogin).then((res: LoginDTO) &#x3D;&gt; {
+      localStorage.setItem(&#x27;Authorization&#x27;, res.token);
+      this.router.navigateByUrl(&#x27;/&#x27;);
+    }).catch((err: any) &#x3D;&gt; {
+      console.log(err);
+    }).finally(() &#x3D;&gt; {
+      this.cargandoData &#x3D; false;
+    });
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;p-toast&gt;&lt;/p-toast&gt;
+&lt;div class&#x3D;&quot;body-login&quot;&gt;
+    &lt;div class&#x3D;&quot;contenedor&quot;&gt;
+        &lt;p-card class&#x3D;&quot;box fadein shadow-8&quot; *ngIf&#x3D;&quot;!sedes.dataCargada&quot;&gt;
+            &lt;div&gt;
+                &lt;img src&#x3D;&quot;https://saads.blob.core.windows.net/resource/imagenes/Logos/SFICAZULVERDE.png&quot; alt&#x3D;&quot;logo U&quot; class&#x3D;&quot;logo&quot;&gt;
+                &lt;h2 class&#x3D;&quot;title&quot;&gt;Welcome Back&lt;/h2&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;span class&#x3D;&quot;p-float-label p-input-icon-left w-full mb-3 mt-2&quot;&gt;
+                    &lt;i class&#x3D;&quot;pi pi-user&quot;&gt;&lt;/i&gt;
+                    &lt;input type&#x3D;&quot;text&quot; pInputText  [(ngModel)]&#x3D;&quot;user.userName&quot; id&#x3D;&quot;user&quot; class&#x3D;&quot;w-full&quot;&gt;         
+                    &lt;label for&#x3D;&quot;user&quot;&gt;Username&lt;/label&gt;
+                &lt;/span&gt;
+                &lt;span class&#x3D;&quot;p-float-label p-input-icon-left w-full mb-3 mt-2&quot;&gt;
+                    &lt;i class&#x3D;&quot;pi pi-key&quot;&gt;&lt;/i&gt;
+                    &lt;input type&#x3D;&quot;password&quot; pInputText  [(ngModel)]&#x3D;&quot;user.password&quot; id&#x3D;&quot;pass&quot; class&#x3D;&quot;w-full&quot;&gt;         
+                    &lt;label for&#x3D;&quot;pass&quot;&gt;Password&lt;/label&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;flex align-items-center justify-content-between mb-4&quot;&gt;
+                &lt;div class&#x3D;&quot;flex align-items-center&quot;&gt;
+                    &lt;p-checkbox id&#x3D;&quot;rememberme&quot; [binary]&#x3D;&quot;true&quot; [(ngModel)]&#x3D;&quot;remember&quot; styleClass&#x3D;&quot;mr-2&quot;&gt;&lt;/p-checkbox&gt;
+                    &lt;label for&#x3D;&quot;rememberme&quot; class&#x3D;&quot;text-900&quot;&gt;Remember me&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;a routerLink&#x3D;&quot;/recovery&quot; class&#x3D;&quot;font-medium no-underline ml-2 text-primary text-right cursor-pointer&quot;&gt;Forgot password?&lt;/a&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;text-center mt-4&quot;&gt;
+                &lt;button pButton type&#x3D;&quot;button&quot; class&#x3D;&quot;p-button-raised w-full&quot; label&#x3D;&quot;Login&quot; (click)&#x3D;&quot;verificarCredencial()&quot; [loading]&#x3D;&quot;cargandoData&quot;&gt;&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/p-card&gt;
+
+        &lt;p-card class&#x3D;&quot;box fadein shadow-8&quot; *ngIf&#x3D;&quot;sedes.dataCargada&quot;&gt;
+            &lt;div *ngIf&#x3D;&quot;sedes.roll &#x3D;&#x3D; &#x27;&#x27;&quot;&gt;
+                &lt;h2&gt;Select Roll&lt;/h2&gt;
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;sedes.roll !&#x3D; &#x27;&#x27; &amp;&amp; !cargandoData&quot;&gt;
+                &lt;h2 class&#x3D;&quot;mt-0 text-center&quot;&gt;Select Sede&lt;/h2&gt;
+                &lt;p-listbox [options]&#x3D;&quot;sedes.sedesEstudiante&quot; optionLabel&#x3D;&quot;nombre&quot; (onChange)&#x3D;&quot;selectSede($event)&quot;&gt;&lt;/p-listbox&gt;
+            &lt;/div&gt;
+            &lt;p-progressSpinner class&#x3D;&quot;text-center block m-auto&quot; *ngIf&#x3D;&quot;cargandoData&quot;&gt;&lt;/p-progressSpinner&gt;
+        &lt;/p-card&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./login.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.body-login {
+    background-image: url(&#x27;https://saads.blob.core.windows.net/resource/imagenes/backgraundLogin.png&#x27;);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.box {
+    width: 500px;
+    margin: auto 10px;
+}
+
+.box &gt; div {
+    padding: 0 30px;
+}
+
+.title {
+    color: rgb(0, 70, 134);
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 0;
+    text-align: center;
+}
+
+.logo {
+    width: 70px;
+    margin: 0px auto 10px auto;
+    display: block;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><p-toast></p-toast><div class="body-login">    <div class="contenedor">        <p-card class="box fadein shadow-8" *ngIf="!sedes.dataCargada">            <div>                <img src="https://saads.blob.core.windows.net/resource/imagenes/Logos/SFICAZULVERDE.png" alt="logo U" class="logo">                <h2 class="title">Welcome Back</h2>            </div>            <div>                <span class="p-float-label p-input-icon-left w-full mb-3 mt-2">                    <i class="pi pi-user"></i>                    <input type="text" pInputText  [(ngModel)]="user.userName" id="user" class="w-full">                             <label for="user">Username</label>                </span>                <span class="p-float-label p-input-icon-left w-full mb-3 mt-2">                    <i class="pi pi-key"></i>                    <input type="password" pInputText  [(ngModel)]="user.password" id="pass" class="w-full">                             <label for="pass">Password</label>                </span>            </div>            <div class="flex align-items-center justify-content-between mb-4">                <div class="flex align-items-center">                    <p-checkbox id="rememberme" [binary]="true" [(ngModel)]="remember" styleClass="mr-2"></p-checkbox>                    <label for="rememberme" class="text-900">Remember me</label>                </div>                <a routerLink="/recovery" class="font-medium no-underline ml-2 text-primary text-right cursor-pointer">Forgot password?</a>            </div>            <div class="text-center mt-4">                <button pButton type="button" class="p-button-raised w-full" label="Login" (click)="verificarCredencial()" [loading]="cargandoData"></button>            </div>        </p-card>        <p-card class="box fadein shadow-8" *ngIf="sedes.dataCargada">            <div *ngIf="sedes.roll == \'\'">                <h2>Select Roll</h2>            </div>            <div *ngIf="sedes.roll != \'\' && !cargandoData">                <h2 class="mt-0 text-center">Select Sede</h2>                <p-listbox [options]="sedes.sedesEstudiante" optionLabel="nombre" (onChange)="selectSede($event)"></p-listbox>            </div>            <p-progressSpinner class="text-center block m-auto" *ngIf="cargandoData"></p-progressSpinner>        </p-card>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DndComponent', 'selector': 'app-dnd'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PagesComponent', 'selector': 'app-pages'},{'name': 'RecoveryPasswordComponent', 'selector': ''},{'name': 'RePasswordComponent', 'selector': ''},{'name': 'SideBarComponent', 'selector': 'app-side-bar'}];
+    var DIRECTIVES = [{'name': 'DndDirective', 'selector': '[appDnd]'}];
+    var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'LoginComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

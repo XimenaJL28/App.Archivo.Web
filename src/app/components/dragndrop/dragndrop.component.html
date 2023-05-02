@@ -1,0 +1,17 @@
+<div class="container full-width" appDnd (fileDropped)="onFileDropped($event)" [ngClass]="{'color-black': !(themeState$ | async)!.darkMode}">
+	<div *ngIf="!isUpload else spinner">
+		<input type="file" #fileDropRef id="fileDropRef" [accept]="tipeAccept" 
+		(change)="fileBrowseHandler($event.target)" />
+	
+		<img [src]="uri" *ngIf="uri != ''" class="img">
+	
+		<h3>Drag and drop your {{nameFile}} here</h3>
+		<h3>o</h3>
+		<button pButton pRipple type="button" label="Search for it in your files" for="fileDropRef" 
+		class="p-button p-button-rounded p-button-danger w-full"></button>
+	</div>
+	<ng-template #spinner>
+		<p class="text-center"> {{ porcentajeProgreso }} %</p>
+		<p-progressBar [value]="porcentajeProgreso"></p-progressBar>
+	</ng-template>
+</div>

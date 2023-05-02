@@ -1,0 +1,7 @@
+<div class="bd" [ngClass]="{'bd-dark': !(themeState$ | async)!.darkMode}">
+    <div class="unaut" title="404">404</div>
+    <br>
+    <div class="text-center">
+        <p>Redirigiendo al inicio en {{counter}} {{counter!=1 ? "segundos" : "segundo"}}.</p>
+    </div>
+</div>

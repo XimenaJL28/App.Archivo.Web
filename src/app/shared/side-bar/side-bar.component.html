@@ -1,0 +1,49 @@
+<div id="sidebar">
+    <div class="pt-3 overflow-hidden">
+        <div class="perfil-foto" style="background-image: url('{{funcionario?.foto}}');" alt="Foto"></div>
+        <p class="perfil-nombre mt-2 mb-0 lh-1">
+            {{funcionario?.nombre | titlecase}}
+            {{funcionario?.primerApellido | titlecase}}
+            {{funcionario?.segundoApellido | titlecase}}
+        </p>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li routerLinkActive="active" *ngFor="let menu of menus">
+            <a *ngIf="!menu.external" href="#" [routerLink]="menu.ubicacion" class="text-overflow">
+                <i class="pi {{menu.icono}}"></i>
+                {{menu.titulo}}
+            </a>
+            <a *ngIf="menu.external" [href]="menu.ubicacion" class="text-overflow" target="_blank">
+                <i class="pi {{menu.icono}}"></i>
+                {{menu.titulo}}
+            </a>
+        </li>
+    </ul>
+
+    <section class="section-botton">
+
+        <!--? Toggle theme button -->
+        <!--! themeState$ is an observable so we need the pipe async -->
+        <div class="full-width">
+            <button (click)="toggleTheme()" pButton pRipple type="button"
+                [icon]="'pi ' + ((themeState$ | async)!.darkMode == true ? 'pi-sun' : 'pi-moon') "
+                class="p-button-rounded"></button>
+        </div>
+
+
+        <p-divider></p-divider>
+
+
+        <!-- <img src="https://saads.blob.core.windows.net/resource/imagenes/Logos/SFICAZULVERDE.png" class="isologo"> -->
+        <!-- <img src="https://portal.upds.edu.bo/index/images/isologo.png" class="isologo"> -->
+
+
+        <div class="detail-version">
+            <p class="my-0">&copy; {{currentDate.getFullYear()}} - V1.0 </p>
+            <p class="mt-0 mb-1">Design Template</p>
+        </div>
+        <button pButton label="Cerrar sesión" icon="pi pi-sign-out" class="btn-logout p-button-danger"
+            (click)="logOut()"></button>
+    </section>
+</div>
