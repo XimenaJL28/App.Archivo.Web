@@ -2,7 +2,7 @@
 
     <!--! themeState$ is an observable, so we need the pipe async -->
     <div class="wrapper app-background" [ngClass]="{'dark-theme': (themeState$ | async)!.darkMode}">
-        
+
         <nav id="sidebar" [ngClass]="{'active': !toggle}">
             <app-side-bar [menus]="menus"></app-side-bar>
         </nav>
@@ -10,7 +10,7 @@
         <!-- Page Content  -->
         <div class="content app-background" [ngClass]="{'active': toggle}">
             <label class="label" for="check" style="z-index: 99;">
-                <input type="checkbox" id="check" [(ngModel)]="toggle" /> 
+                <input type="checkbox" id="check" [(ngModel)]="toggle" />
                 <span></span>
                 <span></span>
                 <span></span>
@@ -44,6 +44,6 @@
 
 <ng-template #spinner>
     <div class="w-full text-center" style="padding-top: 300px;">
-        <p-progressSpinner></p-progressSpinner>
+        <app-loader></app-loader>
     </div>
 </ng-template>

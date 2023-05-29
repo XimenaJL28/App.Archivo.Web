@@ -1,5 +1,5 @@
 .body-login {
-    background-image: url('https://saads.blob.core.windows.net/resource/imagenes/backgraundLogin.png');
+    background-color: rgb(26 62 112);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -21,7 +21,7 @@
     margin: auto 10px;
 }
 
-.box > div {
+.box>div {
     padding: 0 30px;
 }
 
@@ -38,10 +38,12 @@
     margin: 0px auto 10px auto;
     display: block;
 }
-i{
+
+i {
     cursor: pointer;
 }
-.upds_logo{
+
+.upds_logo {
     height: 20px;
     aspect-ratio: 1 / 1;
 }
