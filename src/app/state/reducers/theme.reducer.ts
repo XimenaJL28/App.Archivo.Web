@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
-import { toggleTheme } from "../actions/theme.actions";
+import { loadTheme, toggleTheme } from "../actions/theme.actions";
 
-export interface ThemeState{
+export interface ThemeState {
 
     darkMode: boolean
 }
@@ -12,8 +12,9 @@ export const initialState: ThemeState = {
 }
 
 export const themeReducer = createReducer(
-    initialState, 
+    initialState,
     on(toggleTheme, (oldState) => {
+
 
         //? Toggle theme
         const darkMode = !oldState.darkMode;
@@ -24,10 +25,28 @@ export const themeReducer = createReducer(
         themeLink.href = `${themeUrl}.css`;
 
         //? Setting theme selected in localStorage
-        localStorage.setItem("darkMode",`${darkMode}`);
+        localStorage.setItem("darkMode", `${darkMode}`);
 
         return {
             darkMode
         }
-    })
+    }),
+    on(
+        loadTheme, (oldState) => {
+
+            //? Toggle theme
+            let darkMode = oldState.darkMode;
+            //? Change css file url
+            let themeLink = document.getElementById('app-theme') as HTMLLinkElement;
+            const themeUrl = (darkMode) ? "dark-indigo" : "light-indigo";
+            themeLink.href = `${themeUrl}.css`;
+
+            //? Setting theme selected in localStorage
+            localStorage.setItem("darkMode", `${darkMode}`);
+
+            return {
+                darkMode
+            }
+        }
+    )
 )
