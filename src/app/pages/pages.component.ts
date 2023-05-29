@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
 import { MainService } from '../services/main.service';
 import { ThemeState } from '../state/reducers/theme.reducer';
+import { UserState } from '../state/reducers/user.reducer';
 
 @Component({
   selector: 'app-pages',
@@ -55,6 +56,8 @@ export class PagesComponent implements OnInit {
     private readonly store: Store<{ theme: ThemeState }>) {
 
     this.themeState$ = this.store.select("theme");
+
+
     this.appReady = true;
 
 
@@ -64,6 +67,7 @@ export class PagesComponent implements OnInit {
 
     //? Load user data when user is logged
     this.accountService.getProfile();
+
 
   }
 

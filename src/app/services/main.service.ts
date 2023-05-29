@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router'
+import { UserState } from '../state/reducers/user.reducer';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
+
+
 
   toggle: BehaviorSubject<boolean> = new BehaviorSubject(false);
   xporcentaje: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -22,7 +26,8 @@ export class MainService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly router: Router) {
+    private readonly router: Router,
+    private readonly store: Store<{ user: UserState }>) {
 
   }
 
