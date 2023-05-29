@@ -45,7 +45,7 @@ export class SideBarComponent implements OnInit {
     this.themeState$ = this.store.select("theme");
     this.userState$ = this.store.select("user");
 
-    this.userState$.subscribe( user => this.funcionario = user);
+    this.userState$.subscribe(user => this.funcionario = user);
 
     this.persona = mainService.persona;
 
@@ -60,6 +60,9 @@ export class SideBarComponent implements OnInit {
   logOut(): void {
     localStorage.removeItem('Authorization');
     this.router.navigateByUrl('/login');
+    localStorage.removeItem('theme');
+    localStorage.removeItem('darkMode');
+    location.reload();
   }
 
   /**
