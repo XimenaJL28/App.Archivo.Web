@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router'
 import { UserState } from '../state/reducers/user.reducer';
 import { Store } from '@ngrx/store';
+import { MessageService } from 'primeng/api';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,7 @@ export class MainService {
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
+    private readonly messageService: MessageService,
     private readonly store: Store<{ user: UserState }>) {
 
   }
@@ -255,6 +258,10 @@ export class MainService {
       // xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('Authorization') == null ? '' : localStorage.getItem('Authorization')));
       xmlRequest.send(formData);
     });
+  }
+
+  mostrarToast(obj: { severity: string, summary: string, detail: string }) {
+    this.messageService.add(obj);
   }
 
 

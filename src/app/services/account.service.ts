@@ -14,7 +14,7 @@ export class AccountService {
   codeRemember!: number;
   constructor(
     private readonly mainService: MainService,
-    private readonly store: Store<{user: UserState}>
+    private readonly store: Store<{ user: UserState }>
   ) { }
 
   async sendCodeRememberPassForMail(userName: string, random: number) {
@@ -39,8 +39,8 @@ export class AccountService {
 
 
   async getProfile(): Promise<void> {
-    let ans = await this.mainService.get<UserState>(`${environment.urlAccess}Accesos/Funcionario`);
+    let ans = await this.mainService.get<UserState>(`${environment.urlAccess}Accesos/Persona`);
     //? Updating user info in store
-    this.store.dispatch(loadUser({data: (ans as UserState)}));
+    this.store.dispatch(loadUser({ data: (ans as UserState) }));
   }
 }

@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
       floatLabel: this.floatLabelControl,
     });
 
-    this.persona = mainService.persona;
 
   }
 
@@ -32,6 +31,11 @@ export class HomeComponent implements OnInit {
 
   uriCambiada(uri: string) {
     this.bannerUrl = uri;
+  }
+
+  alerta() {
+    //toast de alerta
+    this.mainService.mostrarToast({ severity: 'success', summary: 'Success', detail: 'Prueba de alerta' });
   }
 
 }

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 
 //? Custom Modules
@@ -18,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
+
 
 
 //? State management
@@ -53,8 +55,7 @@ import { environment } from 'src/environments/environment.prod';
       logOnly: environment.production
     })
   ],
-
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
