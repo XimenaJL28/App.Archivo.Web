@@ -5,6 +5,7 @@ import { Documento } from '../interfaces/tramite/documento';
 import { Operaciones } from '../interfaces/tramite/operaciones';
 import { Reprogramacion } from '../interfaces/tramite/reprogramacion';
 import { Requerido } from '../interfaces/tramite/requerido';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -113,5 +114,16 @@ export class TramiteService {
         estado: 'En Proceso'
       }
     ];
+  }
+
+
+  async GetInscripcions(idpersona: any) {
+    let ans: any = await this.MainService.get(`${environment.endPoint}Inscripcion/${idpersona}`);
+    return ans;
+  }
+
+  async GetListTramites(idtramite: any) {
+    let ans: any = await this.MainService.get(`${environment.endPoint}Tramite/${idtramite}`);
+    return ans;
   }
 }

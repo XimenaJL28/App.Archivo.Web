@@ -5,6 +5,8 @@ import { Estudiante } from 'src/app/interfaces/estudiante/estudiante';
 import { Tramite } from 'src/app/interfaces/estudiante/tramite';
 import { EstudianteService } from 'src/app/services/estudiante.service';
 import { MainService } from 'src/app/services/main.service';
+import { TramiteService } from '../../services/tramite.service';
+import { InscripcionEstudiante, TramiteInscripcion } from 'src/app/interfaces/persona.interface';
 
 @Component({
   selector: 'app-estudiante',
@@ -14,79 +16,81 @@ import { MainService } from 'src/app/services/main.service';
 export class EstudianteComponent implements OnInit {
 
   public estudiante?: Estudiante;
-  public tramitesRealizados: Tramite[] = [];
-  public tramitesAcademicos: Academico[] = [];
+  // public tramitesRealizados: Tramite[] = [];
+  // public tramitesAcademicos: Academico[] = [];
+  public estudianteList: BuscarPersona[] = [];
+  public inscripciones: InscripcionEstudiante[] = [];
+  public tramites: TramiteInscripcion[] = [];
 
   public estudianteEncontradoList: BuscarPersona[] = [];
   public estudianteEncontradoItem: BuscarPersona | null = null;
   public estudianteEncontradoSuggestions: BuscarPersona[] = [];
+  datospersona: Partial<BuscarPersona> = {};
 
+  //?variables aux
+  datacargada: boolean = false;
+  Idinscripcion: any;
+  idinscripcionsede: any;
+  tramitesstate: boolean = false;
 
-  constructor(private estudianteService: EstudianteService, private mainService: MainService) { }
-
-  getEstudiante(id: number): void {
-    this.estudiante = this.estudianteService.getEstudiante(id);
-    if (this.estudiante) {
-      this.getTramitesAcademicos(this.estudiante.id);
-      this.getTramitesRealizados(this.estudiante.id);
-    }
-  }
-
-  getTramitesAcademicos(id: number): void {
-    this.tramitesAcademicos = this.estudianteService.getTramitesAcademicos(id);
-  }
-
-  getTramitesRealizados(id: number): void {
-    this.tramitesRealizados = this.estudianteService.getTramitesRealizados(id);
-  }
-
-  // async buscarEstudiante(event: any) {
-  //   // const url = `${environment.urlAccess}Basico/BuscarPersona?Parametro=${event.query}`
-  //   // const estudianteList = await this.mainService.get<BuscarPersona[] | null | void>(url)
-  //   const estudianteList: BuscarPersona[] = [{
-  //     id: 2,
-  //     nombreCompleto: "ximena",
-  //     celular: "string",
-  //     documentoIdentidad: "string",
-  //     genero: "string",
-  //     fechaNacimiento: "Date",
-  //     nacionalidad: "string",
-  //     foto: "string",
-  //     sede: "string",
-  //   },
-  //   {
-  //     id: 3,
-  //     nombreCompleto: "juan",
-  //     celular: "string",
-  //     documentoIdentidad: "string",
-  //     genero: "string",
-  //     fechaNacimiento: "Date",
-  //     nacionalidad: "string",
-  //     foto: "string",
-  //     sede: "string",
-  //   },
-  //   {
-  //     id: 4,
-  //     nombreCompleto: "fatima",
-  //     celular: "string",
-  //     documentoIdentidad: "string",
-  //     genero: "string",
-  //     fechaNacimiento: "Date",
-  //     nacionalidad: "string",
-  //     foto: "string",
-  //     sede: "string",
-  //   }]
-  //   this.estudianteEncontradoSuggestions = estudianteList || [];
-  // }
+  constructor(private estudianteService: EstudianteService,
+    private mainService: MainService,
+    private readonly TramiteService: TramiteService) { }
 
   ngOnInit(): void {
   }
-  buscarEstudianteSeleccionado(buscarPersona: BuscarPersona) {
-    this.getEstudiante(buscarPersona.id);
+  // getEstudiante(id: number): void {
+  //   this.estudiante = this.estudianteService.getEstudiante(id);
+  //   if (this.estudiante) {
+  //     this.getTramitesAcademicos(this.estudiante.id);
+  //     this.getTramitesRealizados(this.estudiante.id);
+  //   }
+  // }
+  // getTramitesAcademicos(id: number): void {
+  //   this.tramitesAcademicos = this.estudianteService.getTramitesAcademicos(id);
+  // }
+
+  // getTramitesRealizados(id: number): void {
+  //   this.tramitesRealizados = this.estudianteService.getTramitesRealizados(id);
+  // }
+
+
+  buscarEstudianteSeleccionado(buscarPersona: any) {
+    this.datospersona = buscarPersona;
+    this.datacargada = true;
+    this.Idinscripcion = this.datospersona.id;
+    this.getinscripcions(this.Idinscripcion)
+
+  }
+
+  async busqueda(event: any) {
+    this.buscarEstudiante(event).then((response) => {
+      this.estudianteList = response;
+      // this.datospersona = this.estudianteList[0];
+    }).catch((error) => {
+      console.log(error);
+    }).finally(() => {
+      this.estudianteEncontradoSuggestions = this.estudianteList || [];
+    });
   }
 
   async buscarEstudiante(name: any) {
     let response: any = await this.estudianteService.Searchperson(name);
+    return response;
+  }
+
+  async getinscripcions(idperson: any) {
+    let response: any = await this.TramiteService.GetInscripcions(idperson);
+    this.inscripciones = response;
+    return response;
+  }
+
+  async gettramites(idinscripcion: number) {
+    let response: any = await this.TramiteService.GetListTramites(idinscripcion);
+    this.tramites = response;
+    this.tramitesstate = true
+    console.log(this.tramites);
+
     return response;
   }
 

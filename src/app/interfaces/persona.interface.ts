@@ -16,19 +16,19 @@ export interface Buscar extends Omit<BuscarPersona, 'id' | 'fechaNacimiento' | '
 }
 
 export interface InscripcionEstudiante {
-    idInscripcionSede: number;
-    idPersonaSede: number;
-    carrera: string;
-    codigo: string;
-    sistemaEstudio: string;
-    modeloEstudio: string;
-    nivelEstudio: string;
+    idInscripcionSede: number
+    idPersonaSede: number
+    carrera: string
+    codigo: string
+    sistemaEstudio: string
+    modeloEstudio: string
+    nivelEstudio: string
 }
 
 export interface TramiteInscripcion {
-    id: number;
-    tramite: string;
-    subTipoTramite: string;
-    fechaRegistro: Date;
-    estado: string;
+    id: number
+    tramite: string
+    subTipoTramite: string
+    fechaRegistro: string
+    estado: string
 }
