@@ -97,7 +97,7 @@ export class EstudianteService {
   }
 
 
-  async Busquedapersona(datos: string) {
+  async Searchperson(datos: string) {
     let ans: any = await this.MainService.get(`${environment.endPoint}Basico/BuscarPersona?Parametro=${datos}`);
     return ans;
   }

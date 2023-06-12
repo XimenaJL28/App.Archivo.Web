@@ -40,49 +40,54 @@ export class EstudianteComponent implements OnInit {
     this.tramitesRealizados = this.estudianteService.getTramitesRealizados(id);
   }
 
-  async buscarEstudiante(event: any) {
-    // const url = `${environment.urlAccess}Basico/BuscarPersona?Parametro=${event.query}`
-    // const estudianteList = await this.mainService.get<BuscarPersona[] | null | void>(url)
-    const estudianteList: BuscarPersona[] = [{
-      id: 2,
-      nombreCompleto: "ximena",
-      celular: "string",
-      documentoIdentidad: "string",
-      genero: "string",
-      fechaNacimiento: "Date",
-      nacionalidad: "string",
-      foto: "string",
-      sede: "string",
-    },
-    {
-      id: 3,
-      nombreCompleto: "juan",
-      celular: "string",
-      documentoIdentidad: "string",
-      genero: "string",
-      fechaNacimiento: "Date",
-      nacionalidad: "string",
-      foto: "string",
-      sede: "string",
-    },
-    {
-      id: 4,
-      nombreCompleto: "fatima",
-      celular: "string",
-      documentoIdentidad: "string",
-      genero: "string",
-      fechaNacimiento: "Date",
-      nacionalidad: "string",
-      foto: "string",
-      sede: "string",
-    }]
-    this.estudianteEncontradoSuggestions = estudianteList || [];
-  }
+  // async buscarEstudiante(event: any) {
+  //   // const url = `${environment.urlAccess}Basico/BuscarPersona?Parametro=${event.query}`
+  //   // const estudianteList = await this.mainService.get<BuscarPersona[] | null | void>(url)
+  //   const estudianteList: BuscarPersona[] = [{
+  //     id: 2,
+  //     nombreCompleto: "ximena",
+  //     celular: "string",
+  //     documentoIdentidad: "string",
+  //     genero: "string",
+  //     fechaNacimiento: "Date",
+  //     nacionalidad: "string",
+  //     foto: "string",
+  //     sede: "string",
+  //   },
+  //   {
+  //     id: 3,
+  //     nombreCompleto: "juan",
+  //     celular: "string",
+  //     documentoIdentidad: "string",
+  //     genero: "string",
+  //     fechaNacimiento: "Date",
+  //     nacionalidad: "string",
+  //     foto: "string",
+  //     sede: "string",
+  //   },
+  //   {
+  //     id: 4,
+  //     nombreCompleto: "fatima",
+  //     celular: "string",
+  //     documentoIdentidad: "string",
+  //     genero: "string",
+  //     fechaNacimiento: "Date",
+  //     nacionalidad: "string",
+  //     foto: "string",
+  //     sede: "string",
+  //   }]
+  //   this.estudianteEncontradoSuggestions = estudianteList || [];
+  // }
 
   ngOnInit(): void {
   }
   buscarEstudianteSeleccionado(buscarPersona: BuscarPersona) {
     this.getEstudiante(buscarPersona.id);
+  }
+
+  async buscarEstudiante(name: any) {
+    let response: any = await this.estudianteService.Searchperson(name);
+    return response;
   }
 
 }

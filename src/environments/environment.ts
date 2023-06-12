@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  endPoint: "https://localhost:7210/API/",
+  endPoint: "https://localhost:7250/",
   urlLogin: 'https://portal.upds.edu.bo/web/SAADS/DEV/Login/SAADS-WEB?returnUrlLogin=http://localhost:4200/%23/login',
   urlAccess: 'https://portal.upds.edu.bo/api/dev/access/api/',
   urlFile: 'https://portal.upds.edu.bo/gapi/upload/uploadasynccontainer/portal-notificacion',
