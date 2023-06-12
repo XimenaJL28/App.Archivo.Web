@@ -29,6 +29,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
+import { ImageModule } from 'primeng/image';
 
 
 
@@ -62,6 +64,8 @@ import { ToastModule } from 'primeng/toast';
     TableModule,
     TabMenuModule,
     ToastModule,
+    TagModule,
+    ImageModule
   ]
 })
 export class PrimengModule { }

@@ -1,0 +1,101 @@
+<div class="flex justify-content-center">
+    <h2 class="mb-0 mt-0">Subir archivos</h2>
+</div>
+
+<!-- <p-button icon="pi pi-chevron-left" (click)="atras()" styleClass="p-button-sm"></p-button> -->
+
+<!-- Botón Atras -->
+<div class="flex mb-5">
+    <a [routerLink]="['/tramite', 2, 'estudiante', 1, 'documento']">
+        <p-button icon="pi pi-chevron-left" styleClass="p-button-sm">
+        </p-button>
+    </a>
+</div>
+
+<h3 class="mt-0 mb-0">Funcionario</h3>
+<hr class="mb-3">
+
+<div class="grid flex-wrap">
+    <div class="col-12 md:col-3">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="fecha">Fecha</label>
+            <input pInputText [value]="archivo.operacion.fecha" readonly id="fecha" class="p-inputtext-sm" />
+            <small id="fecha-help"></small>
+        </div>
+    </div>
+    <div class="col-12 md:col-2">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="hora">Hora</label>
+            <input pInputText [value]="archivo.operacion.hora" readonly id="hora" class="p-inputtext-sm" />
+            <small id="hora-help"></small>
+        </div>
+    </div>
+    <div class="col-12 md:col-2">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="funcionario-id">ID Funcionario</label>
+            <input pInputText [value]="archivo.funcionario.id" readonly id="funcionario-id" class="p-inputtext-sm" />
+            <small id="funcionario-id-help"></small>
+        </div>
+    </div>
+    <div class="col-12 md:col-5">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="funcionario-nombre">Nombre</label>
+            <input pInputText [value]="archivo.funcionario.nombre" readonly id="funcionario-nombre"
+                class="p-inputtext-sm" />
+            <small id="funcionario-nombre-help"></small>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-12 md:col-5">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="operacion-nombre">Operacion</label>
+            <input pInputText [value]="archivo.operacion.operacion" readonly id="operacion-nombre"
+                class="p-inputtext-sm" />
+            <small id="operacion-nombre-help"></small>
+        </div>
+    </div>
+    <div class="col-12 md:col-7">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="operacion-descripcion">Descripcion</label>
+            <input pInputText [value]="archivo.operacion.descripcion" readonly id="operacion-descripcion"
+                class="p-inputtext-sm" />
+            <small id="operacion-descripcion-help"></small>
+        </div>
+    </div>
+</div>
+
+<h3 class="mt-0 mb-0">Imagenes</h3>
+<hr class="mb-3">
+<!-- Imagenes -->
+<div class="grid flex-wrap mt-3">
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <div class="flex flex-column align-items-center">
+            <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+            <p-image src="./assets/doc0.jpg" alt="Image" width="250" [preview]="true"></p-image>
+            <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <div class="flex flex-column align-items-center">
+            <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+            <p-image src="./assets/doc1.jpg" alt="Image" width="250" [preview]="true"></p-image>
+            <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <div class="flex flex-column align-items-center">
+            <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+            <p-image src="./assets/doc1.jpg" alt="Image" width="250" [preview]="true"></p-image>
+            <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <div class="flex flex-column align-items-center">
+            <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+            <p-image src="./assets/doc0.jpg" alt="Image" width="250" [preview]="true"></p-image>
+            <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+<div class="flex justify-content-center">
+    <h3 class="mb-0 mt-0">Trámites del estudiante</h3>
+</div>
+<p-divider></p-divider>
+
+<!-- Form buscar -->
+<div class="grid align-items-center justify-content-center ">
+    <div class="col-12 md:col-6 lg:col-4 ">
+        <p-autoComplete [(ngModel)]="estudianteEncontradoItem" [suggestions]="estudianteEncontradoSuggestions"
+            (completeMethod)="buscarEstudiante($event)" (onSelect)="buscarEstudianteSeleccionado($event)" [delay]="1000"
+            field="nombreCompleto"></p-autoComplete>
+    </div>
+</div>
+
+
+<!-- Estudiante encontrado -->
+<div class="mt-4" *ngIf="estudiante">
+    <div class="flex flex justify-content-center">
+        <h3 class="mb-0 mt-0">Datos del estudiante</h3>
+    </div>
+    <p-divider></p-divider>
+
+    <!-- Datos del estudiante encontrado -->
+    <div class="grid">
+        <div class="col-12 xl:col-3">
+            <div class="flex justify-content-center">
+                <img src="./assets/user.png" alt="" style="height: 200px; width: 200px;">
+            </div>
+        </div>
+
+        <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
+            <div class="grid">
+                <div class="col-3">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="folio">Folio</label>
+                        <input pInputText [value]="estudiante.folio" readonly id="folio" class="p-inputtext-sm" />
+                        <small id="folio-help"></small>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="sede">Sede</label>
+                        <input pInputText [value]="estudiante.sede" readonly id="sede" class="p-inputtext-sm" />
+                        <small id="sede-help"></small>
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="nacionalidad">Nacionalidad</label>
+                        <input pInputText [value]="estudiante.nacionalidad" readonly id="nacionalidad"
+                            class="p-inputtext-sm" />
+                        <small id="nacionalidad-help"></small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-3">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="ci">CI</label>
+                        <input pInputText [value]="estudiante.ci" readonly id="ci" class="p-inputtext-sm" />
+                        <small id="ci-help"></small>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="nombre">Nombre</label>
+                        <input pInputText [value]="estudiante.nombreCompleto" readonly id="nombre"
+                            class="p-inputtext-sm" />
+                        <small id="nombre-help"></small>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-3">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="genero">Genero</label>
+                        <input pInputText [value]="estudiante.genero" readonly id="genero" class="p-inputtext-sm" />
+                        <small id="genero-help"></small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="correo">Correo personal</label>
+                        <input pInputText [value]="estudiante.correoPersonal" readonly id="correo"
+                            class="p-inputtext-sm" />
+                        <small id="correo-help"></small>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="office365">Office365</label>
+                        <input pInputText [value]="estudiante.office365" readonly id="office365"
+                            class="p-inputtext-sm" />
+                        <small id="office365-help"></small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tabla de tramites academicos -->
+    <div class="grid mt-2">
+        <div class="col-12">
+            <p-table [value]="tramitesAcademicos" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+                styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width: 7%;">Id</th>
+                        <th>Carrera</th>
+                        <th>Facultad</th>
+                        <th>Nivel de estudio</th>
+                        <th>Fecha registro</th>
+                        <th>Estado</th>
+                        <th>Modelo de estudio</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-columns="columns">
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.carrera }}</td>
+                        <td>{{ item.facultad }}</td>
+                        <td>{{ item.nivelEstudio }}</td>
+                        <td>{{ item.fechaRegistro }}</td>
+                        <td>{{ item.estado }}</td>
+                        <td>{{ item.modeloEstudio }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- Tabla de tramites realizados -->
+    <p class="mb-0">Trámites realizados</p>
+    <div class="grid mt-2">
+        <div class="col-12">
+            <p-table [value]="tramitesRealizados" responsiveLayout="scroll"
+                [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+                styleClass="p-datatable p-component p-datatable-sm">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width: 7%;">Id</th>
+                        <th>Trámite</th>
+                        <th>Carrera</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th style="width: 7%;"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tramite let-columns="columns">
+                    <tr>
+                        <td>{{ tramite.id }}</td>
+                        <td>{{ tramite.tramite }}</td>
+                        <td>{{ tramite.carrera }}</td>
+                        <td>{{ tramite.fechaRegistro }}</td>
+                        <td>{{ tramite.estado }}</td>
+                        <td style="text-align: center;">
+                            <i class="pi pi-search" [routerLink]="[tramite.id, 'estudiante', tramite.id, 'documento']"
+                                (click)="getEstudiante(estudiante.id )" style="font-size: 1rem; cursor: pointer;">
+                            </i>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <!-- Agregar -->
+    <div class="flex justify-content-end align-items-end  mt-5">
+        <p-button [routerLink]="['/requerido']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
+        </p-button>
+    </div>
+</div>

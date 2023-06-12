@@ -15,6 +15,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PagesComponent } from './pages.component';
 import { PageUnauthorizedComponent } from './page-unauthorized/page-unauthorized.component';
 import { ComponentsModule } from '../components/components.module';
+import { EstudianteComponent } from './estudiante/estudiante.component';
+import { ArchivoComponent } from './archivo/archivo.component';
+import { DocumentoComponent } from './documento/documento.component';
+import { OperacionComponent } from './operacion/operacion.component';
+import { ReprogramacionComponent } from './reprogramacion/reprogramacion.component';
+import { RequeridoComponent } from './requerido/requerido.component';
 
 
 //? Routes
@@ -24,6 +30,13 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'estudiante', component: EstudianteComponent },
+      { path: 'operacion', component: OperacionComponent },
+      { path: 'requerido', component: RequeridoComponent },
+      { path: ':tramiteId/estudiante/:estudianteId/archivo', component: ArchivoComponent },
+      { path: ':tramiteId/estudiante/:estudianteId/documento', component: DocumentoComponent },
+      { path: ':tramiteId/estudiante/:estudianteId/reprogramacion', component: ReprogramacionComponent },
+
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       //! Error Pages
     ]
@@ -37,6 +50,12 @@ const routes: Routes = [
     PageNotFoundComponent,
     PagesComponent,
     PageUnauthorizedComponent,
+    EstudianteComponent,
+    ArchivoComponent,
+    DocumentoComponent,
+    OperacionComponent,
+    ReprogramacionComponent,
+    RequeridoComponent,
   ],
   imports: [
     CommonModule,

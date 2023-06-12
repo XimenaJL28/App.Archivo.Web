@@ -1,1 +1,1 @@
-export { PersonaInterface } from "./persona.interface";
+export { BuscarPersona } from "./persona.interface";
