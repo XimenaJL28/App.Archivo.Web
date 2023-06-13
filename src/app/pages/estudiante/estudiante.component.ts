@@ -35,9 +35,11 @@ export class EstudianteComponent implements OnInit {
 
   constructor(private estudianteService: EstudianteService,
     private mainService: MainService,
-    private readonly TramiteService: TramiteService) { }
+    private readonly TramiteService: TramiteService) {
+    }
 
   ngOnInit(): void {
+
   }
 
 
@@ -47,6 +49,8 @@ export class EstudianteComponent implements OnInit {
     this.Idinscripcion = this.datospersona.id;
     this.getinscripcions(this.Idinscripcion)
     this.tramitesstate = false;
+    this.datospersona.foto == "" ? this.datospersona.foto = 'https://portal.upds.edu.bo/index/images/usuario.jpg' : this.datospersona.foto = this.datospersona.foto;
+
   }
 
   async busqueda(event: any) {
@@ -64,6 +68,7 @@ export class EstudianteComponent implements OnInit {
   async buscarEstudiante(name: any) {
     let response: any = await this.estudianteService.Searchperson(name);
     return response;
+
   }
 
   async getinscripcions(idperson: any) {

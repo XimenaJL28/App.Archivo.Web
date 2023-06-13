@@ -1,11 +1,11 @@
 <div class="flex justify-content-center">
-    <h3 class="mb-0 mt-0">Trámites del estudiante</h3>
+    <h3 class="mb-0 mt-0">Búsqueda del Estudiante</h3>
 </div>
 <p-divider></p-divider>
 
 <!-- Form buscar -->
-<div class="grid align-items-center justify-content-center ">
-    <div class="col-12 md:col-6 lg:col-4 ">
+<div style="text-align: center; ">
+    <div  >
         <p-autoComplete [(ngModel)]="estudianteEncontradoItem" [suggestions]="estudianteEncontradoSuggestions"
             (completeMethod)="busqueda($event)" (onSelect)="buscarEstudianteSeleccionado($event)"
             field="nombreCompleto"></p-autoComplete>
@@ -31,7 +31,7 @@
             <div class="grid">
                 <div class="col-12 md:col-3">
                     <div class="flex flex-column gap-2">
-                        <label htmlFor="ci">CI</label>
+                        <label htmlFor="ci">C.I.</label>
                         <input pInputText [value]="datospersona.documentoIdentidad" readonly id="ci"
                             class="p-inputtext-sm" />
                         <small id="ci-help"></small>
@@ -101,7 +101,7 @@
                         <!-- <th style="width: 7%;">Id</th> -->
                         <th>Carrera</th>
                         <th>Codigo</th>
-                        <th>Inscripcion Sede</th>
+                        <!-- <th>Inscripcion Sede</th> -->
                         <th>Modelo Estudio</th>
                         <th>Nivel de Estudio</th>
                         <th>Sistema dEstudio</th>
@@ -113,12 +113,15 @@
                         <!-- <td>{{ item.id }}</td> -->
                         <td>{{ item.carrera }}</td>
                         <td>{{ item.codigo }}</td>
-                        <td>{{ item.idInscripcionSede }}</td>
+                        <!-- <td>{{ item.idInscripcionSede }}</td> -->
                         <td>{{ item.modeloEstudio }}</td>
                         <td>{{ item.nivelEstudio }}</td>
                         <td>{{ item.sistemaEstudio }}</td>
                         <td>
-                            <p-button (onClick)="gettramites(item.idInscripcionSede)">Tramites</p-button>
+                            <!-- <p-button styleClass="p-button-rounded" icon="fa-duotone fa-folder-open" (onClick)="gettramites(item.idInscripcionSede)"> -->
+                                <p-button (onClick)="gettramites(item.idInscripcionSede)" icon="fa-solid fa-folder-open" label="" styleClass="p-button-rounded">
+                                </p-button>
+                            <!-- </p-button> -->
                         </td>
                     </tr>
                 </ng-template>
@@ -151,7 +154,7 @@
                             <td>{{ tramite.id }}</td>
                             <td>{{ tramite.tramite }}</td>
                             <td>{{ tramite.subTipoTramite }}</td>
-                            <td>{{ tramite.fechaRegistro }}</td>
+                            <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy'}}</td>
                             <td>{{ tramite.estado }}</td>
                             <td style="text-align: center;">
                                 <i class="pi pi-search"

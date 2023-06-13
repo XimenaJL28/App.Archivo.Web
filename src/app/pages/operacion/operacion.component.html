@@ -16,13 +16,15 @@
             styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th style="width: 7%;">Id</th>
-                    <th>Operacion</th>
+                    <th style="width: 7%;">Nº</th>
+                    <th>Operación</th>
                     <th>Funcionario</th>
                     <th>Fecha Operacion</th>
                     <th>Estado</th>
                     <th>Descripcion</th>
-                    <th style="width: 7%;"></th>
+                    <!-- <th style="width: 7%;"></th> -->
+                    <th style="text-align: center;">Presentados</th>
+                    <th style="text-align: center;">Subir</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-columns="columns">
@@ -34,7 +36,12 @@
                     <td>{{ item.estado }}</td>
                     <td>{{ item.descripcion }}</td>
                     <td style="text-align: center;">
-                        <i class="pi pi-search" [routerLink]="['/tramite', item.id, 'estudiante', item.id, 'documento']"
+                        <i class="fa-solid fa-list" [routerLink]="['/tramite', item.id, 'estudiante', item.id, 'documento']"
+                            style="font-size: 1rem; cursor: pointer;">
+                        </i>
+                    </td>
+                    <td style="text-align: center;">
+                        <i class="fa-solid fa-upload" [routerLink]="['/tramite', item.id, 'estudiante', item.id, 'archivo']"
                             style="font-size: 1rem; cursor: pointer;">
                         </i>
                     </td>

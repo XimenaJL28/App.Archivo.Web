@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reprogramacion } from 'src/app/interfaces/tramite/reprogramacion';
 import { TramiteService } from '../../services/tramite.service';
+import { Router } from '@angular/router';
 
 interface Tramite {
   name: string;
@@ -15,12 +16,12 @@ export class ReprogramacionComponent implements OnInit {
 
   selectedTramite!: Tramite;
 
-  constructor(private readonly TramiteService: TramiteService) { }
+  constructor(private router: Router,private readonly TramiteService: TramiteService) { }
 
   ngOnInit(): void {
 
     this.tramites = [
-      { name: 'Seleccione un Trámite' },
+      { name: 'Seleccione una Operación' },
       { name: 'Admisión' },
       { name: 'Reprogramación' },
       { name: 'Convalidación' },
@@ -31,5 +32,4 @@ export class ReprogramacionComponent implements OnInit {
   get reprogramacion(): Reprogramacion {
     return this.TramiteService.getReprogramacion();
   }
-
 }
