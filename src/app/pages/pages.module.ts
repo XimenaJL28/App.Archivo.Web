@@ -33,9 +33,9 @@ const routes: Routes = [
       { path: 'estudiante', component: EstudianteComponent },
       { path: 'operacion', component: OperacionComponent },
       { path: 'requerido', component: RequeridoComponent },
-      { path: ':tramiteId/estudiante/:estudianteId/archivo', component: ArchivoComponent },
-      { path: ':tramiteId/estudiante/:estudianteId/documento', component: DocumentoComponent },
-      { path: ':tramiteId/estudiante/:estudianteId/reprogramacion', component: ReprogramacionComponent },
+      { path: 'tramite/:tramiteId/estudiante/:estudianteId/archivo', component: ArchivoComponent },
+      { path: 'tramite/:tramiteId/estudiante/:estudianteId/documento', component: DocumentoComponent },
+      { path: 'tramite/:tramiteId/estudiante/:estudianteId/reprogramacion', component: ReprogramacionComponent },
 
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       //! Error Pages

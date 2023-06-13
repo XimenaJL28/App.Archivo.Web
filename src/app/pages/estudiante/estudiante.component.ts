@@ -46,7 +46,7 @@ export class EstudianteComponent implements OnInit {
     this.datacargada = true;
     this.Idinscripcion = this.datospersona.id;
     this.getinscripcions(this.Idinscripcion)
-
+    this.tramitesstate = false;
   }
 
   async busqueda(event: any) {
@@ -57,7 +57,7 @@ export class EstudianteComponent implements OnInit {
       console.log(error);
     }).finally(() => {
       this.estudianteEncontradoSuggestions = this.estudianteList || [];
-      this.tramitesstate = false;
+      this.tramites = [];
     });
   }
 
@@ -74,9 +74,9 @@ export class EstudianteComponent implements OnInit {
 
   async gettramites(idinscripcion: number) {
     let response: any = await this.TramiteService.GetListTramites(idinscripcion);
-    this.tramites = response;
-    this.tramitesstate = true
-    console.log(this.tramites);
+    this.tramites = response || [];
+    this.tramitesstate = this.tramites.length == 0;
+    // console.log(this.tramites);
     return response;
   }
 

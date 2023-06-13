@@ -12,7 +12,6 @@
     </div>
 </div>
 
-
 <!-- Estudiante encontrado -->
 <div class="mt-4 fade-in" *ngIf="datacargada">
     <div class="flex flex justify-content-center">
@@ -28,35 +27,7 @@
                     class="perfil-foto">
             </div>
         </div>
-
         <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
-            <div class="grid">
-                <!-- <div class="col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="folio">Folio</label>
-                        <input pInputText [value]="estudiante.folio" readonly id="folio" class="p-inputtext-sm" />
-                        <small id="folio-help"></small>
-                    </div>
-                </div> -->
-
-                <div class="col-4">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="sede">Sede</label>
-                        <input pInputText [value]="datospersona.sede" readonly id="sede" class="p-inputtext-sm" />
-                        <small id="sede-help"></small>
-                    </div>
-                </div>
-
-                <div class="col-5">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="nacionalidad">Nacionalidad</label>
-                        <input pInputText [value]="datospersona.nacionalidad" readonly id="nacionalidad"
-                            class="p-inputtext-sm" />
-                        <small id="nacionalidad-help"></small>
-                    </div>
-                </div>
-            </div>
-
             <div class="grid">
                 <div class="col-12 md:col-3">
                     <div class="flex flex-column gap-2">
@@ -66,7 +37,6 @@
                         <small id="ci-help"></small>
                     </div>
                 </div>
-
                 <div class="col-12 md:col-6">
                     <div class="flex flex-column gap-2">
                         <label htmlFor="nombre">Nombre</label>
@@ -75,41 +45,53 @@
                         <small id="nombre-help"></small>
                     </div>
                 </div>
-
                 <div class="col-12 md:col-3">
                     <div class="flex flex-column gap-2">
                         <label htmlFor="genero">Genero</label>
-                        <input pInputText [value]="datospersona.genero" readonly id="genero" class="p-inputtext-sm" />
+                        <input pInputText [value]="datospersona.genero | titlecase" readonly id="genero"
+                            class="p-inputtext-sm" />
                         <small id="genero-help"></small>
                     </div>
                 </div>
-
             </div>
-
             <div class="grid">
-                <!-- <div class="col-12 md:col-6 lg:col-6">
+                <div class="col-3">
                     <div class="flex flex-column gap-2">
-                        <label htmlFor="correo">Correo personal</label>
-                        <input pInputText [value]="datospersona.correoPersonal" readonly id="correo"
-                            class="p-inputtext-sm" />
-                        <small id="correo-help"></small>
+                        <label htmlFor="celular">Celular</label>
+                        <input pInputText [value]="datospersona.celular" readonly id="celular" class="p-inputtext-sm" />
+                        <small id="celular-help"></small>
                     </div>
-                </div> -->
-
-                <div class="col-12 md:col-6 lg:col-6">
-                    <!-- <div class="flex flex-column gap-2">
-                        <label htmlFor="office365">Office365</label>
-                        <input pInputText [value]="datospersona.office365" readonly id="office365"
-                            class="p-inputtext-sm" />
-                        <small id="office365-help"></small>
-                    </div> -->
+                </div>
+                <div class="col-3">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input pInputText [value]="datospersona.fechaNacimiento | date:'dd/MM/yyyy'" readonly
+                            id="fechaNacimiento" class="p-inputtext-sm" />
+                        <small id="fechaNacimiento-help"></small>
+                    </div>
                 </div>
             </div>
-
+            <div class="grid">
+                <div class="col-3">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="sede">Sede</label>
+                        <input pInputText [value]="datospersona.sede" readonly id="sede" class="p-inputtext-sm" />
+                        <small id="sede-help"></small>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="flex flex-column gap-2">
+                        <label htmlFor="nacionalidad">Nacionalidad</label>
+                        <input pInputText [value]="datospersona.nacionalidad | titlecase" readonly id="nacionalidad"
+                            class="p-inputtext-sm" />
+                        <small id="nacionalidad-help"></small>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Tabla de tramites academicos -->
+    <!-- Tabla de tramites académicos -->
     <div class="grid mt-2">
         <div class="col-12">
             <p-table [value]="inscripciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
@@ -143,9 +125,11 @@
             </p-table>
         </div>
     </div>
-
+    <div class="mt-2" *ngIf="tramitesstate">
+        <p>No tiene tramites pendientes</p>
+    </div>
     <!-- Tabla de tramites realizados -->
-    <div *ngIf="tramitesstate">
+    <div *ngIf="tramites.length>0">
         <p class="mb-0">Trámites realizados</p>
         <div class="grid mt-2">
             <div class="col-12">
@@ -171,7 +155,7 @@
                             <td>{{ tramite.estado }}</td>
                             <td style="text-align: center;">
                                 <i class="pi pi-search"
-                                    [routerLink]="[tramite.id, 'estudiante', tramite.id, 'documento']"
+                                    [routerLink]="['/tramite',tramite.id, 'estudiante', tramite.id, 'documento']"
                                     style="font-size: 1rem; cursor: pointer;">
                                 </i>
                             </td>
@@ -180,10 +164,10 @@
                 </p-table>
             </div>
         </div>
-        <!-- Agregar -->
-        <div class="flex justify-content-end align-items-end  mt-5">
-            <p-button [routerLink]="['/operacion']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
-            </p-button>
-        </div>
+    </div>
+    <!-- Agregar -->
+    <div class="flex justify-content-end align-items-end  mt-5">
+        <p-button [routerLink]="['/requerido']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
+        </p-button>
     </div>
 </div>
