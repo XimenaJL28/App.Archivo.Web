@@ -39,20 +39,6 @@ export class EstudianteComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  // getEstudiante(id: number): void {
-  //   this.estudiante = this.estudianteService.getEstudiante(id);
-  //   if (this.estudiante) {
-  //     this.getTramitesAcademicos(this.estudiante.id);
-  //     this.getTramitesRealizados(this.estudiante.id);
-  //   }
-  // }
-  // getTramitesAcademicos(id: number): void {
-  //   this.tramitesAcademicos = this.estudianteService.getTramitesAcademicos(id);
-  // }
-
-  // getTramitesRealizados(id: number): void {
-  //   this.tramitesRealizados = this.estudianteService.getTramitesRealizados(id);
-  // }
 
 
   buscarEstudianteSeleccionado(buscarPersona: any) {
@@ -71,6 +57,7 @@ export class EstudianteComponent implements OnInit {
       console.log(error);
     }).finally(() => {
       this.estudianteEncontradoSuggestions = this.estudianteList || [];
+      this.tramitesstate = false;
     });
   }
 
@@ -90,7 +77,6 @@ export class EstudianteComponent implements OnInit {
     this.tramites = response;
     this.tramitesstate = true
     console.log(this.tramites);
-
     return response;
   }
 
