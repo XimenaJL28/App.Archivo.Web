@@ -103,19 +103,19 @@
                         <th>Codigo</th>
                         <!-- <th>Inscripcion Sede</th> -->
                         <th>Modelo Estudio</th>
-                        <th>Nivel de Estudio</th>
-                        <th>Sistema dEstudio</th>
+                        <th>Nivel de Estudio </th>
+                        <th>Sistema de Estudio</th>
                         <th>Tramites</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-columns="columns">
                     <tr>
                         <!-- <td>{{ item.id }}</td> -->
-                        <td>{{ item.carrera }}</td>
+                        <td>{{ item.carrera | titlecase}}</td>
                         <td>{{ item.codigo }}</td>
                         <!-- <td>{{ item.idInscripcionSede }}</td> -->
-                        <td>{{ item.modeloEstudio }}</td>
-                        <td>{{ item.nivelEstudio }}</td>
+                        <td>{{ item.modeloEstudio | titlecase}}</td>
+                        <td>{{ item.nivelEstudio | titlecase}}</td>
                         <td>{{ item.sistemaEstudio }}</td>
                         <td>
                             <!-- <p-button styleClass="p-button-rounded" icon="fa-duotone fa-folder-open" (onClick)="gettramites(item.idInscripcionSede)"> -->
@@ -143,7 +143,7 @@
                         <tr>
                             <th style="width: 7%;">Id</th>
                             <th>Trámite</th>
-                            <th>Carrera</th>
+                            <th>Sub Tipo Trámite</th>
                             <th>Fecha</th>
                             <th>Estado</th>
                             <th style="width: 7%;"></th>
@@ -153,7 +153,7 @@
                         <tr>
                             <td>{{ tramite.id }}</td>
                             <td>{{ tramite.tramite }}</td>
-                            <td>{{ tramite.subTipoTramite }}</td>
+                            <td>{{ tramite.subTipoTramite | titlecase}}</td>
                             <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy'}}</td>
                             <td>{{ tramite.estado }}</td>
                             <td style="text-align: center;">

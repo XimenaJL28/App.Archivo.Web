@@ -36,6 +36,7 @@
                     <tr>
                         <th style="width: 10%;">Nro</th>
                         <th>Documento</th>
+                        <th>Fecha</th>
                         <th>Cantidad</th>
                         <th>Estado</th>
                         <th style="width: 10%;"></th>
@@ -45,6 +46,7 @@
                     <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item.documento }}</td>
+                        <td>{{ item.cantidad }}</td>
                         <td>{{ item.cantidad }}</td>
                         <td><p-tag [value]="item.estado" [severity]="getSeverity(item.estado)"></p-tag></td>
                         <td style="text-align: center;">
