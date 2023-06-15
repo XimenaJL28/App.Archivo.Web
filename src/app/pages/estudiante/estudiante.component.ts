@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BuscarPersona } from 'src/app/interfaces';
-import { Academico } from 'src/app/interfaces/estudiante/academico';
 import { Estudiante } from 'src/app/interfaces/estudiante/estudiante';
-import { Tramite } from 'src/app/interfaces/estudiante/tramite';
 import { EstudianteService } from 'src/app/services/estudiante.service';
 import { MainService } from 'src/app/services/main.service';
 import { TramiteService } from '../../services/tramite.service';
@@ -16,8 +14,6 @@ import { InscripcionEstudiante, TramiteInscripcion } from 'src/app/interfaces/pe
 export class EstudianteComponent implements OnInit {
 
   public estudiante?: Estudiante;
-  // public tramitesRealizados: Tramite[] = [];
-  // public tramitesAcademicos: Academico[] = [];
   public estudianteList: BuscarPersona[] = [];
   public inscripciones: InscripcionEstudiante[] = [];
   public tramites: TramiteInscripcion[] = [];
@@ -25,6 +21,7 @@ export class EstudianteComponent implements OnInit {
   public estudianteEncontradoList: BuscarPersona[] = [];
   public estudianteEncontradoItem: BuscarPersona | null = null;
   public estudianteEncontradoSuggestions: BuscarPersona[] = [];
+  public tramitesAgrupados: any[] = [];
   datospersona: Partial<BuscarPersona> = {};
 
   //?variables aux
@@ -36,12 +33,11 @@ export class EstudianteComponent implements OnInit {
   constructor(private estudianteService: EstudianteService,
     private mainService: MainService,
     private readonly TramiteService: TramiteService) {
-    }
+  }
 
   ngOnInit(): void {
 
   }
-
 
   buscarEstudianteSeleccionado(buscarPersona: any) {
     this.datospersona = buscarPersona;
@@ -62,6 +58,7 @@ export class EstudianteComponent implements OnInit {
     }).finally(() => {
       this.estudianteEncontradoSuggestions = this.estudianteList || [];
       this.tramites = [];
+      this.tramitesAgrupados = [];
     });
   }
 
@@ -81,8 +78,45 @@ export class EstudianteComponent implements OnInit {
     let response: any = await this.TramiteService.GetListTramites(idinscripcion);
     this.tramites = response || [];
     this.tramitesstate = this.tramites.length == 0;
-    // console.log(this.tramites);
+    // this.tramitesAgrupados = this.tramites;
+    this.tramitesAgrupados = this.agruparTramites(this.tramites);
     return response;
   }
 
+  sortDataArray(tramiteList: any): any[] {
+    return tramiteList.sort((a: any, b: any) => {
+      if (a.tramite < b.tramite) { return -1; }
+      if (a.tramite > b.tramite) { return 1; }
+      return 0;
+    });
+  }
+
+  agruparTramites(tramitesListData: any[]) {
+    const tramitesList = this.sortDataArray(tramitesListData);
+
+    let tramitesGroup: any[] = [];
+    let index = 0;
+
+    while (index < tramitesList.length) {
+      let tramites: any[] = [];
+      let cantidadDeTramites = 0;
+      const nombreTramite = tramitesList[index].tramite;
+
+      while (index < tramitesList.length && nombreTramite === tramitesList[index].tramite) {
+        console.log('index: ' + nombreTramite, ' array: ' + tramitesList[index].tramite);
+        tramites.push(tramitesList[index]);
+        cantidadDeTramites++;
+        index++;
+      }
+      if (cantidadDeTramites > 0) {
+        const item = {
+          nombreTramite,
+          cantidadDeTramites,
+          tramites
+        };
+        tramitesGroup.push(item);
+      }
+    }
+    return tramitesGroup;
+  }
 }
