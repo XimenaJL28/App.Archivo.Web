@@ -16,5 +16,4 @@ export class OperacionComponent implements OnInit {
   get operaciones(): Operaciones[] {
     return this.TramiteService.getOperaciones();
   }
-
 }

@@ -2,11 +2,6 @@
     <h2 class="mb-0 mt-0">Documentos Presentados</h2>
 </div>
 
-<!-- <p-button icon=" pi pi-chevron-left" (click)="atras()" styleClass="p-button-sm">
-  </p-button>
-  <br>
-  <br> -->
-
 <div class="flex mb-5">
     <a [routerLink]="['/operacion']">
         <p-button icon="pi pi-chevron-left" styleClass="p-button-sm">
@@ -52,7 +47,7 @@
 <div class="grid">
     <div class="col-12 md:col-5">
         <div class="flex flex-column gap-2">
-            <label htmlFor="operacion-nombre">Operacion</label>
+            <label htmlFor="operacion-nombre">Operación</label>
             <input pInputText [value]="documento.operacion.operacion" readonly id="operacion-nombre"
                 class="p-inputtext-sm" />
             <small id="operacion-nombre-help"></small>

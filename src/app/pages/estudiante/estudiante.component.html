@@ -5,7 +5,7 @@
 
 <!-- Form buscar -->
 <div style="text-align: center; ">
-    <div  >
+    <div>
         <p-autoComplete [(ngModel)]="estudianteEncontradoItem" [suggestions]="estudianteEncontradoSuggestions"
             (completeMethod)="busqueda($event)" (onSelect)="buscarEstudianteSeleccionado($event)"
             field="nombreCompleto"></p-autoComplete>
@@ -15,7 +15,7 @@
 <!-- Estudiante encontrado -->
 <div class="mt-4 fade-in" *ngIf="datacargada">
     <div class="flex flex justify-content-center">
-        <h3 class="mb-0 mt-0">Datos del estudiante</h3>
+        <h3 class="mb-0 mt-0">Datos del Estudiante</h3>
     </div>
     <p-divider></p-divider>
 
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-12 md:col-3">
                     <div class="flex flex-column gap-2">
-                        <label htmlFor="genero">Genero</label>
+                        <label htmlFor="genero">Género</label>
                         <input pInputText [value]="datospersona.genero | titlecase" readonly id="genero"
                             class="p-inputtext-sm" />
                         <small id="genero-help"></small>
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <!-- Tabla de tramites académicos -->
+    <!-- Tabla de trámites académicos -->
     <div class="grid mt-2">
         <div class="col-12">
             <p-table [value]="inscripciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
@@ -100,12 +100,11 @@
                     <tr>
                         <!-- <th style="width: 7%;">Id</th> -->
                         <th>Carrera</th>
-                        <th>Codigo</th>
-                        <!-- <th>Inscripcion Sede</th> -->
+                        <th>Código</th>
                         <th>Modelo Estudio</th>
                         <th>Nivel de Estudio </th>
                         <th>Sistema de Estudio</th>
-                        <th>Tramites</th>
+                        <th>Trámites</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-columns="columns">
@@ -118,10 +117,9 @@
                         <td>{{ item.nivelEstudio | titlecase}}</td>
                         <td>{{ item.sistemaEstudio }}</td>
                         <td>
-                            <!-- <p-button styleClass="p-button-rounded" icon="fa-duotone fa-folder-open" (onClick)="gettramites(item.idInscripcionSede)"> -->
-                                <p-button (onClick)="gettramites(item.idInscripcionSede)" icon="fa-solid fa-folder-open" label="" styleClass="p-button-rounded">
-                                </p-button>
-                            <!-- </p-button> -->
+                            <p-button (onClick)="gettramites(item.idInscripcionSede)" icon="fa-solid fa-folder-open"
+                                label="" styleClass="p-button-rounded">
+                            </p-button>
                         </td>
                     </tr>
                 </ng-template>
@@ -129,20 +127,72 @@
         </div>
     </div>
     <div class="mt-2" *ngIf="tramitesstate">
-        <p>No tiene tramites pendientes</p>
+        <p>No tiene trámites pendientes</p>
     </div>
-    <!-- Tabla de tramites realizados -->
-    <!-- <div *ngIf="tramites.length>0">
+
+    <br>
+    <!-- Tabla de tramites realizados 
+    <div *ngIf="tramitesAgrupados.length > 0">
         <p class="mb-0">Trámites realizados</p>
         <div class="grid mt-2">
             <div class="col-12">
-                <p-table [value]="tramites" responsiveLayout="scroll"
+
+                <div *ngFor="let item of tramitesAgrupados" class="mb-3">
+                    <p-divider align="center">
+                        <span class="p-tag">Trámite Realizado</span>
+                    </p-divider>
+                    <p>
+                        <p-table [value]="item.tramites" responsiveLayout="scroll"
+                            [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+                            styleClass="p-datatable p-component p-datatable-sm">
+
+                            <ng-template pTemplate="caption">
+                                <div class="flex align-items-center justify-content-center">
+                                    {{ item.cantidadDeTramites}} | {{ item.nombreTramite | uppercase }}
+                                </div>
+                            </ng-template>
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th>Sub Tipo Trámite</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th style="width: 7%;"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-tramite let-columns="columns">
+                                <tr>
+                                    <td>{{ tramite.subTipoTramite | titlecase}}</td>
+                                    <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{ tramite.estado }}</td>
+                                    <td style="text-align: center;">
+                                        <i class="pi pi-search"
+                                            [routerLink]="['/tramite',tramite.id, 'estudiante', tramite.id, 'documento']"
+                                            style="font-size: 1rem; cursor: pointer;">
+                                        </i>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <!-- Desplegable de tramites del estudiante -->
+    <p-accordion [activeIndex]="0" [multiple]="true">
+        <p-accordionTab *ngFor="let item of tramitesAgrupados">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                    <span class="vertical-align-middle">{{ item.nombreTramite }} ({{ item.cantidadDeTramites}})</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table [value]="item.tramites" responsiveLayout="scroll"
                     [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
                     styleClass="p-datatable p-component p-datatable-sm">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
-                            <th style="width: 7%;">Id</th>
-                            <th>Trámite</th>
                             <th>Sub Tipo Trámite</th>
                             <th>Fecha</th>
                             <th>Estado</th>
@@ -151,10 +201,8 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-tramite let-columns="columns">
                         <tr>
-                            <td>{{ tramite.id }}</td>
-                            <td>{{ tramite.tramite }}</td>
-                            <td>{{ tramite.subTipoTramite | titlecase}}</td>
-                            <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy'}}</td>
+                            <td>{{ tramite.subTipoTramite | titlecase }}</td>
+                            <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</td>
                             <td>{{ tramite.estado }}</td>
                             <td style="text-align: center;">
                                 <i class="pi pi-search"
@@ -165,85 +213,9 @@
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </div>
-    </div> -->
-
-    <div *ngIf="tramitesAgrupados.length > 0">
-        <p class="mb-0">Trámites realizados</p>
-        <div class="grid mt-2">
-          <div class="col-12">
-      
-            <div *ngFor="let item of tramitesAgrupados" class="mb-3">
-              <p-table [value]="item.tramites" responsiveLayout="scroll"
-                [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm">
-      
-                <ng-template pTemplate="caption">
-                  <div class="flex align-items-center justify-content-center">
-                    {{ item.cantidadDeTramites}} | {{ item.nombreTramite | uppercase }}
-                  </div>
-                </ng-template>
-      
-                <ng-template pTemplate="header" let-columns>
-                  <tr>
-                    <th>Sub Tipo Trámite</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th style="width: 7%;"></th>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-tramite let-columns="columns">
-                  <tr>
-                    <td>{{ tramite.subTipoTramite | titlecase}}</td>
-                    <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy'}}</td>
-                    <td>{{ tramite.estado }}</td>
-                    <td style="text-align: center;">
-                      <i class="pi pi-search" [routerLink]="['/tramite',tramite.id, 'estudiante', tramite.id, 'documento']"
-                        style="font-size: 1rem; cursor: pointer;">
-                      </i>
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p-accordion [activeIndex]="0" [multiple]="true">
-        <p-accordionTab *ngFor="let item of tramitesAgrupados">
-          <ng-template pTemplate="header">
-            <div class="flex align-items-center">
-              <span class="vertical-align-middle">{{ item.nombreTramite }} ({{ item.cantidadDeTramites}})</span>
-            </div>
-          </ng-template>
-          <ng-template pTemplate="content">
-            <p-table [value]="item.tramites" responsiveLayout="scroll"
-              [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-              styleClass="p-datatable p-component p-datatable-sm">
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th>Carrera</th>
-                  <th>Fecha</th>
-                  <th>Estado</th>
-                  <th style="width: 7%;"></th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-tramite let-columns="columns">
-                <tr>
-                  <td>{{ tramite.carrera }}</td>
-                  <td>{{ tramite.fechaRegistro }}</td>
-                  <td>{{ tramite.estado }}</td>
-                  <td style="text-align: center;">
-                    <i class="pi pi-search" [routerLink]="['/tramite', tramite.id, 'estudiante', tramite.id, 'documento']"
-                       style="font-size: 1rem; cursor: pointer;">
-                    </i>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </ng-template>
+            </ng-template>
         </p-accordionTab>
-      </p-accordion>
+    </p-accordion>
     <!-- Agregar -->
     <div class="flex justify-content-end align-items-end  mt-5">
         <p-button [routerLink]="['/requerido']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
