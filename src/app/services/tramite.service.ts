@@ -124,6 +124,8 @@ export class TramiteService {
 
   async GetListTramites(idtramite: any) {
     let ans: any = await this.MainService.get(`${environment.endPoint}Tramite/${idtramite}`);
+    console.log(ans);
+    
     return ans;
   }
 }

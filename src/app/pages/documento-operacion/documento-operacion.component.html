@@ -6,11 +6,11 @@
 <!-- *ngIf="documento"-->
 <div class="grid">
   <div class="col-3">
-    <span class="text-900 font-semibold mr-2">Codigo:</span>
+    <span class="text-900 font-semibold mr-2">Código:</span>
     <span class="font-medium">{{ documento?.tramite }}</span>
   </div>
   <div class="col-5">
-    <span class="text-900 font-semibold mr-2">Tramite sup tipo:</span>
+    <span class="text-900 font-semibold mr-2">Trámite Sub Tipo:</span>
     <span class="font-medium"></span>
   </div>
   <div class="col-4">
@@ -41,21 +41,21 @@
     </div>
     <div class="col-12 md:col-5">
       <div class="flex flex-column gap-2">
-        <label htmlFor="tipo-operacion">Tipo de Operacion</label>
+        <label htmlFor="tipo-operacion">Tipo de Operación</label>
         <input pInputText [value]="" readonly id="tipo-operacion" class="p-inputtext-sm" />
         <small id="tipo-operacion-help"></small>
       </div>
     </div>
     <div class="col-12 md:col-5">
       <div class="flex flex-column gap-2">
-        <label htmlFor="descripcion">Descripcion</label>
+        <label htmlFor="descripcion">Descripción</label>
         <input pInputText [value]="" readonly id="descripcion" class="p-inputtext-sm" />
         <small id="descripcion-help"></small>
       </div>
     </div>
   </div>
 
-  <h3 class="mt-0 mb-0 text-700">Subir imagen/archivo</h3>
+  <h3 class="mt-0 mb-0 text-700">Subir  Imagen/Archivo</h3>
   <div class="grid flex-wrap mt-3">
     <div class="col-12 md:col-6 lg:col-4">
       <div class="flex flex-column align-justify-center">
@@ -63,5 +63,10 @@
       </div>
     </div>
   </div>
+  <!-- <div style="width: 100%; height: 300%; display: flex; align-items: center; justify-content: center;">
+    <div style="width: 30%;">
+      <app-dragndrop [tipeAccept]="'.jpg,.png,.gif,.pdf'" style="text-align: center;"></app-dragndrop>
+    </div>
+  </div> -->
 
 </div>
