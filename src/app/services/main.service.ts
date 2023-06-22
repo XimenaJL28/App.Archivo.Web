@@ -40,7 +40,7 @@ export class MainService {
     const headers = new HttpHeaders({
       //? Get token from localstorge
       "Authorization": `Bearer ${localStorage.getItem("Authorization")}`,
-      "apikey": "5SJE8rmwaw4rKz",
+      "apikey": environment.apikey,
       "Content-Type": "application/json"
     });
     return headers;
