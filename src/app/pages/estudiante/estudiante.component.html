@@ -204,11 +204,14 @@
                             <td>{{ tramite.subTipoTramite | titlecase }}</td>
                             <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</td>
                             <td>{{ tramite.estado }}</td>
-                            <td style="text-align: center;">
+                            <!-- <td style="text-align: center;">
                                 <i class="pi pi-search"
                                     [routerLink]="['/tramite',tramite.id, 'estudiante', tramite.id, 'documento']"
                                     style="font-size: 1rem; cursor: pointer;">
                                 </i>
+                            </td> -->
+                            <td style="text-align: center;">
+                                <i class="pi pi-search" routerLink="/tramite/inscripcion"></i>
                             </td>
                         </tr>
                     </ng-template>

@@ -1,0 +1,67 @@
+<!-- Tramite inscripcion *ngIf="documento == null"
+<div>
+  <h3 class="text-700">Seleccionar un documento</h3>
+</div>
+-->
+<!-- *ngIf="documento"-->
+<div class="grid">
+  <div class="col-3">
+    <span class="text-900 font-semibold mr-2">Codigo:</span>
+    <span class="font-medium">{{ documento?.tramite }}</span>
+  </div>
+  <div class="col-5">
+    <span class="text-900 font-semibold mr-2">Tramite sup tipo:</span>
+    <span class="font-medium"></span>
+  </div>
+  <div class="col-4">
+    <span class="text-900 font-semibold mr-2">Fecha:</span>
+    <span class="font-medium"></span>
+  </div>
+</div>
+
+<!-- Formulario de operaciones *ngIf="documento"-->
+<div>
+  <div class="grid mt-2">
+    <div class="col-12 md:col-5">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="funcionario">Funcionario</label>
+        <input pInputText [value]="" readonly id="funcionario" class="p-inputtext-sm" />
+        <small id="funcionario-help"></small>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-12 md:col-2">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="fecha">Fecha</label>
+        <input pInputText [value]="" readonly id="fecha" class="p-inputtext-sm" />
+        <small id="fecha-help"></small>
+      </div>
+    </div>
+    <div class="col-12 md:col-5">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="tipo-operacion">Tipo de Operacion</label>
+        <input pInputText [value]="" readonly id="tipo-operacion" class="p-inputtext-sm" />
+        <small id="tipo-operacion-help"></small>
+      </div>
+    </div>
+    <div class="col-12 md:col-5">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="descripcion">Descripcion</label>
+        <input pInputText [value]="" readonly id="descripcion" class="p-inputtext-sm" />
+        <small id="descripcion-help"></small>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mt-0 mb-0 text-700">Subir imagen/archivo</h3>
+  <div class="grid flex-wrap mt-3">
+    <div class="col-12 md:col-6 lg:col-4">
+      <div class="flex flex-column align-justify-center">
+        <app-dragndrop [tipeAccept]="'.jpg,.png,.gif,.pdf'"></app-dragndrop>
+      </div>
+    </div>
+  </div>
+
+</div>

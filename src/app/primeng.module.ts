@@ -31,6 +31,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
 import { ImageModule } from 'primeng/image';
+import { StepsModule } from 'primeng/steps';
 
 
 
@@ -65,7 +66,8 @@ import { ImageModule } from 'primeng/image';
     TabMenuModule,
     ToastModule,
     TagModule,
-    ImageModule
+    ImageModule,
+    StepsModule
   ]
 })
 export class PrimengModule { }

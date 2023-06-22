@@ -25,7 +25,7 @@ export class PagesComponent implements OnInit {
 
   @HostBinding('class') className = '';
   toggle = false;
-  userName = "Joaquin.Gonzalez";
+  userName = "Ximena Justiniano";
 
   darkClassName = 'dark-theme';
 
@@ -35,6 +35,7 @@ export class PagesComponent implements OnInit {
     { ubicacion: 'home', titulo: 'Inicio', icono: 'pi-home', external: false },
     { ubicacion: 'operacion', titulo: 'Operaciones', icono: 'pi-calendar', external: false },
     { ubicacion: 'requerido', titulo: 'Doc. Requerido', icono: 'pi-dollar', external: false },
+    { ubicacion: 'tramite', titulo: 'Tramites', icono: 'pi-home', external: false },
     // { ubicacion: 'register', titulo: 'Register', icono: 'pi-book', external: false },
     // { ubicacion: 'https://portal.upds.edu.bo/ev-docente/#/loginms', titulo: 'Teacher Eval.', icono: 'pi-sliders-h', external: true },
   ];

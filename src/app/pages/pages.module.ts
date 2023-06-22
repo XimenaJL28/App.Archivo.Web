@@ -21,6 +21,10 @@ import { DocumentoComponent } from './documento/documento.component';
 import { OperacionComponent } from './operacion/operacion.component';
 import { ReprogramacionComponent } from './reprogramacion/reprogramacion.component';
 import { RequeridoComponent } from './requerido/requerido.component';
+import { TramiteInscripcionStepsComponent } from './tramite-inscripcion-steps/tramite-inscripcion-steps.component';
+import { DocumentoOperacionComponent } from './documento-operacion/documento-operacion.component';
+import { DocumentoInscripcionComponent } from './documento-inscripcion/documento-inscripcion.component';
+import { TramiteInscripcionComponent } from './tramite-inscripcion/tramite-inscripcion.component';
 
 
 //? Routes
@@ -33,10 +37,20 @@ const routes: Routes = [
       { path: 'estudiante', component: EstudianteComponent },
       { path: 'operacion', component: OperacionComponent },
       { path: 'requerido', component: RequeridoComponent },
+      {
+        path: 'tramite',
+        component : TramiteInscripcionStepsComponent,
+        children:[
+          { path: '', redirectTo: 'inscripcion', pathMatch: 'full' },
+          { path: 'inscripcion', component: TramiteInscripcionComponent },
+          { path: 'documento', component: DocumentoInscripcionComponent },
+          { path: 'operacion', component: DocumentoOperacionComponent },
+        ],
+      },
       { path: 'tramite/:tramiteId/estudiante/:estudianteId/archivo', component: ArchivoComponent },
       { path: 'tramite/:tramiteId/estudiante/:estudianteId/documento', component: DocumentoComponent },
       { path: 'tramite/:tramiteId/estudiante/:estudianteId/reprogramacion', component: ReprogramacionComponent },
-
+  
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       //! Error Pages
     ]
@@ -56,6 +70,10 @@ const routes: Routes = [
     OperacionComponent,
     ReprogramacionComponent,
     RequeridoComponent,
+    TramiteInscripcionComponent,
+    TramiteInscripcionStepsComponent,
+    DocumentoOperacionComponent,
+    DocumentoInscripcionComponent
   ],
   imports: [
     CommonModule,

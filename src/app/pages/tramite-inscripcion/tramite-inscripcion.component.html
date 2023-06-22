@@ -1,0 +1,91 @@
+<!-- Estudiante *ngIf="estudiante"-->
+<div class="grid">
+  <div class="col-12 md:col-3">
+    <span class="text-900 font-semibold mr-2">CI:</span>
+    <span class="font-medium">{{ estudiante?.documentoIdentidad }}</span>
+  </div>
+  <div class="col-12 md:col-5">
+    <span class="text-900 font-semibold mr-2">Estudiante:</span>
+    <span class="font-medium"> {{ estudiante?.nombreCompleto }} </span>
+  </div>
+  <div class="col-12 md:col-4">
+    <span class="text-900 font-semibold mr-2">Carrera:</span>
+    <span class="font-medium">{{ carrera }}</span>
+  </div>
+</div>
+
+<!-- Listado de tramite inscripcion carrera *ngIf="tramite == null"
+<div>
+  <h3 class="text-700">Seleccionar un tramite</h3>
+</div>
+-->
+<!-- *ngIf="tramite"-->
+<div>
+  <div class="grid">
+    <div class="col-12 md:col-3">
+      <span class="text-900 font-semibold mr-2">Folio:</span>
+      <span class="font-medium">{{ tramite?.tramite }}</span>
+    </div>
+    <div class="col-12 md:col-4">
+      <span class="text-900 font-semibold mr-2">Trámite:</span>
+      <span class="font-medium"> {{ tramite?.subTipoTramite }}</span>
+    </div>
+    <div class="col-12 md:col-5">
+      <span class="text-900 font-semibold mr-2">Tra SupTipo:</span>
+      <span class="font-medium"> </span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-12 md:col-3">
+      <span class="text-900 font-semibold mr-2">Fecha:</span>
+      <span class="font-medium"> </span>
+    </div>
+    <div class="col-12 md:col-4">
+      <span class="text-900 font-semibold mr-2">Completo:</span>
+      <span class="font-medium"> </span>
+    </div>
+    <div class="col-12 md:col-5">
+      <span class="text-900 font-semibold mr-2">Estado:</span>
+      <span class="font-medium"> </span>
+    </div>
+  </div>
+</div>
+
+<!-- Listado de documentos presentados *ngIf="documentos.length == 0"-->
+<div>
+  <h3 class="text-700">Sin documentos presentados</h3>
+</div>
+<!-- *ngIf="documentos.length > 0"-->
+<div>
+  <h3 class="text-700">Documentos Presentados</h3>
+  <div class="grid mt-3">
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+      <div class="flex flex-column align-items-center">
+        <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+        <p-image src="./assets/doc0.jpg" alt="Image" width="250" [preview]="true"></p-image>
+        <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+      <div class="flex flex-column align-items-center">
+        <h4 class="text-center mb-1 mt-0">Fotocopia Legalizada</h4>
+        <p-image src="./assets/doc1.jpg" alt="Image" width="250" [preview]="true"></p-image>
+        <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+      <div class="flex flex-column align-items-center">
+        <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+        <p-image src="./assets/doc1.jpg" alt="Image" width="250" [preview]="true"></p-image>
+        <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+      <div class="flex flex-column align-items-center">
+        <h4 class="text-center mb-1 mt-0">Certificado de nacimiento original</h4>
+        <p-image src="./assets/doc0.jpg" alt="Image" width="250" [preview]="true"></p-image>
+        <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+      </div>
+    </div>
+  </div>
+</div>
