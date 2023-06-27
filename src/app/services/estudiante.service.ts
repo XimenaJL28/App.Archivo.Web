@@ -57,7 +57,7 @@ export class EstudianteService {
       {
         id: 3,
         tramite: 'Admisión',
-        carrera: 'Ingenieria de sistemas',
+        carrera: 'Administracion',
         fechaRegistro: '14-01-2018',
         estado: 'Completo'
       },
@@ -70,38 +70,40 @@ export class EstudianteService {
       }
     ]
   }
-  getEstudiantesEncontrados(criterio: string): EstudiantesEncontrados[] {
+  getEstudiantesEncontrados(criterio: string): any[] {
     return [
       {
         id: 5,
-        estudiante: "ximena",
-        carrera: "derecho",
+        nombreCompleto: "ximena",
+        carrera: "Ingenieria de sistemas",
         facultad: "ciencias",
-        estado: "vigente"
+        estado: "vigente",
+        documentoIdentidad: 6009590
       },
       {
         id: 6,
-        estudiante: "juan",
-        carrera: "derecho",
+        nombreCompleto: "juan",
+        carrera: "Ingenieria de sistemas",
         facultad: "ciencias",
-        estado: "vigente"
+        estado: "vigente",
+        documentoIdentidad: 6789590
       },
       {
         id: 7,
-        estudiante: "otis",
-        carrera: "derecho",
+        nombreCompleto: "otis",
+        carrera: "Derecho",
         facultad: "ciencias",
-        estado: "vigente"
+        estado: "vigente",
+        documentoIdentidad: 6289590
       }
     ];
   }
 
 
-  async Searchperson(datos: any) {
-    let ans: any = await this.MainService.get(`${environment.endPoint}Basico/BuscarPersona?Parametro=${datos.query}`);
+  async Searchperson(datos: string) {
+    let ans: any = await this.MainService.get(`${environment.endPoint}Basico/BuscarPersona?Parametro=${datos}`);
     return ans;
+    /*let ans: any = await this.MainService.get(`http://localhost:3000/personas`);
+    return ans;*/
   }
-
-
-
 }

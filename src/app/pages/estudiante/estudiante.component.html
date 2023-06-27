@@ -1,227 +1,172 @@
 <div class="flex justify-content-center">
-    <h3 class="mb-0 mt-0">Búsqueda del Estudiante</h3>
+  <h3 class="mb-0 mt-0">Búsqueda del Estudiante</h3>
 </div>
 <p-divider></p-divider>
 
 <!-- Form buscar -->
 <div style="text-align: center; ">
-    <div>
-        <p-autoComplete [(ngModel)]="estudianteEncontradoItem" [suggestions]="estudianteEncontradoSuggestions"
-            (completeMethod)="busqueda($event)" (onSelect)="buscarEstudianteSeleccionado($event)"
-            field="nombreCompleto"></p-autoComplete>
-    </div>
+  <div>
+    <p-autoComplete [suggestions]="estudianteEncontrados" (completeMethod)="busqueda($event)"
+      (onSelect)="buscarEstudianteSeleccionado($event)" field="nombreCompleto"></p-autoComplete>
+  </div>
 </div>
 
 <!-- Estudiante encontrado -->
-<div class="mt-4 fade-in" *ngIf="datacargada">
-    <div class="flex flex justify-content-center">
-        <h3 class="mb-0 mt-0">Datos del Estudiante</h3>
+<div class="mt-4 fade-in" *ngIf="persona">
+  <div *ngIf="persona" class="flex justify-content-center mt-4 fade-in">
+    <h3 class="mb-0 mt-0">Datos del estudiante</h3>
+  </div>
+  <p-divider></p-divider>
+  <!-- Datos del estudiante encontrado -->
+  <div class="grid" *ngIf="persona">
+    <div class="col-12 xl:col-3">
+      <div>
+        <img alt="" style="height: 200px; width: 200px; background-image: url('{{persona.foto}}');" class="perfil-foto">
+      </div>
     </div>
-    <p-divider></p-divider>
-
-    <!-- Datos del estudiante encontrado -->
-    <div class="grid">
-        <div class="col-12 xl:col-3">
-            <div>
-                <img alt="" style="height: 200px; width: 200px; background-image: url('{{datospersona.foto}}');"
-                    class="perfil-foto">
-            </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
+      <div class="grid">
+        <div class="col-12 md:col-3">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="ci">C.I.</label>
+            <input pInputText [value]="persona.documentoIdentidad" readonly id="ci" class="p-inputtext-sm" />
+            <small id="ci-help"></small>
+          </div>
         </div>
-        <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
-            <div class="grid">
-                <div class="col-12 md:col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="ci">C.I.</label>
-                        <input pInputText [value]="datospersona.documentoIdentidad" readonly id="ci"
-                            class="p-inputtext-sm" />
-                        <small id="ci-help"></small>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="nombre">Nombre</label>
-                        <input pInputText [value]="datospersona.nombreCompleto" readonly id="nombre"
-                            class="p-inputtext-sm" />
-                        <small id="nombre-help"></small>
-                    </div>
-                </div>
-                <div class="col-12 md:col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="genero">Género</label>
-                        <input pInputText [value]="datospersona.genero | titlecase" readonly id="genero"
-                            class="p-inputtext-sm" />
-                        <small id="genero-help"></small>
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="celular">Celular</label>
-                        <input pInputText [value]="datospersona.celular" readonly id="celular" class="p-inputtext-sm" />
-                        <small id="celular-help"></small>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input pInputText [value]="datospersona.fechaNacimiento | date:'dd/MM/yyyy'" readonly
-                            id="fechaNacimiento" class="p-inputtext-sm" />
-                        <small id="fechaNacimiento-help"></small>
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="sede">Sede</label>
-                        <input pInputText [value]="datospersona.sede" readonly id="sede" class="p-inputtext-sm" />
-                        <small id="sede-help"></small>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="nacionalidad">Nacionalidad</label>
-                        <input pInputText [value]="datospersona.nacionalidad | titlecase" readonly id="nacionalidad"
-                            class="p-inputtext-sm" />
-                        <small id="nacionalidad-help"></small>
-                    </div>
-                </div>
-            </div>
+        <div class="col-12 md:col-6">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="nombre">Nombre</label>
+            <input pInputText [value]="persona.nombreCompleto" readonly id="nombre" class="p-inputtext-sm" />
+            <small id="nombre-help"></small>
+          </div>
         </div>
+        <div class="col-12 md:col-3">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="genero">Genero</label>
+            <input pInputText [value]="persona.genero | titlecase" readonly id="genero" class="p-inputtext-sm" />
+            <small id="genero-help"></small>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-3">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="celular">Celular</label>
+            <input pInputText [value]="persona.celular" readonly id="celular" class="p-inputtext-sm" />
+            <small id="celular-help"></small>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
+            <input pInputText [value]="persona.fechaNacimiento | date:'dd/MM/yyyy'" readonly id="fechaNacimiento"
+              class="p-inputtext-sm" />
+            <small id="fechaNacimiento-help"></small>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-3">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="sede">Sede</label>
+            <input pInputText [value]="persona.sede" readonly id="sede" class="p-inputtext-sm" />
+            <small id="sede-help"></small>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="nacionalidad">Nacionalidad</label>
+            <input pInputText [value]="persona.nacionalidad | titlecase" readonly id="nacionalidad"
+              class="p-inputtext-sm" />
+            <small id="nacionalidad-help"></small>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Tabla de trámites académicos -->
+  <!-- Tabla de tramites académicos -->
+  <div class="grid mt-2" *ngIf="inscripciones.length > 0">
+    <div class="col-12">
+      <p-table [value]="inscripciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+        styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th>Carrera</th>
+            <th>Codigo</th>
+            <th>Modelo Estudio</th>
+            <th>Nivel de Estudio </th>
+            <th>Sistema de Estudio</th>
+            <th>Tramites</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-inscripcionItem let-columns="columns">
+          <tr [ngClass]="{'table-row-select': inscripcionItem.id === inscripcion?.id || 0 }">
+            <td>{{ inscripcionItem.carrera | titlecase}}</td>
+            <td>{{ inscripcionItem.codigo }}</td>
+            <td>{{ inscripcionItem.modeloEstudio | titlecase}}</td>
+            <td>{{ inscripcionItem.nivelEstudio | titlecase}}</td>
+            <td>{{ inscripcionItem.sistemaEstudio }}</td>
+            <td>
+              <p-button (onClick)="gettramites(inscripcionItem)" icon="fa-solid fa-folder-open"
+                styleClass="p-button-rounded p-button-sm">
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <!-- Tabla de tramites realizados  -->
+  <div class="grid mt-2" *ngIf="inscripciones.length > 0 && tramites.length === 0">Tramites no encontrados</div>
+  <div *ngIf="tramites.length > 0">
+    <p class="mb-0">Trámites realizados</p>
     <div class="grid mt-2">
-        <div class="col-12">
-            <p-table [value]="inscripciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-                styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <!-- <th style="width: 7%;">Id</th> -->
-                        <th>Carrera</th>
-                        <th>Código</th>
-                        <th>Modelo Estudio</th>
-                        <th>Nivel de Estudio </th>
-                        <th>Sistema de Estudio</th>
-                        <th>Trámites</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-item let-columns="columns">
-                    <tr>
-                        <!-- <td>{{ item.id }}</td> -->
-                        <td>{{ item.carrera | titlecase}}</td>
-                        <td>{{ item.codigo }}</td>
-                        <!-- <td>{{ item.idInscripcionSede }}</td> -->
-                        <td>{{ item.modeloEstudio | titlecase}}</td>
-                        <td>{{ item.nivelEstudio | titlecase}}</td>
-                        <td>{{ item.sistemaEstudio }}</td>
-                        <td>
-                            <p-button (onClick)="gettramites(item.idInscripcionSede)" icon="fa-solid fa-folder-open"
-                                label="" styleClass="p-button-rounded">
-                            </p-button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </div>
-    <div class="mt-2" *ngIf="tramitesstate">
-        <p>No tiene trámites pendientes</p>
-    </div>
-
-    <br>
-    <!-- Tabla de tramites realizados 
-    <div *ngIf="tramitesAgrupados.length > 0">
-        <p class="mb-0">Trámites realizados</p>
-        <div class="grid mt-2">
-            <div class="col-12">
-
-                <div *ngFor="let item of tramitesAgrupados" class="mb-3">
-                    <p-divider align="center">
-                        <span class="p-tag">Trámite Realizado</span>
-                    </p-divider>
-                    <p>
-                        <p-table [value]="item.tramites" responsiveLayout="scroll"
-                            [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-                            styleClass="p-datatable p-component p-datatable-sm">
-
-                            <ng-template pTemplate="caption">
-                                <div class="flex align-items-center justify-content-center">
-                                    {{ item.cantidadDeTramites}} | {{ item.nombreTramite | uppercase }}
-                                </div>
-                            </ng-template>
-
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th>Sub Tipo Trámite</th>
-                                    <th>Fecha</th>
-                                    <th>Estado</th>
-                                    <th style="width: 7%;"></th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-tramite let-columns="columns">
-                                <tr>
-                                    <td>{{ tramite.subTipoTramite | titlecase}}</td>
-                                    <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy'}}</td>
-                                    <td>{{ tramite.estado }}</td>
-                                    <td style="text-align: center;">
-                                        <i class="pi pi-search"
-                                            [routerLink]="['/tramite',tramite.id, 'estudiante', tramite.id, 'documento']"
-                                            style="font-size: 1rem; cursor: pointer;">
-                                        </i>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
-    <!-- Desplegable de tramites del estudiante -->
-    <p-accordion [activeIndex]="0" [multiple]="true">
-        <p-accordionTab *ngFor="let item of tramitesAgrupados">
+      <div class="col-12">
+        <p-accordion [activeIndex]="activeIndex">
+          <p-accordionTab *ngFor="let tramiteItem of tramites; index as i">
             <ng-template pTemplate="header">
-                <div class="flex align-items-center">
-                    <span class="vertical-align-middle">{{ item.nombreTramite }} ({{ item.cantidadDeTramites}})</span>
-                </div>
+              <div class="flex align-items-center">
+                <span class="vertical-align-middle">{{ tramiteItem.nombreTramite }} ({{
+                  tramiteItem.cantidadDeTramites}})</span>
+              </div>
             </ng-template>
             <ng-template pTemplate="content">
-                <p-table [value]="item.tramites" responsiveLayout="scroll"
-                    [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-                    styleClass="p-datatable p-component p-datatable-sm">
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th>Sub Tipo Trámite</th>
-                            <th>Fecha</th>
-                            <th>Estado</th>
-                            <th style="width: 7%;"></th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-tramite let-columns="columns">
-                        <tr>
-                            <td>{{ tramite.subTipoTramite | titlecase }}</td>
-                            <td>{{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</td>
-                            <td>{{ tramite.estado }}</td>
-                            <!-- <td style="text-align: center;">
-                                <i class="pi pi-search"
-                                    [routerLink]="['/tramite',tramite.id, 'estudiante', tramite.id, 'documento']"
-                                    style="font-size: 1rem; cursor: pointer;">
-                                </i>
-                            </td> -->
-                            <td style="text-align: center;">
-                                <i class="pi pi-search" routerLink="/tramite/inscripcion"></i>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+              <p-table [value]="tramiteItem.tramites" responsiveLayout="scroll"
+                [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+                styleClass="p-datatable p-component p-datatable-sm">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th>Tramite</th>
+                    <th>subTipoTramite</th>
+                    <th>Estado</th>
+                    <th style="width: 7%;"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tramiteItemIndex let-columns="columns">
+                  <tr [ngClass]="{'table-row-select': tramiteItemIndex.id === tramite?.id || 0 }">
+                    <td>{{ tramiteItemIndex.tramite }}</td>
+                    <td>{{ tramiteItemIndex.subTipoTramite }}</td>
+                    <td>{{ tramiteItemIndex.estado }}</td>
+                    <td style="text-align: center;">
+                      <p-button (onClick)="gettramite(tramiteItemIndex, i)" icon="fa-solid fa-folder-open"
+                        styleClass="p-button-rounded p-button-sm">
+                      </p-button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
             </ng-template>
-        </p-accordionTab>
-    </p-accordion>
-    <!-- Agregar -->
-    <div class="flex justify-content-end align-items-end  mt-5">
-        <p-button [routerLink]="['/requerido']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
-        </p-button>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
     </div>
+  </div>
+  <!-- Agregar
+  <div class="flex justify-content-end align-items-end  mt-5">
+    <p-button [routerLink]="['/requerido']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
+    </p-button>
+  </div>
+-->
 </div>

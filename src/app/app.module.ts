@@ -28,6 +28,8 @@ import { themeReducer } from './state/reducers/theme.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { userReducer } from './state/reducers/user.reducer';
 import { environment } from 'src/environments/environment.prod';
+import { estudianteReducer } from './state/reducers/estudiante.reducers';
+import { tramiteReducer } from './state/reducers/tramite.reducers';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { environment } from 'src/environments/environment.prod';
     //? NgRx config
     StoreModule.forRoot({
       theme: themeReducer,
-      user: userReducer
+      user: userReducer,
+      estudiante: estudianteReducer,
+      tramite: tramiteReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

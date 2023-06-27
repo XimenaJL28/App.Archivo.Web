@@ -1,89 +1,117 @@
-import { Component, OnInit } from '@angular/core';
-import { BuscarPersona } from 'src/app/interfaces';
-import { Estudiante } from 'src/app/interfaces/estudiante/estudiante';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AppState } from '../../state/reducers/app.reducers';
+import * as estudianteActions from '../../state/actions/estudiante.actions';
+import * as tramiteActions from '../../state/actions/tramite.actions';
+
 import { EstudianteService } from 'src/app/services/estudiante.service';
-import { MainService } from 'src/app/services/main.service';
 import { TramiteService } from '../../services/tramite.service';
-import { InscripcionEstudiante, TramiteInscripcion } from 'src/app/interfaces/persona.interface';
+import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
 
 @Component({
   selector: 'app-estudiante',
   templateUrl: './estudiante.component.html',
   styleUrls: ['./estudiante.component.scss']
 })
-export class EstudianteComponent implements OnInit {
+export class EstudianteComponent implements OnInit, OnDestroy {
+  public estudianteEncontrados: any[] = [];
+  public persona: any = {};
 
-  public estudiante?: Estudiante;
-  public estudianteList: BuscarPersona[] = [];
-  public inscripciones: InscripcionEstudiante[] = [];
-  public tramites: TramiteInscripcion[] = [];
+  public inscripciones: any[] = [];
+  public inscripcion: any = {};
+  public tramites: any[] = [];
+  public tramite: any = {};
 
-  public estudianteEncontradoList: BuscarPersona[] = [];
-  public estudianteEncontradoItem: BuscarPersona | null = null;
-  public estudianteEncontradoSuggestions: BuscarPersona[] = [];
-  public tramitesAgrupados: any[] = [];
-  datospersona: Partial<BuscarPersona> = {};
+  public activeIndex = 0;
 
-  //?variables aux
-  datacargada: boolean = false;
-  Idinscripcion: any;
-  idinscripcionsede: any;
-  tramitesstate: boolean = false;
+  private estudianteSubscriptions!: Subscription;
 
-  constructor(private estudianteService: EstudianteService,
-    private mainService: MainService,
-    private readonly TramiteService: TramiteService) {
-  }
+  constructor(
+    private estudianteService: EstudianteService,
+    private readonly TramiteService: TramiteService,
+    private store: Store<{ estudiante: EstudianteState }>,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.estudianteSubscriptions = this.store.select('estudiante')
+      .subscribe(({ estudiante, inscripciones, inscripcion, tramites, tramite, tramiteActiveIndex }) => {
+        this.persona = estudiante;
+        this.inscripciones = inscripciones
+        this.inscripcion = inscripcion;
 
+        this.tramites = tramites;
+        this.tramite = tramite;
+        this.activeIndex = tramiteActiveIndex;
+      })
   }
 
-  buscarEstudianteSeleccionado(buscarPersona: any) {
-    this.datospersona = buscarPersona;
-    this.datacargada = true;
-    this.Idinscripcion = this.datospersona.id;
-    this.getinscripcions(this.Idinscripcion)
-    this.tramitesstate = false;
-    this.datospersona.foto == "" ? this.datospersona.foto = 'https://portal.upds.edu.bo/index/images/usuario.jpg' : this.datospersona.foto = this.datospersona.foto;
-
+  ngOnDestroy(): void {
+    this.estudianteSubscriptions.unsubscribe();
   }
 
   async busqueda(event: any) {
-    this.buscarEstudiante(event).then((response) => {
-      this.estudianteList = response;
-      // this.datospersona = this.estudianteList[0];
-    }).catch((error) => {
-      console.log(error);
-    }).finally(() => {
-      this.estudianteEncontradoSuggestions = this.estudianteList || [];
-      this.tramites = [];
-      this.tramitesAgrupados = [];
-    });
+    const response = await this.estudianteService.Searchperson(event.query);
+    this.estudianteEncontrados = response || [];
   }
 
-  async buscarEstudiante(name: any) {
-    let response: any = await this.estudianteService.Searchperson(name);
-    return response;
+  buscarEstudianteSeleccionado(estudianteSeleccionado: any) {
+    const estudiante = estudianteSeleccionado;
+    estudiante.foto = estudianteSeleccionado.foto || 'https://portal.upds.edu.bo/index/images/usuario.jpg'
 
+    this.store.dispatch(
+      estudianteActions.setEstudiante({ estudiante: estudiante })
+    )
+    this.getinscripcions(estudiante.id)
   }
 
   async getinscripcions(idperson: any) {
-    let response: any = await this.TramiteService.GetInscripcions(idperson);
-    this.inscripciones = response;
-    return response;
+    let responseInscripciones: any = await this.TramiteService.GetInscripcions(idperson);
+    const inscripciones = responseInscripciones || [];
+
+    this.store.dispatch(
+      estudianteActions.setInscripciones({ inscripciones: inscripciones })
+    )
   }
 
-  async gettramites(idinscripcion: number) {
-    let response: any = await this.TramiteService.GetListTramites(idinscripcion);
-    this.tramites = response || [];
-    this.tramitesstate = this.tramites.length == 0;
-    // this.tramitesAgrupados = this.tramites;
-    this.tramitesAgrupados = this.agruparTramites(this.tramites);
-    return response;
+  async gettramites(inscripcion: any) {
+    const response = await this.TramiteService.GetListTramites(inscripcion.idInscripcionSede);
+    const tramites = response || [];
+    const tramitesOrdenados = this._agruparTramites(tramites);
+
+    this.store.dispatch(
+      estudianteActions.setTramites(
+        { tramites: tramitesOrdenados, inscripcion: inscripcion }
+      )
+    )
+
+    this.store.dispatch(
+      estudianteActions.setTramiteActiveIndex({ index: -1 })
+    )
   }
 
-  sortDataArray(tramiteList: any): any[] {
+  async gettramite(tramite: any, i: number) {
+    this.store.dispatch(
+      estudianteActions.setTramite({ tramite: tramite })
+    )
+
+    this.store.dispatch(
+      estudianteActions.setTramiteActiveIndex({ index: i })
+    )
+
+    const response = await this.TramiteService.GetListDocumentos(tramite.id)
+    const documentos = response || [];
+    this.store.dispatch(
+      tramiteActions.setDocumentos({ documentos: documentos })
+    );
+
+    this.router.navigate([`/tramite/inscripcion`]);
+  }
+
+  _ordenarTramitesPorNombre(tramiteList: any[]): any[] {
     return tramiteList.sort((a: any, b: any) => {
       if (a.tramite < b.tramite) { return -1; }
       if (a.tramite > b.tramite) { return 1; }
@@ -91,8 +119,8 @@ export class EstudianteComponent implements OnInit {
     });
   }
 
-  agruparTramites(tramitesListData: any[]) {
-    const tramitesList = this.sortDataArray(tramitesListData);
+  _agruparTramites(tramitesListData: any[]) {
+    const tramitesList = this._ordenarTramitesPorNombre(tramitesListData);
 
     let tramitesGroup: any[] = [];
     let index = 0;
@@ -103,19 +131,21 @@ export class EstudianteComponent implements OnInit {
       const nombreTramite = tramitesList[index].tramite;
 
       while (index < tramitesList.length && nombreTramite === tramitesList[index].tramite) {
-        console.log('index: ' + nombreTramite, ' array: ' + tramitesList[index].tramite);
         tramites.push(tramitesList[index]);
         cantidadDeTramites++;
         index++;
       }
+
       if (cantidadDeTramites > 0) {
         const item = {
           nombreTramite,
           cantidadDeTramites,
           tramites
         };
+
         tramitesGroup.push(item);
       }
+
     }
     return tramitesGroup;
   }

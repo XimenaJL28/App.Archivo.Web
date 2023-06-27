@@ -14,6 +14,41 @@ export class TramiteService {
 
   constructor(private readonly MainService: MainService) { }
 
+  async GetInscripcions(idpersona: any) {
+    const url = `${environment.endPoint}Inscripcion/${idpersona}`;
+    //const url = 'http://localhost:3000/inscripciones'
+    let ans: any = await this.MainService.get(url);
+    return ans;
+  }
+
+  async GetListTramites(idtramite: any) {
+    const url = `${environment.endPoint}Tramite/${idtramite}`;
+    //const url = 'http://localhost:3000/tramitesinscripcion';
+    let ans: any = await this.MainService.get(url);
+    return ans;
+  }
+
+  async GetListDocumentos(idtramite: any = '') {
+    //const url = `${environment.endPoint}Tramite/${idtramite}`;
+    const url = 'http://localhost:3000/documentoInscripcionCarreras';
+    let ans: any = await this.MainService.get(url);
+    return ans;
+  }
+
+  async GetListOperaciones(idtramite: any = '') {
+    //const url = `${environment.endPoint}Tramite/${idtramite}`;
+    const url = 'http://localhost:3000/documentoOperaciones';
+    let ans: any = await this.MainService.get(url);
+    return ans;
+  }
+
+  async GetListOperacion(id: any = '0') {
+    //const url = `${environment.endPoint}Tramite/${idtramite}`;
+    const url = `http://localhost:3000/documentoOperaciones/${id}`;
+    let ans: any = await this.MainService.get(url);
+    return ans;
+  }
+
 
   getArchivo(): Archivo {
     return {
@@ -30,6 +65,7 @@ export class TramiteService {
       }
     }
   }
+
   getDocumento(): Documento {
     return {
       funcionario: {
@@ -51,6 +87,7 @@ export class TramiteService {
       }
     }
   }
+
   getOperaciones(): Operaciones[] {
     return [
       {
@@ -114,18 +151,5 @@ export class TramiteService {
         estado: 'En Proceso'
       }
     ];
-  }
-
-
-  async GetInscripcions(idpersona: any) {
-    let ans: any = await this.MainService.get(`${environment.endPoint}Inscripcion/${idpersona}`);
-    return ans;
-  }
-
-  async GetListTramites(idtramite: any) {
-    let ans: any = await this.MainService.get(`${environment.endPoint}Tramite/${idtramite}`);
-    console.log(ans);
-    
-    return ans;
   }
 }
