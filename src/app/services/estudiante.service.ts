@@ -101,7 +101,9 @@ export class EstudianteService {
 
 
   async Searchperson(datos: string) {
-    let ans: any = await this.MainService.get(`${environment.endPoint}api/Archivos/BuscarPersona/${datos}`);
+    let ans: any = await this.MainService.get(`${environment.endPoint}Archivos/BuscarPersona?text=${datos}`);
+    console.log(ans);
+    
     return ans;
     /*let ans: any = await this.MainService.get(`http://localhost:3000/personas`);
     return ans;*/

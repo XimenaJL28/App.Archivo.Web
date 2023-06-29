@@ -41,6 +41,7 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
       this.documento = state.documento;
       this.operaciones = state.operaciones;
       this.operacion = state.operacion;
+      console.log(this.documentos);
     })
   }
 
@@ -54,7 +55,7 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
       tramiteActions.setDocumento({ documento: documento })
     );
 
-    const response = await this.tramiteService.GetListOperaciones(documento.id);
+    const response = await this.tramiteService.GetListOperaciones(documento.documentoInscripcioncarreraId);
     const operaciones = response || [];
     this.store.dispatch(
       tramiteActions.setOperaciones({ operaciones: operaciones })

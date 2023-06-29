@@ -24,14 +24,15 @@
   <div class="grid">
     <div class="col-12 md:col-3">
       <span class="text-900 font-semibold mr-2">Folio:</span>
-      <span class="font-medium">{{ tramite?.tramite }}</span>
+      <span class="font-medium">{{ tramite?.nroFolio }}</span>
     </div>
     <div class="col-12 md:col-4">
       <span class="text-900 font-semibold mr-2">Tramite:</span>
-      <span class="font-medium"> {{ tramite?.subTipoTramite }}</span>
+      <span class="font-medium">{{ tramite?.tramite }}</span>
     </div>
     <div class="col-12 md:col-5">
       <span class="text-900 font-semibold mr-2">Tra SupTipo:</span>
+      <span class="font-medium"> {{ tramite?.subTipoTramite }}</span>
       <span class="font-medium"> </span>
     </div>
   </div>
@@ -61,8 +62,8 @@
   <div class="grid mt-3">
     <div *ngFor="let documento of documentos" class="col-12 md:col-6 lg:col-4 xl:col-3">
       <div class="flex flex-column align-items-center">
-        <h4 class="text-center mb-1 mt-0">{{ documento.adjunto }}</h4>
-        <p-image src="./assets/doc0.jpg" alt="Image" width="250" [preview]="true"></p-image>
+        <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo }}</h4>
+        <p-image src="{{documento.adjunto}}" alt="Image" width="250" [preview]="true"></p-image>
         <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
       </div>
     </div>
