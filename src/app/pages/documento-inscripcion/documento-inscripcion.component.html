@@ -1,17 +1,17 @@
 <!-- Tramite inscripcion  -->
 <div *ngIf="tramite == null">
-  <h3 class="text-700">Seleccionar un tramite</h3>
+  <h3 class="text-700">Seleccionar un Trámite</h3>
 </div>
 
 <!-- -->
 <div *ngIf="tramite" class="grid">
   <div class="col-12 md:col-9">
-    <span class="text-900 font-semibold mr-2">Nombre del Tramite:</span>
+    <span class="text-900 font-semibold mr-2">Nombre del Trámite:</span>
     <span class="font-medium">{{ tramite?.tramite | titlecase }} {{ tramite?.subTipoTramite | titlecase }} </span>
   </div>
   <div class="col-12 md:col-3">
     <span class="text-900 font-semibold mr-2">Fecha:</span>
-    <span class="font-medium"> {{ tramite?.fechaRegistro }}</span>
+    <span class="font-medium"> {{ tramite?.fechaRegistro | date:'dd/MM/yyyy' }}</span>
   </div>
 </div>
 
@@ -22,19 +22,19 @@
 
 <!-- -->
 <div *ngIf="documentos.length > 0">
-  <h3 class="mb-0 mt-2 text-700">Documentos inscripcion</h3>
+  <h3 class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
   <div class="grid mt-2 mb-3">
     <div class="col-12">
       <p-table [value]="documentos" responsiveLayout="scroll" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
         styleClass="p-datatable p-component p-datatable-sm" [paginator]="true" [rows]="4">
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th>Tramite sup tipo</th>
+            <th>Trámite Sub Tipo</th>
             <th>Documento Tipo</th>
             <th>Cantidad</th>
-            <th>Documento estado</th>
-            <th>Fecha limite</th>
-            <th>Fecha registro</th>
+            <th>Documento Estado</th>
+            <th>Fecha Límite</th>
+            <th>Fecha Registro</th>
             <th style="width: 7%;"></th>
           </tr>
         </ng-template>
@@ -61,7 +61,7 @@
 
 <!-- Listado de operaciones -->
 <div *ngIf="operaciones.length > 0">
-  <h3 class="text-700">Operaciones realizadas</h3>
+  <h3 class="text-700">Operaciones Realizadas</h3>
   <div class="grid mt-2">
     <div class="col-12">
       <p-table [value]="operaciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
@@ -71,9 +71,9 @@
             <th style="width: 7%;">Nº</th>
             <th>Operación</th>
             <th>Funcionario</th>
-            <th>Fecha Operacion</th>
+            <th>Fecha Operación</th>
             <th>Estado</th>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <!-- <th style="width: 7%;"></th> -->
             <th style="text-align: center;">Presentados</th>
             <th style="text-align: center;">Subir</th>
@@ -108,18 +108,18 @@
 
 <!-- Formulario -->
 <div *ngIf="documentos.length > 0">
-  <h3 class="text-700">Registrar documentos</h3>
+  <h3 class="text-700">Registrar Documentos</h3>
   <div class="grid">
     <div class="col-12 md:col-6">
       <div class="flex flex-column gap-2">
-        <label htmlFor="tramite-subtipo">Tramite sub Tipo</label>
+        <label htmlFor="tramite-subtipo">Trámite Sub Tipo</label>
         <input pInputText [value]="" readonly id="tramite-subtipo" class="p-inputtext-sm" />
         <small id="tramite-subtipo-help"></small>
       </div>
     </div>
     <div class="col-12 md:col-4">
       <div class="flex flex-column gap-2">
-        <label htmlFor="documento-tipo">Documento tipo</label>
+        <label htmlFor="documento-tipo">Documento Tipo</label>
         <input pInputText [value]="" readonly id="documento-tipo" class="p-inputtext-sm" />
         <small id="documento-tipo-help"></small>
       </div>
@@ -136,28 +136,28 @@
   <div class="grid">
     <div class="col-12 md:col-6">
       <div class="flex flex-column gap-2">
-        <label htmlFor="documento-estado">Documento estado</label>
+        <label htmlFor="documento-estado">Documento Estado</label>
         <input pInputText [value]="" readonly id="documento-estado" class="p-inputtext-sm" />
         <small id="documento-estado-help"></small>
       </div>
     </div>
     <div class="col-12 md:col-3">
       <div class="flex flex-column gap-2">
-        <label htmlFor="fecha-limite">Fecha limite</label>
+        <label htmlFor="fecha-limite">Fecha Límite</label>
         <input pInputText [value]="" readonly id="fecha-limite" class="p-inputtext-sm" />
         <small id="fecha-limite-help"></small>
       </div>
     </div>
     <div class="col-12 md:col-3">
       <div class="flex flex-column gap-2">
-        <label htmlFor="fecha-registro">Fecha de registro</label>
+        <label htmlFor="fecha-registro">Fecha de Registro</label>
         <input pInputText [value]="" readonly id="fecha-registro" class="p-inputtext-sm" />
         <small id="fecha-registro-help"></small>
       </div>
     </div>
   </div>
 
-  <h3 class="mt-0 mb-0">Subir imagen/archivo</h3>
+  <h3 class="mt-0 mb-0">Subir Imagen/Archivo</h3>
   <div class="grid flex-wrap mt-3">
     <div class="col-12 md:col-6 lg:col-4">
       <div class="flex flex-column align-justify-center">
@@ -165,5 +165,4 @@
       </div>
     </div>
   </div>
-
 </div>

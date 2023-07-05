@@ -136,14 +136,12 @@ export class MainService {
           error: (err: HttpErrorResponse) => {
             reject(err);
           }
-
         });
       })
     } catch (error: HttpErrorResponse | any) {
       this.handleError(error.status);
     }
   }
-
 
   public async delete<T>(url: string): Promise<T | null | void> {
     const headers = this.createHeaders();

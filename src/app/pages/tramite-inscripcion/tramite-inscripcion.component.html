@@ -1,6 +1,6 @@
 <!-- Tabla de tramites faltantes  -->
 <div *ngIf="documentosFaltantes.length > 0">
-  <h3 class="text-700">Tramites faltantes</h3>
+  <h3 class="text-700">Documentos Faltantes</h3>
   <p-table [value]="documentosFaltantes" responsiveLayout="scroll"
     [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm">
     <ng-template pTemplate="header" let-columns>
@@ -30,13 +30,13 @@
   </div>
   <div class="col-12 md:col-4">
     <span class="text-900 font-semibold mr-2">Carrera:</span>
-    <span class="font-medium">{{ inscripcion.carrera }}</span>
+    <span class="font-medium">{{ inscripcion.carrera | titlecase}}</span>
   </div>
 </div>
 
 <!-- Listado de tramite inscripcion carrera -->
 <div *ngIf="tramite == null">
-  <h3 class="text-700">Seleccionar un tramite</h3>
+  <h3 class="text-700">Seleccionar un trámite</h3>
 </div>
 
 <!-- -->
@@ -47,18 +47,16 @@
       <span class="font-medium">{{ estudiante?.nroFolio }}</span>
     </div>
     <div class="col-12 md:col-9">
-      <span class="text-900 font-semibold mr-2">Tramite:</span>
+      <span class="text-900 font-semibold mr-2">Trámite:</span>
       <span class="font-medium">{{ tramite?.tramite | titlecase }} {{ tramite?.subTipoTramite | titlecase }} </span>
     </div>
   </div>
   <div class="grid">
     <div class="col-12 md:col-3">
       <span class="text-900 font-semibold mr-2">Fecha:</span>
-      <span class="font-medium"> {{ tramite?.fechaRegistro }}</span>
+      <span class="font-medium"> {{ tramite?.fechaRegistro | date:'dd/MM/yyyy' }}</span>
     </div>
-    <div class="col-12 md:col-4">
-    </div>
-    <div class="col-12 md:col-5">
+    <div class="col-12 md:col-9">
       <span class="text-900 font-semibold mr-2">Estado:</span>
       <span class="font-medium"> {{ tramite?.estado }}</span>
     </div>
