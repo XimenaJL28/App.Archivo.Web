@@ -6,22 +6,25 @@ export interface TramiteState {
   documento: any;
   operaciones: any[];
   operacion: any;
+  documentosFaltantes: any[];
 }
 
 export const initialState: TramiteState = {
   documentos: [],
   documento: null,
+  documentosFaltantes: [],
   operaciones: [],
   operacion: null,
 }
 
 export const tramiteReducer = createReducer(
   initialState,
-  on(setDocumentos, (state, { documentos }) => (
+  on(setDocumentos, (state, { documentos, documentosFaltantes }) => (
     {
       ...state,
       documentos: [...documentos],
       documento: null,
+      documentosFaltantes: [...documentosFaltantes],
       operaciones: [],
       operacion: null,
     })),
@@ -31,6 +34,7 @@ export const tramiteReducer = createReducer(
       ...state,
       documentos: [],
       documento: null,
+      documentosFaltantes: [],
       operaciones: [],
       operacion: null,
     })),

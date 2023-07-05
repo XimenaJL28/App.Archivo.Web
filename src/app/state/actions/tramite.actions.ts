@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const setDocumentos = createAction(
   '[Tramite] setDocumentos',
-  props<{ documentos: any[] }>()
+  props<{ documentos: any[], documentosFaltantes: any[] }>()
 );
 
 export const unSetDocumentos = createAction(

@@ -93,15 +93,16 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th>Carrera</th>
-            <th>Codigo</th>
+            <th>Código</th>
             <th>Modelo Estudio</th>
             <th>Nivel de Estudio </th>
             <th>Sistema de Estudio</th>
-            <th>Tramites</th>
+            <th>Trámites</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-inscripcionItem let-columns="columns">
-          <tr [ngClass]="{'table-row-select': inscripcionItem.id === inscripcion?.id || 0 }">
+          <tr
+            [ngClass]="{'table-row-select': inscripcionItem.idInscripcionSede === inscripcion?.idInscripcionSede || 0 }">
             <td>{{ inscripcionItem.carrera | titlecase}}</td>
             <td>{{ inscripcionItem.codigo }}</td>
             <td>{{ inscripcionItem.modeloEstudio | titlecase}}</td>
@@ -138,8 +139,8 @@
                 styleClass="p-datatable p-component p-datatable-sm">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
-                    <th>Tramite</th>
-                    <th>subTipoTramite</th>
+                    <th>Trámite</th>
+                    <th>SubTipoTrámite</th>
                     <th>Estado</th>
                     <th style="width: 7%;"></th>
                   </tr>

@@ -15,131 +15,153 @@ body {
 }
 
 .dark-theme {
-    .app-background {
-      background-color: #121212 !important;
-    }
-    p, h1, h2, h3, h4, h5, h6 {
-      color: #fff;
-    }
-    
-    .label {
-      background-color: #333 !important;
-    }
-    .label span{
-      background: #fff !important;
-    }
-  
-    a,
-    a:hover,
-    a:focus {
-        color: #fff !important;
-    }
-  
-    #sidebar, .section-botton {
-      background: #1e1e1e !important;
-      color: #fff !important;
-    }
-  
-    .isologo {
-      filter: invert(1);
-    }
-    
-    #sidebar ul li.active>a,
-    a[aria-expanded="true"] {
-      background: #6286b9 !important;
-      border-left: 2px solid #f4f4f4 !important;
-    }
-    #sidebar ul li a:hover {
-      background: rgb(96 125 139 / 35%) !important;
-    }
-  
-    .form-control {
-      background: #303030;
-      color: #f4f4f4;
-    }
-    
+  .app-background {
+    background-color: #121212 !important;
   }
-  
-  .full-width {
-      width: 100% !important;
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #fff;
   }
-  
-  .ml-auto {
-      margin-left: auto !important;
+
+  .label {
+    background-color: #333 !important;
   }
-  
-  .text-overflow {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+
+  .label span {
+    background: #fff !important;
   }
-  
-  .edit_button,.delete_button{
-    cursor: pointer;
+
+  a,
+  a:hover,
+  a:focus {
+    color: #fff !important;
   }
-  .h-100{
-    height: 100%;
+
+  #sidebar,
+  .section-botton {
+    background: #1e1e1e !important;
+    color: #fff !important;
   }
-  .w-80{
-    width: 80%;
+
+  .isologo {
+    filter: invert(1);
   }
-  .btnCloseModal{
-    float: right;
-    cursor: pointer;
-    transition: .3s;
-    font-size: 40px;
-    height: auto !important;
-    width: auto !important;
+
+  #sidebar ul li.active>a,
+  a[aria-expanded="true"] {
+    background: #6286b9 !important;
+    border-left: 2px solid #f4f4f4 !important;
   }
-  .spinner{
-    margin: 0 auto;
-    margin-top: 120px;
+
+  #sidebar ul li a:hover {
+    background: rgb(96 125 139 / 35%) !important;
   }
-  
-  
-  
-  *::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0px 0px 2px #c6c6c6;
-    background: #e1e1e1;
-    border-radius: 4px;
+
+  .form-control {
+    background: #303030;
+    color: #f4f4f4;
   }
-  
-  *::-webkit-scrollbar {
-    width: 4px;
-    height: 8px;
+
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.edit_button,
+.delete_button {
+  cursor: pointer;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.btnCloseModal {
+  float: right;
+  cursor: pointer;
+  transition: .3s;
+  font-size: 40px;
+  height: auto !important;
+  width: auto !important;
+}
+
+.spinner {
+  margin: 0 auto;
+  margin-top: 120px;
+}
+
+
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0px 0px 2px #c6c6c6;
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+* {
+  outline: none !important;
+  scrollbar-width: thin;
+}
+
+
+
+
+.fade-in {
+  animation: alternate-fade-in 0.5s ease-in-out;
+  animation: fadeIn 2s;
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  *::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-  }
-  *::-webkit-scrollbar-thumb:hover  {
-    background: #b3b3b3;
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-  }
-  *::-webkit-scrollbar-thumb:active  {
-    background-color: #999999;
-  }
-  
-  * {
-    outline: none !important;
-    scrollbar-width: thin;
-  }
-  
-  
-  
-  
-  .fade-in {
-    animation: alternate-fade-in 0.5s ease-in-out;
-      animation: fadeIn 2s;
+
+  to {
     opacity: 1;
   }
-  
-  @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-       opacity: 1;
-    }
-  }
+}
+
+.table-row-select {
+  background-color: rgb(187, 183, 183) !important;
+}

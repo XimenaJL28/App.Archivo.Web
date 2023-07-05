@@ -1,0 +1,75 @@
+<div class="flex justify-content-center">
+  <h3 class="mb-0 mt-0">Listado de tramites</h3>
+</div>
+<p-divider></p-divider>
+
+<!-- Tabla de tramites académicos -->
+<div class="grid mt-2" *ngIf="tramites.length > 0">
+  <div class="col-12">
+    <p-table [value]="tramites" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+      styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll" [paginator]="true" [rows]="4">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>Nombre</th>
+          <th>Unidad academica</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tramiteItem let-columns="columns">
+        <tr [ngClass]="{'table-row-select': tramiteItem.tramiteId === tramite?.tramiteId || 0 }">
+          <td>{{ tramiteItem.nombre | titlecase}}</td>
+          <td>{{ tramiteItem.nombreUnidadAcademica }}</td>
+          <td>
+            <p-button (onClick)="getsubtramites(tramiteItem)" icon="fa-solid fa-folder-open"
+              styleClass="p-button-rounded p-button-sm">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<!-- Tabla de tramites realizados  -->
+<div *ngIf="tramiteSubTipos.length > 0">
+  <p class="mb-0">Sub Trámites</p>
+  <div class="grid mt-2">
+    <div class="col-12">
+      <p-accordion>
+        <p-accordionTab *ngFor="let tramiteSubTipoItem of tramiteSubTipos; index as i">
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center">
+              <span class="vertical-align-middle">{{ tramiteSubTipoItem.nombre }} ({{
+                tramiteSubTipoItem.nombreCorto}})</span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div *ngIf="tramiteSubTipoItem.documentoPlantillas?.length > 0">
+              <p-table [value]="tramiteSubTipoItem.documentoPlantillas" responsiveLayout="scroll"
+                [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+                styleClass="p-datatable p-component p-datatable-sm">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th>Cantidad Minima</th>
+                    <th>Plazo Maximo</th>
+                    <th>Obligatorio</th>
+                    <th style="width: 7%;"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-documentoPlantillaIndex let-columns="columns">
+                  <tr>
+                    <td>{{ documentoPlantillaIndex.cantidadMinima }}</td>
+                    <td>{{ documentoPlantillaIndex.plazoMaximo }}</td>
+                    <td>{{ documentoPlantillaIndex.obligatorio }}</td>
+                    <td style="text-align: center;">
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </ng-template>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</div>

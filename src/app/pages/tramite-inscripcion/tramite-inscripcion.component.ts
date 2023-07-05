@@ -20,6 +20,7 @@ export class TramiteInscripcionComponent implements OnInit, OnDestroy {
   public estudiante: any = null;
   public inscripcion: any = null;
   public documentos: any[] = [];
+  public documentosFaltantes: any[] = [];
 
   private estudianteSubscriptions!: Subscription;
   private tramiteSubscriptions!: Subscription;
@@ -38,6 +39,7 @@ export class TramiteInscripcionComponent implements OnInit, OnDestroy {
 
     this.tramiteSubscriptions = this.store.select('tramite').subscribe(state => {
       this.documentos = state.documentos;
+      this.documentosFaltantes = state.documentosFaltantes;
     })
   }
 

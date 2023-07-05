@@ -1,3 +1,23 @@
+<!-- Tabla de tramites faltantes  -->
+<div *ngIf="documentosFaltantes.length > 0">
+  <h3 class="text-700">Tramites faltantes</h3>
+  <p-table [value]="documentosFaltantes" responsiveLayout="scroll"
+    [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Nombre</th>
+        <th>Nombre corto</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-documentosFaltantesIndex let-columns="columns">
+      <tr>
+        <td>{{ documentosFaltantesIndex.nombre }}</td>
+        <td>{{ documentosFaltantesIndex.nombreCorto }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
 <!-- Estudiante -->
 <div class="grid" *ngIf="estudiante">
   <div class="col-12 md:col-3">
@@ -24,30 +44,23 @@
   <div class="grid">
     <div class="col-12 md:col-3">
       <span class="text-900 font-semibold mr-2">Folio:</span>
-      <span class="font-medium">{{ tramite?.nroFolio }}</span>
+      <span class="font-medium">{{ estudiante?.nroFolio }}</span>
     </div>
-    <div class="col-12 md:col-4">
+    <div class="col-12 md:col-9">
       <span class="text-900 font-semibold mr-2">Tramite:</span>
-      <span class="font-medium">{{ tramite?.tramite }}</span>
-    </div>
-    <div class="col-12 md:col-5">
-      <span class="text-900 font-semibold mr-2">Tra SupTipo:</span>
-      <span class="font-medium"> {{ tramite?.subTipoTramite }}</span>
-      <span class="font-medium"> </span>
+      <span class="font-medium">{{ tramite?.tramite | titlecase }} {{ tramite?.subTipoTramite | titlecase }} </span>
     </div>
   </div>
   <div class="grid">
     <div class="col-12 md:col-3">
       <span class="text-900 font-semibold mr-2">Fecha:</span>
-      <span class="font-medium"> </span>
+      <span class="font-medium"> {{ tramite?.fechaRegistro }}</span>
     </div>
     <div class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Completo:</span>
-      <span class="font-medium"> </span>
     </div>
     <div class="col-12 md:col-5">
       <span class="text-900 font-semibold mr-2">Estado:</span>
-      <span class="font-medium"> </span>
+      <span class="font-medium"> {{ tramite?.estado }}</span>
     </div>
   </div>
 </div>

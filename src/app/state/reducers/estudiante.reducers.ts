@@ -16,7 +16,7 @@ export const initialState: EstudianteState = {
   inscripcion: null,
   tramites: [],
   tramite: null,
-  tramiteActiveIndex: -1
+  tramiteActiveIndex: -1,
 };
 
 export const estudianteReducer = createReducer(
@@ -62,7 +62,7 @@ export const estudianteReducer = createReducer(
   on(setTramites, (state, { tramites, inscripcion }) => (
     {
       ...state,
-      inscripcion: {...inscripcion},
+      inscripcion: { ...inscripcion },
       tramites: [...tramites],
       tramite: null,
     })),
@@ -78,7 +78,7 @@ export const estudianteReducer = createReducer(
   on(setTramite, (state, { tramite }) => (
     {
       ...state,
-      tramite: {...tramite}
+      tramite: { ...tramite }
     })),
 
   on(unSetTramite, (state) => (
@@ -87,9 +87,9 @@ export const estudianteReducer = createReducer(
       tramite: null,
     })),
 
-    on(setTramiteActiveIndex, (state, { index }) => (
-      {
-        ...state,
-        tramiteActiveIndex: index
-      })),
+  on(setTramiteActiveIndex, (state, { index }) => (
+    {
+      ...state,
+      tramiteActiveIndex: index
+    })),
 );

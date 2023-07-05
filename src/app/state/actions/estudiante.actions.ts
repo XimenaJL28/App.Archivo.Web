@@ -20,7 +20,7 @@ export const unSetInscripciones = createAction(
 
 export const setTramites = createAction(
   '[Estudiante] setTramites',
-  props<{ tramites: any[], inscripcion: any}>()
+  props<{ tramites: any[], inscripcion: any }>()
 );
 
 export const unSetTramites = createAction(
