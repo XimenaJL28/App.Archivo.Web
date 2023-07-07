@@ -5,17 +5,13 @@
 
 <!-- -->
 <div *ngIf="documento" class="grid">
-  <div class="col-3">
-    <span class="text-900 font-semibold mr-2">Codigo:</span>
-    <span class="font-medium">{{ documento.adjunto }}</span>
+  <div class="col-12 md:col-8">
+    <span class="text-900 font-semibold mr-2">Trámite sup tipo:</span>
+    <span class="font-medium">{{ documento.nombreTramiteSubTipo }}</span>
   </div>
-  <div class="col-5">
-    <span class="text-900 font-semibold mr-2">Tramite sup tipo:</span>
-    <span class="font-medium">{{ documento.fechaRegistro }}</span>
-  </div>
-  <div class="col-4">
+  <div class="col-12 md:col-4">
     <span class="text-900 font-semibold mr-2">Fecha:</span>
-    <span class="font-medium"></span>
+    <span class="font-medium">{{ documento.fechaRegistro }}</span>
   </div>
 </div>
 
@@ -25,7 +21,7 @@
     <div class="col-12 md:col-5">
       <div class="flex flex-column gap-2">
         <label htmlFor="funcionario">Funcionario</label>
-        <input pInputText [value]="operacion?.funcionario.nombre" readonly id="funcionario" class="p-inputtext-sm" />
+        <input pInputText [value]="operacion?.funcionarioId" readonly id="funcionario" class="p-inputtext-sm" />
         <small id="funcionario-help"></small>
       </div>
     </div>
@@ -42,7 +38,8 @@
     <div class="col-12 md:col-5">
       <div class="flex flex-column gap-2">
         <label htmlFor="tipo-operacion">Tipo de Operacion</label>
-        <input pInputText [value]="operacion?.operacion" readonly id="tipo-operacion" class="p-inputtext-sm" />
+        <input pInputText [value]="operacion?.nombreDocumentoOperacionTipo" readonly id="tipo-operacion"
+          class="p-inputtext-sm" />
         <small id="tipo-operacion-help"></small>
       </div>
     </div>

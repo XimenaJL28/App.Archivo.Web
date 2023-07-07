@@ -23,9 +23,8 @@ export class TramiteService {
     return ans;
   }
 
-  async GetListDocumentos(idtramite: any = '') {
-    const url = `${environment.endPoint}Archivos/ListaDocumentoTramite?TramiteInscripcionCarreraId=${idtramite}`;
-    // const url = 'http://localhost:3000/documentoInscripcionCarreras';
+  async GetListDocumentos(TramiteInscripcionCarreraId: number = 0, tramitesubtipoId: number = 0) {
+    const url = `${environment.endPoint}Archivos/ListaDocumentoTramite?TramiteInscripcionCarreraId=${TramiteInscripcionCarreraId}&tramitesubtipoId=${tramitesubtipoId}`;
     let ans: any = await this.MainService.get(url);
     return ans;
   }
@@ -58,9 +57,8 @@ export class TramiteService {
     return ans;
   }
 
-  async GetListDocumentoFaltante(tramiteInscripcionCarreraId: any = '0') {
-    //const url = `${environment.endPoint}Tramite/${idtramite}`;
-    const url = `http://localhost:3000/tramiteSupTipos`;
+  async GetListDocumentoFaltante(idTramiteInscripcionCarrera: number = 0, idtramitesubtipo: number = 0) {
+    const url = `${environment.endPoint}Archivos/ListaDocumentosfaltantes?idTramiteInscripcionCarrera=${idTramiteInscripcionCarrera}&idtramitesubtipo=${idtramitesubtipo}`;
     let ans: any = await this.MainService.get(url);
     return ans;
   }

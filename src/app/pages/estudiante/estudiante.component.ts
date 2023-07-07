@@ -102,9 +102,9 @@ export class EstudianteComponent implements OnInit, OnDestroy {
       estudianteActions.setTramiteActiveIndex({ index: i })
     )
 
-    const response = await this.TramiteService.GetListDocumentos(tramite.id)
+    const response = await this.TramiteService.GetListDocumentos(tramite.id, tramite?.subTipoTramiteId || 1)
     const documentos = response || [];
-    const response0 = await this.TramiteService.GetListDocumentoFaltante(tramite.id);
+    const response0 = await this.TramiteService.GetListDocumentoFaltante(tramite.id, tramite?.subTipoTramiteId || 1);
     const documentosFaltantes = response0 || [];
 
     this.store.dispatch(
