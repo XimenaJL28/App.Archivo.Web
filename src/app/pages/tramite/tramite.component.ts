@@ -10,6 +10,7 @@ export class TramiteComponent implements OnInit {
   public tramite: any = {};
   public tramites: any[] = [];
   public tramiteSubTipos: any[] = [];
+  public plantillas: any[] = [];
 
   constructor(
     private readonly tramiteService: TramiteService,
@@ -17,9 +18,10 @@ export class TramiteComponent implements OnInit {
 
   ngOnInit(): void {
     this._gettramites()
-    .then((request: any)=>{
-      this.tramites = request;
-    });
+      .then((request: any) => {
+        this.tramites = request;
+      });
+
   }
 
   async _gettramites() {
@@ -29,8 +31,35 @@ export class TramiteComponent implements OnInit {
   }
 
   async getsubtramites(tramite: any) {
-    const response = await this.tramiteService.GetListTramiteSubTipo(tramite.tramiteId);
+    const response = await this.tramiteService.GetListTramiteSubTipo(tramite.idTramite);
     this.tramiteSubTipos = response || [];
     this.tramite = tramite;
   }
+
+  // async getplantillas(subtipos: any) {
+  //   const response = await this.tramiteService.GetListDocumentoPlantilla();
+  //   this.plantillas = response || [];
+  //   this.tramite = tramite;
+  //   console.log(this.plantillas);    
+  //   return this.plantillas;
+
+  // }
+
+  // async otis(tramiteSubTipos: any[]) {
+  //   let subTipoDocumentoPlantillas: any[] = [];
+  //   for (let index = 0; index < tramiteSubTipos.length; index++) {
+  //     const element = tramiteSubTipos[index];
+  //     this.tramiteService.GetListDocumentoPlantilla(element.tramiteSubTipoId)
+  //       .then((item: any) => {
+  //         console.log(item);
+  //         subTipoDocumentoPlantillas.push(
+  //           {
+  //             tramiteSubTipo: element,
+  //             documentoPlantillas: item,
+  //           }
+  //         );
+  //       })
+  //   }
+  //   return subTipoDocumentoPlantillas;
+  // }
 }

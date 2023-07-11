@@ -44,15 +44,50 @@ export class TramiteService {
   }
 
   async GetListTramiteUniversidad() {
-    //const url = `${environment.endPoint}Tramite/${idtramite}`;
-    const url = 'http://localhost:3000/tramite';
+    const url = `${environment.endPoint}Plantilla/ListaTramites`;
     let ans: any = await this.MainService.get(url);
     return ans;
   }
 
-  async GetListTramiteSubTipo(id: any = '0') {
-    //const url = `${environment.endPoint}Tramite/${idtramite}`;
-    const url = `http://localhost:3000/tramiteSupTipos`;
+  async GetListTramiteSubTipo(tramiteId: number = 0) {
+    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=${tramiteId}`;
+    let ans: any = await this.MainService.get(url);
+
+    const tramiteSubTipos: any [] = ans || [];
+
+    const responseData: any[] = [];
+    tramiteSubTipos.map(tramiteSubtipo => {
+      console.log(tramiteSubtipo);
+      const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubtipo.tramiteSubTipoId}`;
+      this.MainService.get(url)
+        .then((plantilla: any) =>{
+          const plantillas = plantilla || [];
+          console.log(plantillas);
+           responseData.push({
+            tramiteSubTipo: tramiteSubtipo,
+              documentoPlantillas: plantillas,
+           });
+        })
+    });
+
+    console.log(responseData);
+    return responseData;
+  }
+
+  async GetListOperacionTipo() {
+    const url = `${environment.endPoint}Operacion/ListaDeoperaciontipo`;
+    let ans: any = await this.MainService.get(url);
+    return ans;
+  }
+
+  async PostOperacionTipo(operacion: any) {
+    const url = `${environment.endPoint}Operacion/Agregaroperacion`;
+    let ans: any = await this.MainService.post(url, operacion);
+    return ans;
+  }
+
+  async GetListDocumentoPlantilla(tramiteSubTipoId: number = 0) {
+    const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubTipoId}`;
     let ans: any = await this.MainService.get(url);
     return ans;
   }

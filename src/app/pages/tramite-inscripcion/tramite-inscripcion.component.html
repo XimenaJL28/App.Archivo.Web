@@ -55,7 +55,8 @@
       <div class="flex flex-column align-items-center">
         <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo | titlecase }}</h4>
         <p-image src="{{documento.adjunto}}" alt="Image" width="250" [preview]="true"></p-image>
-        <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p>
+        <span class="font-medium"> <Label>Vencimiento:</Label>{{ documento.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
+        <!-- <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p> -->
       </div>
     </div>
   </div>

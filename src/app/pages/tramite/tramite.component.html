@@ -16,7 +16,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-tramiteItem let-columns="columns">
-        <tr [ngClass]="{'table-row-select': tramiteItem.tramiteId === tramite?.tramiteId || 0 }">
+        <tr [ngClass]="{'table-row-select': tramiteItem.idTramite === tramite?.idTramite || 0 }">
           <td>{{ tramiteItem.nombre | titlecase}}</td>
           <td>{{ tramiteItem.nombreUnidadAcademica }}</td>
           <td>
@@ -39,28 +39,32 @@
         <p-accordionTab *ngFor="let tramiteSubTipoItem of tramiteSubTipos; index as i">
           <ng-template pTemplate="header">
             <div class="flex align-items-center">
-              <span class="vertical-align-middle">{{ tramiteSubTipoItem.nombre }} ({{
-                tramiteSubTipoItem.nombreCorto}})</span>
+              <span class="vertical-align-middle">{{ tramiteSubTipoItem.tramiteSubTipo.nombreSubtramite }} ({{
+                tramiteSubTipoItem.tramiteSubTipo.nombreSubtramite}})</span>
             </div>
           </ng-template>
           <ng-template pTemplate="content">
-            <div *ngIf="tramiteSubTipoItem.documentoPlantillas?.length > 0">
+            <div *ngIf="tramiteSubTipoItem.documentoPlantillas.length > 0">
               <p-table [value]="tramiteSubTipoItem.documentoPlantillas" responsiveLayout="scroll"
                 [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
                 styleClass="p-datatable p-component p-datatable-sm">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
+                    <th>Nombre</th>
                     <th>Cantidad Mínima</th>
                     <th>Plazo Máximo</th>
                     <th>Obligatorio</th>
+                    <th>Estado</th>
                     <th style="width: 7%;"></th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-documentoPlantillaIndex let-columns="columns">
                   <tr>
+                    <td>{{ documentoPlantillaIndex.nombreDocumento }}</td>
                     <td>{{ documentoPlantillaIndex.cantidadMinima }}</td>
                     <td>{{ documentoPlantillaIndex.plazoMaximo }}</td>
                     <td>{{ documentoPlantillaIndex.obligatorio }}</td>
+                    <td>{{ documentoPlantillaIndex.estado }}</td>
                     <td style="text-align: center;">
                     </td>
                   </tr>
