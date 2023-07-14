@@ -53,20 +53,20 @@ export class TramiteService {
     const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=${tramiteId}`;
     let ans: any = await this.MainService.get(url);
 
-    const tramiteSubTipos: any [] = ans || [];
+    const tramiteSubTipos: any[] = ans || [];
 
     const responseData: any[] = [];
     tramiteSubTipos.map(tramiteSubtipo => {
       console.log(tramiteSubtipo);
       const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubtipo.tramiteSubTipoId}`;
       this.MainService.get(url)
-        .then((plantilla: any) =>{
+        .then((plantilla: any) => {
           const plantillas = plantilla || [];
           console.log(plantillas);
-           responseData.push({
+          responseData.push({
             tramiteSubTipo: tramiteSubtipo,
-              documentoPlantillas: plantillas,
-           });
+            documentoPlantillas: plantillas,
+          });
         })
     });
 
@@ -74,15 +74,28 @@ export class TramiteService {
     return responseData;
   }
 
-  async GetListOperacionTipo() {
+  async GetDocumentoOperacionTipoSelected() {
     const url = `${environment.endPoint}Operacion/ListaDeoperaciontipo`;
     let ans: any = await this.MainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.documentoOpeacionTipoId,
+        nombre: item.nombre
+      }
+    })
+  }
+
+  async PostDocumentoOperacion(operacion: any) {
+    const url = `${environment.endPoint}Operacion/Agregaroperacion`;
+    let ans: any = await this.MainService.post(url, operacion);
     return ans;
   }
 
-  async PostOperacionTipo(operacion: any) {
-    const url = `${environment.endPoint}Operacion/Agregaroperacion`;
-    let ans: any = await this.MainService.post(url, operacion);
+  async PostDocumentoInscripcionCarrera(documento: any) {
+    const url = `${environment.endPoint}Archivos/AgregarDocumentoInscripcion`;
+    let ans: any = await this.MainService.post(url, documento);
     return ans;
   }
 
@@ -96,5 +109,44 @@ export class TramiteService {
     const url = `${environment.endPoint}Archivos/ListaDocumentosfaltantes?idTramiteInscripcionCarrera=${idTramiteInscripcionCarrera}&idtramitesubtipo=${idtramitesubtipo}`;
     let ans: any = await this.MainService.get(url);
     return ans;
+  }
+
+  async GetListTramiteSubTipoSelected() {
+    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
+    const ans = await this.MainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.tramiteSubTipoId,
+        nombre: item.nombreSubtramite
+      }
+    })
+  }
+
+  async GetListDocumentoEstadoSelected() {
+    const url = `${environment.endPoint}Plantilla/ListDocumentoEstado`;
+    const ans = await this.MainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.documentoEstadoId,
+        nombre: item.nombre
+      }
+    })
+  }
+
+  async GetListDocumentoTipoSelected() {
+    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
+    const ans = await this.MainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.tramiteSubTipoId,
+        nombre: item.nombreSubtramite
+      }
+    })
   }
 }

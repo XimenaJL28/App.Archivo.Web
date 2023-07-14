@@ -148,7 +148,6 @@ export class EstudianteComponent implements OnInit, OnDestroy {
 
         tramitesGroup.push(item);
       }
-
     }
     return tramitesGroup;
   }

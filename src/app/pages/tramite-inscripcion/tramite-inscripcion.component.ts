@@ -1,12 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { AppState } from 'src/app/state/reducers/app.reducers';
-
-import { TramiteService } from '../../services/tramite.service';
 import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
 import { TramiteState } from 'src/app/state/reducers/tramite.reducers';
 
@@ -26,9 +22,7 @@ export class TramiteInscripcionComponent implements OnInit, OnDestroy {
   private tramiteSubscriptions!: Subscription;
 
   constructor(
-    private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
-    private tramiteService: TramiteService,
-    private router: Router) { }
+    private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>) { }
 
   ngOnInit(): void {
     this.estudianteSubscriptions = this.store.select('estudiante').subscribe(state => {

@@ -1,0 +1,44 @@
+<div *ngIf="documento" class="grid">
+  <div class="col-12 md:col-8">
+    <span class="text-900 font-semibold mr-2">Trámite sup tipo:</span>
+    <span class="font-medium">{{ documento.nombreTramiteSubTipo }}</span>
+  </div>
+  <div class="col-12 md:col-4">
+    <span class="text-900 font-semibold mr-2">Fecha:</span>
+    <span class="font-medium">{{ documento.fechaRegistro }}</span>
+  </div>
+</div>
+
+<p-divider *ngIf="documento"></p-divider>
+
+<div *ngIf="operacion">
+  <div class="grid mt-2">
+    <div class="col-12 md:col-4">
+      <span class="text-900 font-semibold mr-2">Fecha:</span>
+      <span class="font-medium"> {{ operacion?.fechaOperacion | date:'dd/MM/yyyy' }}</span>
+    </div>
+    <div class="col-12 md:col-8">
+      <span class="text-900 font-semibold mr-2">Funcionario:</span>
+      <span class="font-medium"> {{ operacion?.funcionarioId }}</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-12 md:col-4">
+      <span class="text-900 font-semibold mr-2">Operacion:</span>
+      <span class="font-medium"> {{ operacion?.nombreDocumentoOperacionTipo }}</span>
+    </div>
+    <div class="col-12 md:col-8" *ngIf="operacion != undefined">
+      <span class="text-900 font-semibold mr-2">Descripcion:</span>
+      <span class="font-medium"> {{ operacion?.descripcion }}</span>
+    </div>
+  </div>
+
+  <div class="grid flex-wrap mt-3">
+    <div class="col-12 xl:col-3">
+      <div>
+        <img alt="" style="height: 120px; width: 120px; background-image: url('{{operacion?.adjunto}}');">
+      </div>
+    </div>
+  </div>
+</div>

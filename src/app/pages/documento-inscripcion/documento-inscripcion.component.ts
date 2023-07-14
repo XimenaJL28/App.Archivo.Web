@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-
-import { AppState } from 'src/app/state/reducers/app.reducers';
 import * as tramiteActions from '../../state/actions/tramite.actions';
 
 import { TramiteService } from 'src/app/services/tramite.service';
@@ -14,7 +11,7 @@ import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
 @Component({
   selector: 'app-documento-inscripcion',
   templateUrl: './documento-inscripcion.component.html',
-  styleUrls: ['./documento-inscripcion.component.scss']
+  styleUrls: ['./documento-inscripcion.component.scss'],
 })
 export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
   public tramite: any;
@@ -23,13 +20,17 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
   public operaciones: any[] = [];
   public operacion: any;
 
+  public visibleDocumentoSave: boolean = false;
+  public visibleDocumentoUpdate: boolean = false;
+  public visibleOperacion: boolean = false;
+
   private tramiteSubscriptions!: Subscription;
   private estudianteSubscriptions!: Subscription;
 
   constructor(
     private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
     private tramiteService: TramiteService,
-    private router: Router) { }
+  ) { }
 
   ngOnInit(): void {
     this.estudianteSubscriptions = this.store.select('estudiante').subscribe(state => {
@@ -41,7 +42,6 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
       this.documento = state.documento;
       this.operaciones = state.operaciones;
       this.operacion = state.operacion;
-      console.log(this.documentos);
     })
   }
 
@@ -51,15 +51,12 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
   }
 
   async getOperaciones(documento: any) {
-    this.store.dispatch(
-      tramiteActions.setDocumento({ documento: documento })
-    );
-
     const response = await this.tramiteService.GetListOperaciones(documento.documentoInscripcioncarreraId);
     const operaciones = response || [];
+
     this.store.dispatch(
-      tramiteActions.setOperaciones({ operaciones: operaciones })
-    )
+      tramiteActions.setDocumento({ documento: documento, operaciones: operaciones })
+    );
   }
 
   getoperacion(operacion: any) {
@@ -67,6 +64,16 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
       tramiteActions.setOperacion({ operacion: operacion })
     )
 
-    this.router.navigate([`/tramite/operacion`]);
+    this.visibleOperacion = true;
+  }
+
+  nuevoDocumento() {
+    this.visibleDocumentoSave = true;
+  }
+
+  async editarDocumento(documento: any) {
+    this.getOperaciones(documento).then(() => {
+      this.visibleDocumentoUpdate = true;
+    })
   }
 }

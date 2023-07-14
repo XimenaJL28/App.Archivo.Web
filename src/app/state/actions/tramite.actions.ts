@@ -11,20 +11,11 @@ export const unSetDocumentos = createAction(
 
 export const setDocumento = createAction(
   '[Tramite] setDocumento',
-  props<{ documento: any }>()
+  props<{ documento: any, operaciones:any[] }>()
 );
 
 export const unSetDocumento = createAction(
   '[Tramite] unSetDocumento'
-);
-
-export const setOperaciones = createAction(
-  '[Tramite] setOperaciones',
-  props<{ operaciones: any[] }>()
-);
-
-export const unSetOperaciones = createAction(
-  '[Tramite] unSetOperaciones'
 );
 
 export const setOperacion = createAction(
@@ -34,4 +25,19 @@ export const setOperacion = createAction(
 
 export const unSetOperacion = createAction(
   '[Tramite] unSetOperacion'
+);
+
+export const addItemOperacion = createAction(
+  '[Tramite] addItemOperacion',
+  props<{ operacion: any }>()
+);
+
+export const addItemDocumento = createAction(
+  '[Tramite] addItemDocumento',
+  props<{ documento: any }>()
+);
+
+export const setSelectedDocumentoOperacionTipo = createAction(
+  '[Tramite] setSelectedDocumentoOperacionTipo',
+  props<{ documentoOperacionTipo: any }>()
 );

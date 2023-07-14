@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { setDocumento, setDocumentos, setOperacion, setOperaciones, unSetDocumento, unSetDocumentos, unSetOperacion, unSetOperaciones } from '../actions/tramite.actions';
+import { addItemDocumento, addItemOperacion, setDocumento, setDocumentos, setOperacion, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion } from '../actions/tramite.actions';
 
 export interface TramiteState {
   documentos: any[];
@@ -7,14 +7,18 @@ export interface TramiteState {
   operaciones: any[];
   operacion: any;
   documentosFaltantes: any[];
+
+  documentoOperacionTipo: any;
 }
 
 export const initialState: TramiteState = {
   documentos: [],
-  documento: null,
+  documento: undefined,
   documentosFaltantes: [],
   operaciones: [],
-  operacion: null,
+  operacion: undefined,
+
+  documentoOperacionTipo: undefined,
 }
 
 export const tramiteReducer = createReducer(
@@ -23,50 +27,36 @@ export const tramiteReducer = createReducer(
     {
       ...state,
       documentos: [...documentos],
-      documento: null,
+      documento: undefined,
       documentosFaltantes: [...documentosFaltantes],
       operaciones: [],
-      operacion: null,
+      operacion: undefined,
     })),
 
   on(unSetDocumentos, (state) => (
     {
       ...state,
       documentos: [],
-      documento: null,
+      documento: undefined,
       documentosFaltantes: [],
       operaciones: [],
-      operacion: null,
+      operacion: undefined,
     })),
 
-  on(setDocumento, (state, { documento }) => (
+  on(setDocumento, (state, { documento, operaciones }) => (
     {
       ...state,
       documento: { ...documento },
-      operaciones: [],
-      operacion: null,
+      operaciones: [...operaciones],
+      operacion: undefined,
     })),
 
   on(unSetDocumento, (state) => (
     {
       ...state,
-      documento: null,
+      documento: undefined,
       operaciones: [],
-      operacion: null,
-    })),
-
-  on(setOperaciones, (state, { operaciones }) => (
-    {
-      ...state,
-      operaciones: [...operaciones],
-      operacion: null,
-    })),
-
-  on(unSetOperaciones, (state) => (
-    {
-      ...state,
-      operaciones: [],
-      operacion: null,
+      operacion: undefined,
     })),
 
   on(setOperacion, (state, { operacion }) => (
@@ -78,6 +68,26 @@ export const tramiteReducer = createReducer(
   on(unSetOperacion, (state) => (
     {
       ...state,
-      operacion: null,
+      operacion: undefined,
+    })),
+
+  on(addItemOperacion, (state, { operacion }) => (
+    {
+      ...state,
+      operaciones: [operacion, ...state.operaciones],
+      operacion: operacion,
+    })),
+
+  on(addItemDocumento, (state, { documento }) => (
+    {
+      ...state,
+      documentos: [documento, ...state.documentos],
+      documento: documento,
+    })),
+
+  on(setSelectedDocumentoOperacionTipo, (state, { documentoOperacionTipo }) => (
+    {
+      ...state,
+      documentoOperacionTipo: documentoOperacionTipo,
     })),
 )

@@ -3,7 +3,6 @@
   <h3 class="text-700">Seleccionar un Trámite</h3>
 </div>
 
-<!-- -->
 <div *ngIf="tramite" class="grid">
   <div class="col-12 md:col-9">
     <span class="text-900 font-semibold mr-2">Nombre del Trámite:</span>
@@ -20,9 +19,12 @@
   <h3 class="text-700">Sin documentos presentados</h3>
 </div>
 
-<!-- -->
 <div *ngIf="documentos.length > 0">
-  <h3 class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
+  <div class="flex justify-content-between">
+    <h3 class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
+    <p-button label="New" (click)="nuevoDocumento()" styleClass="p-button-secondary" class="mr-2"></p-button>
+  </div>
+
   <div class="grid mt-2 mb-3">
     <div class="col-12">
       <p-table [value]="documentos" responsiveLayout="scroll" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
@@ -35,12 +37,12 @@
             <th>Documento Estado</th>
             <th>Fecha Límite</th>
             <th>Fecha Registro</th>
-            <th style="width: 7%;"></th>
+            <th style="width: 10%;"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-documentoItem let-columns="columns">
           <tr
-            [ngClass]="{'table-row-select': documentoItem.documentoInscripcionCarreraId === documento?.documentoInscripcionCarreraId || 0 }">
+            [ngClass]="{'table-row-select': documentoItem.documentoInscripcioncarreraId === documento?.documentoInscripcioncarreraId || 0 }">
             <!-- <td>{{ documentoItem.nombreTramiteSubTipo}}</td> -->
             <td>{{ documentoItem.nombreDocumentoTipo | titlecase }}</td>
             <td>{{ documentoItem.cantidad }}</td>
@@ -48,7 +50,12 @@
             <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td>{{ documentoItem.fechaRegistro | date:'dd/MM/yyyy' }}</td>
             <td style="text-align: center;">
-              <p-button (onClick)="getOperaciones(documentoItem)" icon="fa-solid fa-folder-open"
+              <p-button (onClick)="getOperaciones(documentoItem)"
+               icon="fa-solid fa-search"
+                styleClass="p-button-rounded" class="mr-1">
+              </p-button>
+              <p-button (onClick)="editarDocumento(documentoItem)"
+              icon="fa-solid fa-pencil"
                 styleClass="p-button-rounded">
               </p-button>
             </td>
@@ -59,13 +66,13 @@
   </div>
 </div>
 
-<!-- Listado de operaciones -->
+<!-- Tabla de operaciones -->
 <div *ngIf="operaciones.length > 0">
   <h3 class="text-700">Operaciones Realizadas</h3>
   <div class="grid mt-2">
     <div class="col-12">
       <p-table [value]="operaciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-        styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll" [paginator]="true" [rows]="4">
+        styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th style="width: 7%;">Nº</th>
@@ -88,8 +95,7 @@
             <!-- <td>{{ operacionItem.estado }}</td> -->
             <td>{{ operacionItem.descripcion }}</td>
             <td style="text-align: center;">
-              <p-button (onClick)="getoperacion(operacionItem)" icon="fa-solid fa-folder-open"
-                styleClass="p-button-rounded">
+              <p-button (onClick)="getoperacion(operacionItem)" icon="fa-solid fa-search" styleClass="p-button-rounded">
               </p-button>
             </td>
           </tr>
@@ -99,63 +105,17 @@
   </div>
 </div>
 
-<!-- Formulario -->
-<div *ngIf="documentos.length > 0">
-  <h3 class="text-700">Registrar Documentos</h3>
-  <div class="grid">
-    <div class="col-12 md:col-6">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="tramite-subtipo">Trámite Sub Tipo</label>
-        <input pInputText [value]="" readonly id="tramite-subtipo" class="p-inputtext-sm" />
-        <small id="tramite-subtipo-help"></small>
-      </div>
-    </div>
-    <div class="col-12 md:col-4">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="documento-tipo">Documento Tipo</label>
-        <input pInputText [value]="" readonly id="documento-tipo" class="p-inputtext-sm" />
-        <small id="documento-tipo-help"></small>
-      </div>
-    </div>
-    <div class="col-12 md:col-2">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="cantidad">Cantidad</label>
-        <input pInputText [value]="" readonly id="cantidad" class="p-inputtext-sm" />
-        <small id="cantidad-help"></small>
-      </div>
-    </div>
-  </div>
+<!-- Formulario de documentos -->
+<p-dialog header="Registrar Documentos" [(visible)]="visibleDocumentoSave" [style]="{width: '85vw', height :'85vh'}">
+  <app-documento-form></app-documento-form>
+</p-dialog>
 
-  <div class="grid">
-    <div class="col-12 md:col-6">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="documento-estado">Documento Estado</label>
-        <input pInputText [value]="" readonly id="documento-estado" class="p-inputtext-sm" />
-        <small id="documento-estado-help"></small>
-      </div>
-    </div>
-    <div class="col-12 md:col-3">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="fecha-limite">Fecha Límite</label>
-        <input pInputText [value]="" readonly id="fecha-limite" class="p-inputtext-sm" />
-        <small id="fecha-limite-help"></small>
-      </div>
-    </div>
-    <div class="col-12 md:col-3">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="fecha-registro">Fecha de Registro</label>
-        <input pInputText [value]="" readonly id="fecha-registro" class="p-inputtext-sm" />
-        <small id="fecha-registro-help"></small>
-      </div>
-    </div>
-  </div>
+<p-dialog *ngIf="documento" header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate"
+  [style]="{width: '85vw', height :'85vh'}">
+  <app-documento-form [isUpdate]="true"></app-documento-form>
+</p-dialog>
 
-  <h3 class="mt-0 mb-0">Subir Imagen/Archivo</h3>
-  <div class="grid flex-wrap mt-3">
-    <div class="col-12 md:col-6 lg:col-4">
-      <div class="flex flex-column align-justify-center">
-        <app-dragndrop [tipeAccept]="'.jpg,.png,.gif,.pdf'"></app-dragndrop>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Formulario de operaciones -->
+<p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion" [style]="{width: '85vw'}">
+  <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
+</p-dialog>
