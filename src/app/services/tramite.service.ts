@@ -99,6 +99,13 @@ export class TramiteService {
     return ans;
   }
 
+  async PutDocumentoInscripcionCarrera(documento: any) {
+    const url = `${environment.endPoint}Archivos/ActualizarDocInscripcion`;
+    let ans: any = await this.MainService.put(url, documento);
+    console.log(ans, "servicePut")
+    return ans;
+  }
+
   async GetListDocumentoPlantilla(tramiteSubTipoId: number = 0) {
     const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubTipoId}`;
     let ans: any = await this.MainService.get(url);

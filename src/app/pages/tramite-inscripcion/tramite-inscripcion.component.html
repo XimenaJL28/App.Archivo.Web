@@ -27,17 +27,17 @@
       <span class="font-medium">{{ estudiante?.nroFolio }}</span>
     </div>
     <div class="col-12 md:col-9">
-      <span class="text-900 font-semibold mr-2">Trámite:</span>
+      <span class="text-900 font-semibold mr-2">Trámite :</span>
       <span class="font-medium">{{ tramite?.tramite | titlecase }} {{ tramite?.subTipoTramite | titlecase }} </span>
     </div>
   </div>
   <div class="grid">
     <div class="col-12 md:col-3">
-      <span class="text-900 font-semibold mr-2">Fecha:</span>
+      <span class="text-900 font-semibold mr-2">Fecha :</span>
       <span class="font-medium"> {{ tramite?.fechaRegistro | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="col-12 md:col-9">
-      <span class="text-900 font-semibold mr-2">Estado:</span>
+      <span class="text-900 font-semibold mr-2">Estado :</span>
       <span class="font-medium"> {{ tramite?.estado }}</span>
     </div>
   </div>
@@ -54,8 +54,9 @@
     <div *ngFor="let documento of documentos" class="col-12 md:col-6 lg:col-4 xl:col-3">
       <div class="flex flex-column align-items-center">
         <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo | titlecase }}</h4>
-        <p-image src="{{documento.adjunto}}" alt="Image" width="250" [preview]="true"></p-image>
-        <span class="font-medium"> <Label>Vencimiento:</Label>{{ documento.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
+        <p-image src="{{documento.adjunto}}" alt="Image" width="100" [preview]="true"></p-image>
+        <span class="font-medium"> <Label>Vencimiento:</Label>{{ documento.fechaVencimiento | date:'dd/MM/yyyy'
+          }}</span>
         <!-- <p class="text-center text-truncate mb-0 mt-1">02-13-2023</p> -->
       </div>
     </div>

@@ -71,12 +71,12 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     this.savedLoading = true;
 
     // validacion de datos
-    if ( this.adjunto.trim().length < 1 ||
-    this.descripcion.trim().length < 1 ||
-    !this.documentoOperacionTipoSelected) {
+    if (this.adjunto.trim().length < 1 ||
+      this.descripcion.trim().length < 1 ||
+      !this.documentoOperacionTipoSelected) {
       this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
       this.savedLoading = false;
-      return ;
+      return;
     }
 
     const operacionDTO = {
@@ -113,5 +113,6 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     this.descripcion = '';
     this.adjunto = '';
     this.fechaOperacion = '';
+    this.funcionarioId = this.user?.nombreFuncionario || "";
   }
 }
