@@ -1,11 +1,11 @@
 <div *ngIf="documento" class="grid">
   <div class="col-12 md:col-8">
-    <span class="text-900 font-semibold mr-2">Trámite sup tipo:</span>
+    <span class="text-900 font-semibold mr-2">Trámite Sub Tipo :</span>
     <span class="font-medium">{{ documento.nombreTramiteSubTipo }}</span>
   </div>
   <div class="col-12 md:col-4">
-    <span class="text-900 font-semibold mr-2">Fecha:</span>
-    <span class="font-medium">{{ documento.fechaRegistro }}</span>
+    <span class="text-900 font-semibold mr-2">Fecha Registro :</span>
+    <span class="font-medium">{{ documento.fechaRegistro | date:'dd/MM/yyyy' }}</span>
   </div>
 </div>
 
@@ -14,22 +14,22 @@
 <div *ngIf="operacion">
   <div class="grid mt-2">
     <div class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Fecha:</span>
-      <span class="font-medium"> {{ operacion?.fechaOperacion | date:'dd/MM/yyyy' }}</span>
+      <span class="text-900 font-semibold mr-2">Fecha :</span>
+      <span class="font-medium"> {{ fecha | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="col-12 md:col-8">
-      <span class="text-900 font-semibold mr-2">Funcionario:</span>
-      <span class="font-medium"> {{ operacion?.funcionarioId }}</span>
+      <span class="text-900 font-semibold mr-2">Funcionario :</span>
+      <span class="font-medium"> {{ operacion?.nombreFuncionario | titlecase }}</span>
     </div>
   </div>
 
   <div class="grid">
     <div class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Operacion:</span>
+      <span class="text-900 font-semibold mr-2">Operación :</span>
       <span class="font-medium"> {{ operacion?.nombreDocumentoOperacionTipo }}</span>
     </div>
     <div class="col-12 md:col-8" *ngIf="operacion != undefined">
-      <span class="text-900 font-semibold mr-2">Descripcion:</span>
+      <span class="text-900 font-semibold mr-2">Descripción :</span>
       <span class="font-medium"> {{ operacion?.descripcion }}</span>
     </div>
   </div>

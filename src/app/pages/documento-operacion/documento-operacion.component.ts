@@ -74,7 +74,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     if (this.adjunto.trim().length < 1 ||
       this.descripcion.trim().length < 1 ||
       !this.documentoOperacionTipoSelected) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Todos los campos deben ser llenados' });
       this.savedLoading = false;
       return;
     }

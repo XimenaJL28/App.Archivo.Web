@@ -118,12 +118,12 @@
                 <ng-template pTemplate="body" let-tramiteItemIndex let-columns="columns">
                   <tr [ngClass]="{'table-row-select': tramiteItemIndex.id === tramite?.id || 0 }">
                     <td>{{ tramiteItemIndex.tramite }}</td>
-                    <td>{{ tramiteItemIndex.subTipoTramite }}</td>
+                    <td>{{ tramiteItemIndex.subTipoTramite  | titlecase }}</td>
                     <td>{{ tramiteItemIndex.estado }}</td>
                     <td style="text-align: center;">
                       <p-button (onClick)="gettramite(tramiteItemIndex, i)" icon="fa-solid fa-folder-open"
                         styleClass="p-button-rounded p-button-sm">
-                      </p-button>
+                      </p-button>                       
                     </td>
                   </tr>
                 </ng-template>

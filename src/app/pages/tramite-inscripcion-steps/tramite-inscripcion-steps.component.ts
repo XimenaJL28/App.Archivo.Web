@@ -17,15 +17,15 @@ export class TramiteInscripcionStepsComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-        label: 'Trámite Inscripción',
+        label: 'Trámites ',
         routerLink: 'inscripcion',
       },
       {
-        label: 'Documento Inscripción',
+        label: 'Documentos del Trámite',
         routerLink: 'documento',
       },
       {
-        label: 'Documento Operación',
+        label: 'Operación de Documento',
         routerLink: 'operacion',
       },
     ];
