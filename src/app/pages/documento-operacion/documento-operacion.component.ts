@@ -73,7 +73,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     this.savedLoading = true;
 
     // validacion de datos
-    if (this.adjunto.trim().length < 1 ||
+    if (//this.adjunto.trim().length < 1 ||
       !this.user ||
       this.descripcion.trim().length < 1 ||
       !this.documentoOperacionTipoSelected ||
@@ -85,8 +85,8 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     }
 
     const operacionDTO: DocumentoOperacionSave = {
-      documentoInscripcionCarreraId: this.documento.documentoInscripcioncarreraId || 0,
-      funcionarioId: this.user.id || 0,
+      documentoInscripcionCarreraId: this.documento.documentoInscripcioncarreraId,
+      funcionarioId: this.user.id,
       documentoOperacionTipoId: this.documentoOperacionTipoSelected.id,
       descripcion: this.descripcion,
       adjunto: this.adjunto,
@@ -100,24 +100,35 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.savedLoading = false;
-    this._clearForm();
-
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
 
-    /*this.store.dispatch(
-      tramiteActions.addItemOperacion({ operacion: operacionDTO })
-    );*/
+    const documentoOperacion: DocumentoOperacion = {
+      ...operacionDTO,
+      documentoOperacionId: response?.documentoOperacionId || 1,
+      fechaOperacion: response?.fechaOperacion || new Date().toString(),
+      nombreDocumentoOperacionTipo: this.documentoOperacionTipoSelected.nombre,
+      nombreFuncionario: this._getNombreFuncionario(),
+    }
+
+    this.store.dispatch(
+      tramiteActions.addItemOperacion({ operacion: documentoOperacion })
+    );
+
+    this.savedLoading = false;
   }
 
   nuevaOperacion(): void {
     this._clearForm();
-    this.nombreFuncionario = this.user?.nombre || 'desconocido';
+    this.nombreFuncionario = this._getNombreFuncionario();
   }
 
   _clearForm(): void {
     this.descripcion = '';
     this.adjunto = '';
     this.fechaOperacion = '';
+  }
+
+  _getNombreFuncionario(): string {
+    return this.user ? `${this.user.nombre} ${this.user.primerApellido} ${this.user.segundoApellido}` : 'desconocido';
   }
 }

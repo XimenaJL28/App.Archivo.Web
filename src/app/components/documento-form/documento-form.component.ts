@@ -105,7 +105,7 @@ export class DocumentoFormComponent implements OnInit {
   async _crearDocumento() {
     this.savedLoading = true;
 
-    if (this.adjunto.trim().length < 1 ||
+    if (//this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
       !this.fechaVencimiento ||
       !this.documentoEstadoSelected ||
@@ -146,7 +146,7 @@ export class DocumentoFormComponent implements OnInit {
   async _actualizarDocumento() {
     this.savedLoading = true;
 
-    if (this.adjunto.trim().length < 1 ||
+    if (//this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
       !this.fechaVencimiento ||
       !this.documentoEstadoSelected ||
@@ -168,7 +168,7 @@ export class DocumentoFormComponent implements OnInit {
     const response = await this.tramiteService.putDocumentoInscripcionCarrera(documentoDTO);
 
     if (response) {
-      // console.log('updated error')
+      console.log('updated error')
       this.savedLoading = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
       return;

@@ -90,13 +90,6 @@
 </div>
 
 <!-- Formulario de documentos -->
-<!-- <p-dialog *ngIf="documentosFaltantes.length > 0" header="Registrar Documentos" [(visible)]="visibleDocumentoSave" [style]="{width: '85vw', height :'85vh'}">
+<p-dialog *ngIf="documentosFaltantes.length > 0" header="Registrar Documentos" [(visible)]="visibleDocumentoSave" [style]="{width: '85vw', height :'85vh'}">
   <app-documento-form [isUpdated]="false"></app-documento-form>
-</p-dialog> -->
-
-
-<p-dialog *ngIf="documentosFaltantes.length > 0" header="Registrar Documentos" [(visible)]="visibleDocumentoSave" [style]="{width: '85vw', height :'85vh'}"
-   [modal]="true"  [draggable]="false" [resizable]="false">
-   <app-documento-form [isUpdated]="false"></app-documento-form>
-    
 </p-dialog>

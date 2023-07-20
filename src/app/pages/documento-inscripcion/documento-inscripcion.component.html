@@ -79,10 +79,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-operacionItem let-columns="columns">
           <tr
-            [ngClass]="{'table-row-select': operacionItem.documentoOperacionTipoId === operacion?.documentoOperacionTipoId || 0 }">
-            <td>{{ operacionItem.documentoOperacionTipoId }}</td>
+            [ngClass]="{'table-row-select': operacionItem.documentoOperacionId === operacion?.documentoOperacionId || 0 }">
+            <td>{{ operacionItem.documentoOperacionId }}</td>
             <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
-            <td>{{ operacionItem.funcionarioId}}</td>
+            <td>{{ operacionItem.nombreFuncionario}}</td>
             <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
             <td>{{ operacionItem.descripcion }}</td>
             <td style="text-align: center;">
@@ -103,15 +103,7 @@
 </p-dialog>
 
 <!-- Formulario de operaciones -->
-<!-- <p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
+<p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
   [style]="{width: '85vw', height :'85vh'}">
   <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
-</p-dialog> -->
-
-
-
-<p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
-[style]="{width: '85vw', height :'85vh'}" [modal]="true"  [draggable]="false" [resizable]="false">
-  <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
-    
 </p-dialog>

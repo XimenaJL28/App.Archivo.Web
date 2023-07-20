@@ -62,6 +62,7 @@ export class TramiteService {
 
   // CRUD Operaciones
   async postDocumentoOperacion(operacion: DocumentoOperacionSave) {
+    //const url = `${environment.endPoint}/documentoOperaciones`;
     const url = `${environment.endPoint}Operacion/Agregaroperacion`;
     let ans = await this.mainService.post<DocumentoOperacion>(url, operacion);
     return ans;

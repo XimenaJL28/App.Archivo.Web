@@ -56,7 +56,7 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
   }
 
   async getOperaciones(documento: DocumentoInscripcionCarrera) {
-    const response = await this.tramiteService.getListOperaciones(documento.documentoInscripcioncarreraId || 0);
+    const response = await this.tramiteService.getListOperaciones(documento.documentoInscripcioncarreraId);
     const operaciones = response || [];
 
     this.store.dispatch(
