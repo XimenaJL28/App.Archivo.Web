@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
+
+import { environment } from '../../environments/environment';
+
 import { MainService } from './main.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstudianteService {
 
-  constructor(private readonly MainService: MainService) { }
+  constructor(private readonly mainService: MainService) { }
 
-  async Searchperson(datos: string) {
-    let ans: any = await this.MainService.get(`${environment.endPoint}Archivos/BuscarPersona?text=${datos}`);
+  async buscarEstudiante(criterio: string) {
+    //const url = `${environment.endPoint}/personas`;
+    const url = `${environment.endPoint}Archivos/BuscarPersona?text=${criterio}`;
+    let ans: any = await this.mainService.get(url);
     return ans;
   }
 }

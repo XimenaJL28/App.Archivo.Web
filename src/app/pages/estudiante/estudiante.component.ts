@@ -3,13 +3,12 @@ import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AppState } from '../../state/reducers/app.reducers';
 import * as estudianteActions from '../../state/actions/estudiante.actions';
 import * as tramiteActions from '../../state/actions/tramite.actions';
+import { EstudianteState } from '../../state/reducers/estudiante.reducers';
 
-import { EstudianteService } from 'src/app/services/estudiante.service';
+import { EstudianteService } from '../../services/estudiante.service';
 import { TramiteService } from '../../services/tramite.service';
-import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
 
 @Component({
   selector: 'app-estudiante',
@@ -18,20 +17,19 @@ import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
 })
 export class EstudianteComponent implements OnInit, OnDestroy {
   public estudianteEncontrados: any[] = [];
-  public persona: any = {};
+  public persona: any = undefined;
 
   public inscripciones: any[] = [];
-  public inscripcion: any = {};
+  public inscripcion: any = undefined;
   public tramites: any[] = [];
-  public tramite: any = {};
-
-  public activeIndex = 0;
+  public tramite: any = undefined;
+  public tramiteActiveIndex = 0;
 
   private estudianteSubscriptions!: Subscription;
 
   constructor(
-    private estudianteService: EstudianteService,
-    private readonly TramiteService: TramiteService,
+    private readonly estudianteService: EstudianteService,
+    private readonly tramiteService: TramiteService,
     private store: Store<{ estudiante: EstudianteState }>,
     private router: Router
   ) { }
@@ -45,7 +43,7 @@ export class EstudianteComponent implements OnInit, OnDestroy {
 
         this.tramites = tramites;
         this.tramite = tramite;
-        this.activeIndex = tramiteActiveIndex;
+        this.tramiteActiveIndex = tramiteActiveIndex;
       })
   }
 
@@ -53,23 +51,30 @@ export class EstudianteComponent implements OnInit, OnDestroy {
     this.estudianteSubscriptions.unsubscribe();
   }
 
-  async busqueda(event: any) {
-    const response = await this.estudianteService.Searchperson(event.query);
+  async buscarEstudiante(event: any) {
+    const textSearch = event.query.trim() as string;
+    if (textSearch.length === 0) {
+      return;
+    }
+
+    const response = await this.estudianteService.buscarEstudiante(textSearch);
     this.estudianteEncontrados = response || [];
   }
 
-  buscarEstudianteSeleccionado(estudianteSeleccionado: any) {
-    const estudiante = estudianteSeleccionado;
-    estudiante.foto = estudianteSeleccionado.foto || 'https://portal.upds.edu.bo/index/images/usuario.jpg'
+  setEstudianteSeleccionado(estudianteSeleccionado: any) {
+    const estudiante = {
+      ...estudianteSeleccionado,
+      foto: estudianteSeleccionado.foto || 'https://portal.upds.edu.bo/index/images/usuario.jpg'
+    }
 
     this.store.dispatch(
       estudianteActions.setEstudiante({ estudiante: estudiante })
     )
-    this.getinscripcions(estudiante.id)
+    this._getInscripciones(estudiante.id)
   }
 
-  async getinscripcions(idperson: any) {
-    let responseInscripciones: any = await this.TramiteService.GetInscripcions(idperson);
+  async _getInscripciones(estudianteId: number) {
+    let responseInscripciones: any = await this.tramiteService.getInscripciones(estudianteId);
     const inscripciones = responseInscripciones || [];
 
     this.store.dispatch(
@@ -77,8 +82,8 @@ export class EstudianteComponent implements OnInit, OnDestroy {
     )
   }
 
-  async gettramites(inscripcion: any) {
-    const response = await this.TramiteService.GetListTramites(inscripcion.idInscripcionSede);
+  async getTramites(inscripcion: any) {
+    const response = await this.tramiteService.getListTramites(inscripcion.idInscripcionSede);
     const tramites = response || [];
     const tramitesOrdenados = this._agruparTramites(tramites);
 
@@ -93,18 +98,19 @@ export class EstudianteComponent implements OnInit, OnDestroy {
     )
   }
 
-  async gettramite(tramite: any, i: number) {
+  async getTramite(tramite: any, index: number) {
     this.store.dispatch(
       estudianteActions.setTramite({ tramite: tramite })
     )
 
     this.store.dispatch(
-      estudianteActions.setTramiteActiveIndex({ index: i })
+      estudianteActions.setTramiteActiveIndex({ index: index })
     )
 
-    const response = await this.TramiteService.GetListDocumentos(tramite.id, tramite?.subTipoTramiteId || 1)
+    const response = await this.tramiteService.getListDocumentos(tramite.id, tramite?.subTipoTramiteId || 1)
     const documentos = response || [];
-    const response0 = await this.TramiteService.GetListDocumentoFaltante(tramite.id, tramite?.subTipoTramiteId || 1);
+
+    const response0 = await this.tramiteService.getListDocumentoFaltante(tramite.id, tramite?.subTipoTramiteId || 1);
     const documentosFaltantes = response0 || [];
 
     this.store.dispatch(
@@ -122,7 +128,7 @@ export class EstudianteComponent implements OnInit, OnDestroy {
     });
   }
 
-  _agruparTramites(tramitesListData: any[]) {
+  _agruparTramites(tramitesListData: any[]): any[] {
     const tramitesList = this._ordenarTramitesPorNombre(tramitesListData);
 
     let tramitesGroup: any[] = [];

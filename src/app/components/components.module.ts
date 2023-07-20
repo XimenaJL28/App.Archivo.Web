@@ -8,13 +8,15 @@ import { DragndropDirective } from './dragndrop/dragndrop.directive';
 import { OperacionViewComponent } from './operacion-view/operacion-view.component';
 import { DocumentoFormComponent } from './documento-form/documento-form.component';
 import { FormsModule } from '@angular/forms';
+import { PlantillaFormComponent } from './plantilla-form/plantilla-form.component';
 
 @NgModule({
   declarations: [
     DragndropComponent,
     DragndropDirective,
     OperacionViewComponent,
-    DocumentoFormComponent
+    DocumentoFormComponent,
+    PlantillaFormComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     DragndropDirective,
     OperacionViewComponent,
     DocumentoFormComponent,
+    PlantillaFormComponent,
   ]
 })
 export class ComponentsModule { }

@@ -1,17 +1,17 @@
 <div class="flex align-items-center justify-content-center">
   <h3 class="text-700 mb-0 mt-0 mr-2">Buscar Estudiante</h3>
-  <p-autoComplete [suggestions]="estudianteEncontrados" (completeMethod)="busqueda($event)"
-    (onSelect)="buscarEstudianteSeleccionado($event)" field="nombreCompleto"></p-autoComplete>
+  <p-autoComplete [suggestions]="estudianteEncontrados" (completeMethod)="buscarEstudiante($event)"
+    (onSelect)="setEstudianteSeleccionado($event)" field="nombreCompleto"></p-autoComplete>
 </div>
 
 <!-- Estudiante encontrado -->
-<div class="mt-4 fade-in" *ngIf="persona">
-  <div *ngIf="persona" class="mt-4 fade-in">
+<div *ngIf="persona" class="mt-4 fade-in">
+  <div class="mt-4 fade-in">
     <h3 class="mb-0 mt-0 text-700">Datos del Estudiante</h3>
   </div>
   <p-divider></p-divider>
   <!-- Datos del estudiante encontrado -->
-  <div class="grid" *ngIf="persona">
+  <div class="grid">
     <div class="col-12 xl:col-3">
       <div>
         <img alt="" style="height: 120px; width: 120px; background-image: url('{{persona.foto}}');" class="perfil-foto">
@@ -56,7 +56,7 @@
   </div>
 
   <!-- Tabla de tramites académicos -->
-  <div class="grid mt-2" *ngIf="inscripciones.length > 0">
+  <div *ngIf="inscripciones.length > 0" class="grid mt-2">
     <div class="col-12">
       <p-table [value]="inscripciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
         styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
@@ -67,7 +67,7 @@
             <th>Modelo Estudio</th>
             <th>Nivel de Estudio </th>
             <th>Sistema de Estudio</th>
-            <th>Trámites</th>
+            <th style="width: 5%;">Trámites</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-inscripcionItem let-columns="columns">
@@ -79,7 +79,7 @@
             <td>{{ inscripcionItem.nivelEstudio | titlecase}}</td>
             <td>{{ inscripcionItem.sistemaEstudio }}</td>
             <td>
-              <p-button (onClick)="gettramites(inscripcionItem)" icon="fa-solid fa-folder-open"
+              <p-button (onClick)="getTramites(inscripcionItem)" icon="fa-solid fa-folder-open"
                 styleClass="p-button-rounded p-button-sm">
               </p-button>
             </td>
@@ -89,13 +89,11 @@
     </div>
   </div>
 
-  <!-- Tabla de tramites realizados 
-  <div class="grid mt-2" *ngIf="inscripciones.length > 0 && tramites.length === 0">Tramites no encontrados</div> -->
   <div *ngIf="tramites.length > 0">
-    <p class="mb-0">Trámites realizados</p>
+    <h3 class="mb-0 mt-2 text-700">Trámites realizados</h3>
     <div class="grid mt-2">
       <div class="col-12">
-        <p-accordion [activeIndex]="activeIndex">
+        <p-accordion [activeIndex]="tramiteActiveIndex">
           <p-accordionTab *ngFor="let tramiteItem of tramites; index as i">
             <ng-template pTemplate="header">
               <div class="flex align-items-center">
@@ -118,12 +116,12 @@
                 <ng-template pTemplate="body" let-tramiteItemIndex let-columns="columns">
                   <tr [ngClass]="{'table-row-select': tramiteItemIndex.id === tramite?.id || 0 }">
                     <td>{{ tramiteItemIndex.tramite }}</td>
-                    <td>{{ tramiteItemIndex.subTipoTramite  | titlecase }}</td>
+                    <td>{{ tramiteItemIndex.subTipoTramite }}</td>
                     <td>{{ tramiteItemIndex.estado }}</td>
                     <td style="text-align: center;">
-                      <p-button (onClick)="gettramite(tramiteItemIndex, i)" icon="fa-solid fa-folder-open"
+                      <p-button (onClick)="getTramite(tramiteItemIndex, i)" icon="fa-solid fa-folder-open"
                         styleClass="p-button-rounded p-button-sm">
-                      </p-button>                       
+                      </p-button>
                     </td>
                   </tr>
                 </ng-template>
@@ -134,10 +132,4 @@
       </div>
     </div>
   </div>
-  <!-- Agregar
-  <div class="flex justify-content-end align-items-end  mt-5">
-    <p-button [routerLink]="['/requerido']" icon="pi pi-plus" label="Agregar" styleClass="p-button-sm">
-    </p-button>
-  </div>
--->
 </div>

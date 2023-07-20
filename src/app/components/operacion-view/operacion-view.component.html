@@ -1,43 +1,44 @@
 <div *ngIf="documento" class="grid">
   <div class="col-12 md:col-8">
-    <span class="text-900 font-semibold mr-2">Trámite Sub Tipo :</span>
+    <span class="text-900 font-semibold mr-2">Trámite sup tipo :</span>
     <span class="font-medium">{{ documento.nombreTramiteSubTipo }}</span>
   </div>
   <div class="col-12 md:col-4">
-    <span class="text-900 font-semibold mr-2">Fecha Registro :</span>
-    <span class="font-medium">{{ documento.fechaRegistro | date:'dd/MM/yyyy' }}</span>
+    <span class="text-900 font-semibold mr-2">Fecha :</span>
+    <span class="font-medium">{{ documento.fechaRegistro }}</span>
   </div>
 </div>
 
 <p-divider *ngIf="documento"></p-divider>
 
-<div *ngIf="operacion">
-  <div class="grid mt-2">
-    <div class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Fecha :</span>
-      <span class="font-medium"> {{ fecha | date:'dd/MM/yyyy' }}</span>
-    </div>
-    <div class="col-12 md:col-8">
-      <span class="text-900 font-semibold mr-2">Funcionario :</span>
-      <span class="font-medium"> {{ operacion?.nombreFuncionario | titlecase }}</span>
-    </div>
-  </div>
-
+<div *ngIf="documento && operacion">
   <div class="grid">
-    <div class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Operación :</span>
-      <span class="font-medium"> {{ operacion?.nombreDocumentoOperacionTipo }}</span>
-    </div>
-    <div class="col-12 md:col-8" *ngIf="operacion != undefined">
-      <span class="text-900 font-semibold mr-2">Descripción :</span>
-      <span class="font-medium"> {{ operacion?.descripcion }}</span>
-    </div>
-  </div>
-
-  <div class="grid flex-wrap mt-3">
     <div class="col-12 xl:col-3">
       <div>
-        <img alt="" style="height: 120px; width: 120px; background-image: url('{{operacion?.adjunto}}');">
+        <p-image src="{{operacion.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image>
+      </div>
+    </div>
+    <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <span class="text-900 font-semibold mr-2">Fecha :</span>
+          <span class="font-medium"> {{ operacion.fechaOperacion | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="col-12 md:col-8">
+          <span class="text-900 font-semibold mr-2">Funcionario :</span>
+          <span class="font-medium"> {{ operacion.funcionarioId }}</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <span class="text-900 font-semibold mr-2">Operacion :</span>
+          <span class="font-medium"> {{ operacion.nombreDocumentoOperacionTipo }}</span>
+        </div>
+        <div class="col-12 md:col-8">
+          <span class="text-900 font-semibold mr-2">Descripcion :</span>
+          <span class="font-medium"> {{ operacion.descripcion }}</span>
+        </div>
       </div>
     </div>
   </div>

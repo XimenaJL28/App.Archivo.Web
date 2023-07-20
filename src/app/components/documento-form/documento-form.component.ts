@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { EstudianteState } from '../../state/reducers/estudiante.reducers';
 import * as tramiteActions from '../../state/actions/tramite.actions';
 import { TramiteState } from '../../state/reducers/tramite.reducers';
 
 import { TramiteService } from '../../services/tramite.service';
-import { Subscription } from 'rxjs';
-import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
 
 @Component({
   selector: 'app-documento-form',
@@ -22,17 +22,17 @@ export class DocumentoFormComponent implements OnInit {
   public documentoTipoSelected: any = undefined;
   public documentoEstados: any[] = [];
   public documentoEstadoSelected: any = undefined;
-  // public tramiteSubTipos: any[] = [];
-  // public tramiteSubTipoSelected: any = undefined;
-  public tramite: any;
-  private estudianteSubscriptions!: Subscription;
+  public tramite: any = undefined;
 
   public savedLoading: boolean = false;
   public adjunto: string = '';
-  public cantidad: string = '';
-  public fechaLimitedeEntrega: string = '';
-  public fechaVencimiento: string = '';
+  public cantidad: number = 0;
+  public fechaLimitedeEntrega: any = '';
+  public fechaVencimiento: any = '';
 
+  public dateFormat: string = 'dd-mm-yy'
+
+  private estudianteSubscriptions!: Subscription;
   private tramiteSubscriptions!: Subscription;
 
   constructor(
@@ -40,15 +40,11 @@ export class DocumentoFormComponent implements OnInit {
     private tramiteService: TramiteService,
     private messageService: MessageService
   ) {
-    // this.tramiteService.GetListTramiteSubTipoSelected().then((response: any) => {
-    //   this.tramiteSubTipos = response || [];
-    // })
-
-    this.tramiteService.GetListDocumentoTipoSelected().then((response: any) => {
+    this.tramiteService.getListDocumentoTipoSelected().then((response: any) => {
       this.documentoTipos = response || [];
     })
 
-    this.tramiteService.GetListDocumentoEstadoSelected().then((response: any) => {
+    this.tramiteService.getListDocumentoEstadoSelected().then((response: any) => {
       this.documentoEstados = response || [];
     })
   }
@@ -62,14 +58,13 @@ export class DocumentoFormComponent implements OnInit {
       this.documento = state.documento;
 
       if (this.isUpdate && this.documento) {
-        this.fechaVencimiento = this.documento.fechaVencimiento;
+        this.fechaVencimiento = this._stringToDate(this.documento.fechaVencimiento) ;
+        this.fechaLimitedeEntrega = this._stringToDate(this.documento.fechaLimitedeEntrega);
         this.cantidad = this.documento.cantidad;
-        this.fechaLimitedeEntrega = this.documento.fechaLimitedeEntrega;
+        this.adjunto = this.documento.adjunto;
 
-        // this.tramiteSubTipoSelected = { id: this.documento.id, nombre: this.documento.nombre };
         this.documentoTipoSelected = { id: this.documento.documentoTipoId, nombre: this.documento.nombreDocumentoTipo };
         this.documentoEstadoSelected = { id: this.documento.documentoEstadoId, nombre: this.documento.nombreDocumentoEstado };
-        console.log(this.documento, "documentoform")
       }
     })
   }
@@ -84,53 +79,87 @@ export class DocumentoFormComponent implements OnInit {
   }
 
   async guardarDocumento() {
-    const documento = {
+    this.savedLoading = true;
+    if (this.adjunto.trim().length < 1 ||
+      !this.fechaLimitedeEntrega ||
+      !this.fechaVencimiento ||
+      !this.documentoTipoSelected ||
+      !this.documentoEstadoSelected ||
+      !this.tramite) {
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
+      this.savedLoading = false;
+      return;
+    }
+
+    const documentoDTO = {
       documentoTipoId: this.documentoTipoSelected.id,
       documentoEstadoId: this.documentoEstadoSelected.id,
       tramiteInscripcionCarreraId: this.tramite.id,
       tramiteSubTipoId: this.tramite.tramiteSubTipoId,
       cantidad: this.cantidad,
       // fechaRegistro: '',
-      fechaLimitedeEntrega: this.fechaLimitedeEntrega,
+      fechaLimitedeEntrega: this._dateToString(this.fechaLimitedeEntrega),
       adjunto: this.adjunto,
-      fechaVencimiento: this.fechaVencimiento
-    }
-    this.savedLoading = true;
-    let response: any = null;
-    if (this.documento) {
-      const documento0 = { documentoInscripcioncarreraId: this.documento.documentoInscripcioncarreraId, ...documento };
-      response = await this.tramiteService.PutDocumentoInscripcionCarrera(documento0);
-      console.log(response, "responseUpdate");
-      if (response) {
-        this.savedLoading = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
-        return;
-      }
-    }
-    else {
-      response = await this.tramiteService.PostDocumentoInscripcionCarrera(documento);
-      console.log(response, "responseSave");
-      if (!response) {
-        this.savedLoading = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
-        return;
-      }
+      fechaVencimiento: this._dateToString(this.fechaVencimiento)
     }
 
+    const response = (this.isUpdate && this.documento) ?
+      await this.tramiteService.putDocumentoInscripcionCarrera({
+        documentoInscripcioncarreraId: this.documento.documentoInscripcioncarreraId,
+        ...documentoDTO
+      }) :
+      await this.tramiteService.postDocumentoInscripcionCarrera(documentoDTO);
+
+    // updated error
+    if (this.documento && response) {
+      console.log('updated error')
+      this.savedLoading = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      return;
+    }
+
+    // saved error
+    if (!this.documento && !response) {
+      // console.log('saved error')
+      this.savedLoading = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      return;
+    }
+
+    // updated ok
+    if (this.documento && !response) {
+      console.log('updated ok')
+      this.store.dispatch(
+        tramiteActions.updItemDocumento({ documento: documentoDTO })
+      );
+      this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Message Content Update' });
+    }
+
+    // saved ok
+    if (!this.documento && response) {
+      console.log('saved ok')
+      this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Message Content Saved' });
+
+      this.store.dispatch(
+        tramiteActions.addItemDocumento({ documento: documentoDTO })
+      );
+    }
 
     this.savedLoading = false;
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
-
-    this.store.dispatch(
-      tramiteActions.addItemDocumento({ documento: documento })
-    );
-    this._clearForm();
   }
 
   _clearForm() {
     this.adjunto = '';
-    this.cantidad = '';
-    this.fechaLimitedeEntrega = '';
-    this.fechaVencimiento = '';
+    this.cantidad = 0;
+    this.fechaLimitedeEntrega = undefined;
+    this.fechaVencimiento = undefined;
+  }
+
+  _stringToDate(date: string): Date | undefined {
+    return date ? new Date(date) : undefined;
+  }
+
+  _dateToString(date: Date): string {
+    return date ? date.toISOString() : '';
   }
 }

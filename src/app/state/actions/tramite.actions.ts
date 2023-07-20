@@ -37,6 +37,16 @@ export const addItemDocumento = createAction(
   props<{ documento: any }>()
 );
 
+export const updItemDocumento = createAction(
+  '[Tramite] updItemDocumento',
+  props<{ documento: any }>()
+);
+
+export const updItemOperacion = createAction(
+  '[Tramite] updItemOperacion',
+  props<{ operacion: any }>()
+);
+
 export const setSelectedDocumentoOperacionTipo = createAction(
   '[Tramite] setSelectedDocumentoOperacionTipo',
   props<{ documentoOperacionTipo: any }>()

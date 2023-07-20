@@ -3,12 +3,11 @@ import { MessageService } from 'primeng/api';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { UserState } from 'src/app/state/reducers/user.reducer';
+import { UserState } from '../../state/reducers/user.reducer';
+import { TramiteState } from '../../state/reducers/tramite.reducers';
 import * as tramiteActions from '../../state/actions/tramite.actions';
 
-import { TramiteService } from 'src/app/services/tramite.service';
-import { TramiteState } from 'src/app/state/reducers/tramite.reducers';
-import { EstudianteState } from 'src/app/state/reducers/estudiante.reducers';
+import { TramiteService } from '../../services/tramite.service';
 
 @Component({
   selector: 'app-documento-operacion',
@@ -22,7 +21,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
 
   public documentoOperacionTipos: any[] = [];
   public fechaOperacion: string = '';
-  public funcionarioId: string = '';
+  public nombreFuncionario: string = '';
   public adjunto: string = '';
   public descripcion: string = '';
 
@@ -38,7 +37,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.tramiteService.GetDocumentoOperacionTipoSelected().then((response: any) => {
+    this.tramiteService.getDocumentoOperacionTipoSelected().then((response: any) => {
       this.documentoOperacionTipos = response || [];
     })
 
@@ -73,24 +72,23 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     // validacion de datos
     if (this.adjunto.trim().length < 1 ||
       this.descripcion.trim().length < 1 ||
-      !this.documentoOperacionTipoSelected) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Todos los campos deben ser llenados' });
+      !this.documentoOperacionTipoSelected ||
+      !this.documento ||
+      !this.user) {
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
       this.savedLoading = false;
       return;
     }
 
     const operacionDTO = {
-      documentoInscripcionCarreraId: this.documento.documentoInscripcioncarreraId || 13,
-      funcionarioId: this.user?.id || 13,
-      documentoOperacionTipoId: this.documentoOperacionTipoSelected?.id || 13,
+      documentoInscripcionCarreraId: this.documento.documentoInscripcioncarreraId,
+      funcionarioId: this.user.id,
+      documentoOperacionTipoId: this.documentoOperacionTipoSelected.id,
       descripcion: this.descripcion,
       adjunto: this.adjunto,
     }
 
-    console.log(operacionDTO)
-
-    const response = await this.tramiteService.PostDocumentoOperacion(operacionDTO);
-    console.log(response);
+    const response = await this.tramiteService.postDocumentoOperacion(operacionDTO);
     if (!response) {
       this.savedLoading = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
@@ -98,9 +96,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     }
 
     this.savedLoading = false;
-    this.descripcion = '';
-    this.adjunto = '';
-    this.fechaOperacion = '';
+    this._clearForm();
 
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
 
@@ -110,9 +106,13 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
   }
 
   nuevaOperacion() {
+    this._clearForm();
+    this.nombreFuncionario = this.user.nombreFuncionario || 'desconocido';
+  }
+
+  _clearForm() {
     this.descripcion = '';
     this.adjunto = '';
     this.fechaOperacion = '';
-    this.funcionarioId = this.user?.nombreFuncionario || "";
   }
 }

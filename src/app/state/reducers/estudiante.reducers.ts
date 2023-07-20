@@ -11,11 +11,11 @@ export interface EstudianteState {
 }
 
 export const initialState: EstudianteState = {
-  estudiante: null,
+  estudiante: undefined,
   inscripciones: [],
-  inscripcion: null,
+  inscripcion: undefined,
   tramites: [],
-  tramite: null,
+  tramite: undefined,
   tramiteActiveIndex: -1,
 };
 
@@ -26,37 +26,37 @@ export const estudianteReducer = createReducer(
       ...state,
       estudiante: { ...estudiante },
       inscripciones: [],
-      inscripcion: null,
+      inscripcion: undefined,
       tramites: [],
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(unSetEstudiante, (state) => (
     {
       ...state,
-      estudiante: null,
+      estudiante: undefined,
       inscripciones: [],
-      inscripcion: null,
+      inscripcion: undefined,
       tramites: [],
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(setInscripciones, (state, { inscripciones }) => (
     {
       ...state,
       inscripciones: [...inscripciones],
-      inscripcion: null,
+      inscripcion: undefined,
       tramites: [],
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(unSetInscripciones, (state) => (
     {
       ...state,
       inscripciones: [],
-      inscripcion: null,
+      inscripcion: undefined,
       tramites: [],
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(setTramites, (state, { tramites, inscripcion }) => (
@@ -64,15 +64,15 @@ export const estudianteReducer = createReducer(
       ...state,
       inscripcion: { ...inscripcion },
       tramites: [...tramites],
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(unSetTramites, (state) => (
     {
       ...state,
-      inscripcion: null,
+      inscripcion: undefined,
       tramites: [],
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(setTramite, (state, { tramite }) => (
@@ -84,7 +84,7 @@ export const estudianteReducer = createReducer(
   on(unSetTramite, (state) => (
     {
       ...state,
-      tramite: null,
+      tramite: undefined,
     })),
 
   on(setTramiteActiveIndex, (state, { index }) => (

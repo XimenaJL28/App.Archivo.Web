@@ -1,60 +1,57 @@
-<!--  *ngIf="documentos.length > 0" -->
-<div>
-  <div class="grid">
-    <div class="col-12 md:col-5">
-      <span class="text-900 font-semibold mr-2">Nombre del Trámite:</span>
-      <span class="font-medium">{{ tramite?.tramite | titlecase }} {{ tramite?.subTipoTramite | titlecase }} </span>
-    </div>
-    <div class="col-12 md:col-5">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="tipo-operacion">Documento Tipo</label>
-        <p-dropdown [options]="documentoTipos" [(ngModel)]="documentoTipoSelected" optionLabel="nombre"
-          class="p-inputtext-sm"></p-dropdown>
-      </div>
-    </div>
-    <div class="col-12 md:col-2">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="cantidad">Cantidad :</label>
-        <input pInputText [(ngModel)]="cantidad" id="cantidad" class="p-inputtext-sm" />
-        <small id="cantidad-help"></small>
-      </div>
+<div class="grid">
+  <div class="col-12 md:col-5">
+    <span class="text-900 font-semibold mr-2">Nombre del Trámite</span>
+    <span class="font-medium">{{ tramite?.tramite | titlecase }} {{ tramite?.subTipoTramite | titlecase }} </span>
+  </div>
+  <div class="col-12 md:col-5">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="tipo-operacion">Documento Tipo</label>
+      <p-dropdown [options]="documentoTipos" [(ngModel)]="documentoTipoSelected" optionLabel="nombre"
+        class="p-inputtext-sm"></p-dropdown>
     </div>
   </div>
+  <div class="col-12 md:col-1">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="cantidad">Cantidad</label>
+      <p-inputNumber [(ngModel)]="cantidad" [min]="0" [max]="100" mode="decimal" class="p-inputtext-sm"></p-inputNumber>
+    </div>
+  </div>
+</div>
 
-  <div class="grid">
-    <div class="col-12 md:col-5">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="tipo-operacion">Documento Estado :</label>
-        <p-dropdown [options]="documentoEstados" [(ngModel)]="documentoEstadoSelected" optionLabel="nombre"
-          class="p-inputtext-sm"></p-dropdown>
-      </div>
-    </div>
-    <div class="col-12 md:col-3">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="fecha-limite">Fecha Límite :</label>
-        <input pInputText [(ngModel)]="fechaLimitedeEntrega" id="fecha-limite" class="p-inputtext-sm" />
-        <small id="fecha-limite-help"></small>
-      </div>
-    </div>
-    <div class="col-12 md:col-3">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="fecha-vencimiento">Fecha de Vencimiento :</label>
-        <input pInputText [(ngModel)]="fechaVencimiento" id="fecha-vencimiento" class="p-inputtext-sm" />
-        <small id="fecha-vencimiento-help"></small>
-      </div>
+<div class="grid">
+  <div class="col-12 md:col-5">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="tipo-operacion">Documento Estado</label>
+      <p-dropdown [options]="documentoEstados" [(ngModel)]="documentoEstadoSelected" optionLabel="nombre"
+        class="p-inputtext-sm"></p-dropdown>
     </div>
   </div>
+  <div class="col-12 md:col-3">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="fecha-limite">Fecha Límite</label>
+      <p-calendar [(ngModel)]="fechaLimitedeEntrega" dateFormat="{{ dateFormat }}" id="fecha-limite" class="p-inputtext-sm"></p-calendar>
+      <small id="fecha-limite-help"></small>
+    </div>
+  </div>
+  <div class="col-12 md:col-3">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="fecha-vencimiento">Fecha de Vencimiento</label>
+      <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento" class="p-inputtext-sm"></p-calendar>
+      <small id="fecha-vencimiento-help"></small>
+    </div>
+  </div>
+</div>
 
-  <h3 class="mt-0 mb-0">Subir Imagen/Archivo</h3>
-  <div class="grid flex-wrap mt-3">
-    <div class="col-12 md:col-6 lg:col-4">
-      <div class="flex flex-column align-justify-center">
-        <app-dragndrop (fileDropped)="setUri($event)" [tipeAccept]="'.jpg,.png,.gif,.pdf'"></app-dragndrop>
-      </div>
+<h3 class="mt-0 mb-0">Subir Imagen/Archivo</h3>
+<div class="grid flex-wrap mt-3">
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="flex flex-column align-justify-center">
+      <app-dragndrop (fileDropped)="setUri($event)" [uri]="adjunto"
+        [tipeAccept]="'.jpg,.png,.gif,.pdf'"></app-dragndrop>
     </div>
   </div>
-  <div class="card flex justify-content-end">
-    <p-button label="Submit" [loading]="savedLoading" (click)="guardarDocumento()"></p-button>
-  </div>
+</div>
+<div class="card flex justify-content-end">
+  <p-button label="Guardar" [loading]="savedLoading" (click)="guardarDocumento()"></p-button>
 </div>
 <p-toast></p-toast>

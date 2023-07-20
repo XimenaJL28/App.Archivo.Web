@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { addItemDocumento, addItemOperacion, setDocumento, setDocumentos, setOperacion, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion } from '../actions/tramite.actions';
+import { addItemDocumento, addItemOperacion, setDocumento, setDocumentos, setOperacion, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion, updItemDocumento, updItemOperacion } from '../actions/tramite.actions';
 
 export interface TramiteState {
   documentos: any[];
@@ -74,20 +74,35 @@ export const tramiteReducer = createReducer(
   on(addItemOperacion, (state, { operacion }) => (
     {
       ...state,
-      operaciones: [operacion, ...state.operaciones],
-      operacion: operacion,
+      operaciones: [{ ...operacion }, ...state.operaciones],
+      operacion: { ...operacion },
     })),
 
   on(addItemDocumento, (state, { documento }) => (
     {
       ...state,
-      documentos: [documento, ...state.documentos],
-      documento: documento,
+      documentos: [{ ...documento }, ...state.documentos],
+      documento: { ...documento },
+    })),
+
+  on(updItemDocumento, (state, { documento }) => (
+    {
+      ...state,
+      documentos: [{ ...documento }, state.documentos.filter(item => item.id !== documento.id)],
+      documento: { ...documento },
+    }
+  )),
+
+  on(updItemOperacion, (state, { operacion }) => (
+    {
+      ...state,
+      operaciones: [{ ...operacion }, state.operaciones.filter(item => item.id !== operacion.id)],
+      operacion: { ...operacion },
     })),
 
   on(setSelectedDocumentoOperacionTipo, (state, { documentoOperacionTipo }) => (
     {
       ...state,
-      documentoOperacionTipo: documentoOperacionTipo,
+      documentoOperacionTipo: { ...documentoOperacionTipo },
     })),
 )

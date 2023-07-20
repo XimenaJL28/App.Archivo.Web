@@ -1,68 +1,95 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { MainService } from './main.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TramiteService {
+  constructor(private readonly mainService: MainService) { }
 
-  constructor(private readonly MainService: MainService) { }
-
-  async GetInscripcions(idpersona: any) {
-    const url = `${environment.endPoint}Archivos/ListaInscripciones?IdEstudiante=${idpersona}`;
-    //const url = 'http://localhost:3000/inscripciones'
-    let ans: any = await this.MainService.get(url);
+  // Datos de estudiante
+  async getInscripciones(personaId: number) {
+    //const url = `${environment.endPoint}/inscripciones`;
+    const url = `${environment.endPoint}Archivos/ListaInscripciones?IdEstudiante=${personaId}`;
+    let ans: any = await this.mainService.get(url);
     return ans;
   }
 
-  async GetListTramites(idtramite: any) {
-    const url = `${environment.endPoint}Archivos/ListaTramites?IdInscripcion=${idtramite}`;
-    //const url = 'http://localhost:3000/tramitesinscripcion';
-    let ans: any = await this.MainService.get(url);
+  async getListTramites(inscripcionId: number) {
+    //const url = `${environment.endPoint}/tramiteInscripcionCarreras`;
+    const url = `${environment.endPoint}Archivos/ListaTramites?IdInscripcion=${inscripcionId}`;
+    let ans: any = await this.mainService.get(url);
     return ans;
   }
 
-  async GetListDocumentos(TramiteInscripcionCarreraId: number = 0, tramitesubtipoId: number = 0) {
-    const url = `${environment.endPoint}Archivos/ListaDocumentoTramite?TramiteInscripcionCarreraId=${TramiteInscripcionCarreraId}&tramitesubtipoId=${tramitesubtipoId}`;
-    let ans: any = await this.MainService.get(url);
+  async getListDocumentos(tramiteInscripcionCarreraId: number, tramiteSubTipoId: number) {
+    //const url = `${environment.endPoint}/documentoInscripcionCarreras`;
+    const url = `${environment.endPoint}Archivos/ListaDocumentoTramite?TramiteInscripcionCarreraId=${tramiteInscripcionCarreraId}&tramitesubtipoId=${tramiteSubTipoId}`;
+    let ans: any = await this.mainService.get(url);
     return ans;
   }
 
-  async GetListOperaciones(idtramite: any = '') {
-    const url = `${environment.endPoint}Operacion/ListaOperacionInscripcion?idDocumentoInscripcion=${idtramite}`;
-    // const url = 'http://localhost:3000/documentoOperaciones';
-    let ans: any = await this.MainService.get(url);
+  async getListDocumentoFaltante(tramiteInscripcionCarreraId: number, tramiteSubTipoId: number) {
+    //const url = `${environment.endPoint}/documentoInscripcionCarreras`;
+    const url = `${environment.endPoint}Archivos/ListaDocumentosfaltantes?idTramiteInscripcionCarrera=${tramiteInscripcionCarreraId}&idtramitesubtipo=${tramiteSubTipoId}`;
+    let ans: any = await this.mainService.get(url);
+    return ans;
+  }
+  // Datos de estudiante
+
+  // CRUD Documentos
+  async postDocumentoInscripcionCarrera(documento: any) {
+    const url = `${environment.endPoint}Archivos/AgregarDocumentoInscripcion`;
+    let ans: any = await this.mainService.post(url, documento);
     return ans;
   }
 
-  async GetListOperacion(id: any = '0') {
+  async putDocumentoInscripcionCarrera(documento: any) {
+    const url = `${environment.endPoint}Archivos/ActualizarDocInscripcion`;
+    let ans: any = await this.mainService.put(url, documento);
+    console.log(ans, "servicePut")
+    return ans;
+  }
+  // CRUD Documentos
+
+  // CRUD Operaciones
+  async postDocumentoOperacion(operacion: any) {
     const url = `${environment.endPoint}Operacion/Agregaroperacion`;
-    // const url = `http://localhost:3000/documentoOperaciones/${id}`;
-    let ans: any = await this.MainService.get(url);
+    let ans: any = await this.mainService.post(url, operacion);
     return ans;
   }
 
-  async GetListTramiteUniversidad() {
+  async getListOperaciones(documentoInscripcionCarreraId: number) {
+    //const url = `${environment.endPoint}/documentoOperaciones`;
+    const url = `${environment.endPoint}Operacion/ListaOperacionInscripcion?idDocumentoInscripcion=${documentoInscripcionCarreraId}`;
+    let ans: any = await this.mainService.get(url);
+    return ans;
+  }
+  // CRUD Operaciones
+
+  // CRUD Tramites
+  async getListTramiteUniversidad() {
+    //const url = `${environment.endPoint}/tramite`;
     const url = `${environment.endPoint}Plantilla/ListaTramites`;
-    let ans: any = await this.MainService.get(url);
+    let ans: any = await this.mainService.get(url);
     return ans;
   }
 
-  async GetListTramiteSubTipo(tramiteId: number = 0) {
+  async getListTramiteSubTipo(tramiteId: number) {
+    //const url = `${environment.endPoint}/tramiteSupTipos`;
     const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=${tramiteId}`;
-    let ans: any = await this.MainService.get(url);
+    let ans: any = await this.mainService.get(url);
 
     const tramiteSubTipos: any[] = ans || [];
 
     const responseData: any[] = [];
     tramiteSubTipos.map(tramiteSubtipo => {
-      console.log(tramiteSubtipo);
+      //const url = `${environment.endPoint}/documentoPlantillas`;
       const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubtipo.tramiteSubTipoId}`;
-      this.MainService.get(url)
+      this.mainService.get(url)
         .then((plantilla: any) => {
           const plantillas = plantilla || [];
-          console.log(plantillas);
           responseData.push({
             tramiteSubTipo: tramiteSubtipo,
             documentoPlantillas: plantillas,
@@ -70,13 +97,29 @@ export class TramiteService {
         })
     });
 
-    console.log(responseData);
     return responseData;
   }
+  // CRUD Tramites
 
-  async GetDocumentoOperacionTipoSelected() {
+  // DropDown para formularios
+  async getListTramiteSubTipoSelected() {
+    //const url = `${environment.endPoint}/tramiteSupTipos`;
+    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
+    const ans = await this.mainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.tramiteSubTipoId,
+        nombre: item.nombreSubtramite
+      }
+    })
+  }
+
+  async getDocumentoOperacionTipoSelected() {
+    //const url = `${environment.endPoint}/documentoOperacionTipos`;
     const url = `${environment.endPoint}Operacion/ListaDeoperaciontipo`;
-    let ans: any = await this.MainService.get(url);
+    let ans: any = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
     return response.map((item) => {
@@ -87,53 +130,10 @@ export class TramiteService {
     })
   }
 
-  async PostDocumentoOperacion(operacion: any) {
-    const url = `${environment.endPoint}Operacion/Agregaroperacion`;
-    let ans: any = await this.MainService.post(url, operacion);
-    return ans;
-  }
-
-  async PostDocumentoInscripcionCarrera(documento: any) {
-    const url = `${environment.endPoint}Archivos/AgregarDocumentoInscripcion`;
-    let ans: any = await this.MainService.post(url, documento);
-    return ans;
-  }
-
-  async PutDocumentoInscripcionCarrera(documento: any) {
-    const url = `${environment.endPoint}Archivos/ActualizarDocInscripcion`;
-    let ans: any = await this.MainService.put(url, documento);
-    console.log(ans, "servicePut")
-    return ans;
-  }
-
-  async GetListDocumentoPlantilla(tramiteSubTipoId: number = 0) {
-    const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubTipoId}`;
-    let ans: any = await this.MainService.get(url);
-    return ans;
-  }
-
-  async GetListDocumentoFaltante(idTramiteInscripcionCarrera: number = 0, idtramitesubtipo: number = 0) {
-    const url = `${environment.endPoint}Archivos/ListaDocumentosfaltantes?idTramiteInscripcionCarrera=${idTramiteInscripcionCarrera}&idtramitesubtipo=${idtramitesubtipo}`;
-    let ans: any = await this.MainService.get(url);
-    return ans;
-  }
-
-  async GetListTramiteSubTipoSelected() {
-    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
-    const ans = await this.MainService.get(url);
-    const response = (ans || []) as any[];
-
-    return response.map((item) => {
-      return {
-        id: item.tramiteSubTipoId,
-        nombre: item.nombreSubtramite
-      }
-    })
-  }
-
-  async GetListDocumentoEstadoSelected() {
+  async getListDocumentoEstadoSelected() {
+    //const url = `${environment.endPoint}/documentoEstados`;
     const url = `${environment.endPoint}Plantilla/ListDocumentoEstado`;
-    const ans = await this.MainService.get(url);
+    const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
     return response.map((item) => {
@@ -144,9 +144,10 @@ export class TramiteService {
     })
   }
 
-  async GetListDocumentoTipoSelected() {
+  async getListDocumentoTipoSelected() {
+    //const url = `${environment.endPoint}/documentoTipo`;
     const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
-    const ans = await this.MainService.get(url);
+    const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
     return response.map((item) => {
@@ -156,4 +157,33 @@ export class TramiteService {
       }
     })
   }
+
+  async getListDocumentoPlantillaEstadoSelected() {
+    //const url = `${environment.endPoint}/documentoPlantillaEstados`;
+    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
+    const ans = await this.mainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.tramiteSubTipoId,
+        nombre: item.nombreSubtramite
+      }
+    })
+  }
+
+  async getListCarreraSelected() {
+    //const url = `${environment.endPoint}/carreras`;
+    const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
+    const ans = await this.mainService.get(url);
+    const response = (ans || []) as any[];
+
+    return response.map((item) => {
+      return {
+        id: item.tramiteSubTipoId,
+        nombre: item.nombreSubtramite
+      }
+    })
+  }
+  // DropDown para formularios
 }
