@@ -5,15 +5,14 @@
   </div>
   <div class="col-12 md:col-5">
     <div class="flex flex-column gap-2">
-      <label htmlFor="tipo-operacion">Documento Tipo</label>
-      <p-dropdown [options]="documentoTipos" [(ngModel)]="documentoTipoSelected" optionLabel="nombre"
-        class="p-inputtext-sm"></p-dropdown>
+      <span class="text-900 font-semibold mr-2">Documento tipo</span>
+      <span class="font-medium">{{ nombreDocumentoTipo }}</span>
     </div>
   </div>
-  <div class="col-12 md:col-1">
+  <div class="col-12 md:col-2">
     <div class="flex flex-column gap-2">
       <label htmlFor="cantidad">Cantidad</label>
-      <p-inputNumber [(ngModel)]="cantidad" [min]="0" [max]="100" mode="decimal" class="p-inputtext-sm"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="cantidad" [min]="0" mode="decimal" class="p-inputtext-sm"></p-inputNumber>
     </div>
   </div>
 </div>
@@ -29,14 +28,14 @@
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-2">
       <label htmlFor="fecha-limite">Fecha Límite</label>
-      <p-calendar [(ngModel)]="fechaLimitedeEntrega" dateFormat="{{ dateFormat }}" id="fecha-limite" class="p-inputtext-sm"></p-calendar>
+      <p-calendar [(ngModel)]="fechaLimitedeEntrega"  dateFormat="{{ dateFormat }}" id="fecha-limite"></p-calendar>
       <small id="fecha-limite-help"></small>
     </div>
   </div>
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-2">
       <label htmlFor="fecha-vencimiento">Fecha de Vencimiento</label>
-      <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento" class="p-inputtext-sm"></p-calendar>
+      <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento"></p-calendar>
       <small id="fecha-vencimiento-help"></small>
     </div>
   </div>

@@ -15,14 +15,9 @@
 </div>
 
 <!-- Tabla de tramite inscripcion -->
-<div *ngIf="tramite && documentos.length == 0">
-  <h3 class="text-700">Sin documentos presentados</h3>
-</div>
 
-<div *ngIf="tramite != undefined" class="flex justify-content-between">
-  <h3 *ngIf="documentos.length > 0" class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
-  <p-button label="Nuevo" (click)="nuevoDocumento()" styleClass="p-button-secondary"></p-button>
-</div>
+<h3 *ngIf="tramite && documentos.length == 0" class="text-700">Sin documentos presentados</h3>
+<h3 *ngIf="tramite != undefined && documentos.length > 0" class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
 
 <div *ngIf="documentos.length > 0">
   <div class="grid mt-2 mb-3">
@@ -45,17 +40,16 @@
             <td>{{ documentoItem.nombreDocumentoTipo | titlecase }}</td>
             <td>{{ documentoItem.cantidad }}</td>
             <td>
-              <p-tag [value]="documentoItem.nombreDocumentoEstado" [severity]="setColorDocumentoEstado(documentoItem)"></p-tag>
+              <p-tag [value]="documentoItem.nombreDocumentoEstado"
+                [severity]="getColorDocumentoEstado(documentoItem)"></p-tag>
             </td>
             <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td>{{ documentoItem.fechaRegistro | date:'dd/MM/yyyy' }}</td>
             <td style="text-align: center;">
-              <p-button (onClick)="getOperaciones(documentoItem)"
-               icon="fa-solid fa-search"
+              <p-button (onClick)="getOperaciones(documentoItem)" icon="fa-solid fa-search"
                 styleClass="p-button-rounded" class="mr-1">
               </p-button>
-              <p-button (onClick)="editarDocumento(documentoItem)"
-              icon="fa-solid fa-pencil"
+              <p-button (onClick)="editarDocumento(documentoItem)" icon="fa-solid fa-pencil"
                 styleClass="p-button-rounded">
               </p-button>
             </td>
@@ -103,16 +97,21 @@
 </div>
 
 <!-- Formulario de documentos -->
-<p-dialog header="Registrar Documentos" [(visible)]="visibleDocumentoSave" [style]="{width: '85vw', height :'85vh'}">
-  <app-documento-form></app-documento-form>
-</p-dialog>
-
 <p-dialog *ngIf="documento" header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate"
   [style]="{width: '85vw', height :'85vh'}">
-  <app-documento-form [isUpdate]="true"></app-documento-form>
+  <app-documento-form [isUpdated]="true"></app-documento-form>
 </p-dialog>
 
 <!-- Formulario de operaciones -->
-<p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion" [style]="{width: '85vw', height :'85vh'}">
+<!-- <p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
+  [style]="{width: '85vw', height :'85vh'}">
   <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
+</p-dialog> -->
+
+
+
+<p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
+[style]="{width: '85vw', height :'85vh'}" [modal]="true"  [draggable]="false" [resizable]="false">
+  <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
+    
 </p-dialog>

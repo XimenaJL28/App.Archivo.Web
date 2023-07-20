@@ -1,8 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { DocumentoInscripcionCarrera, DropDownItem } from 'src/app/interfaces/estudiante.interface';
+import { DocumentoOperacion } from 'src/app/interfaces/tramite.interface';
+import { DocumentoInscripcionCarreraFaltantes } from '../../interfaces/estudiante.interface';
 
 export const setDocumentos = createAction(
   '[Tramite] setDocumentos',
-  props<{ documentos: any[], documentosFaltantes: any[] }>()
+  props<{ documentos: DocumentoInscripcionCarrera[], documentosFaltantes: DocumentoInscripcionCarreraFaltantes[] }>()
 );
 
 export const unSetDocumentos = createAction(
@@ -11,16 +14,21 @@ export const unSetDocumentos = createAction(
 
 export const setDocumento = createAction(
   '[Tramite] setDocumento',
-  props<{ documento: any, operaciones:any[] }>()
+  props<{ documento: DocumentoInscripcionCarrera, operaciones:DocumentoOperacion[] }>()
 );
 
 export const unSetDocumento = createAction(
   '[Tramite] unSetDocumento'
 );
 
+export const setDocumentoFaltante = createAction(
+  '[Tramite] setDocumentoFaltante',
+  props<{ documentoFaltante: DocumentoInscripcionCarreraFaltantes }>()
+);
+
 export const setOperacion = createAction(
   '[Tramite] setOperacion',
-  props<{ operacion: any }>()
+  props<{ operacion: DocumentoOperacion }>()
 );
 
 export const unSetOperacion = createAction(
@@ -29,25 +37,25 @@ export const unSetOperacion = createAction(
 
 export const addItemOperacion = createAction(
   '[Tramite] addItemOperacion',
-  props<{ operacion: any }>()
+  props<{ operacion: DocumentoOperacion }>()
 );
 
 export const addItemDocumento = createAction(
   '[Tramite] addItemDocumento',
-  props<{ documento: any }>()
+  props<{ documento: DocumentoInscripcionCarrera }>()
 );
 
 export const updItemDocumento = createAction(
   '[Tramite] updItemDocumento',
-  props<{ documento: any }>()
+  props<{ documento: DocumentoInscripcionCarrera }>()
 );
 
 export const updItemOperacion = createAction(
   '[Tramite] updItemOperacion',
-  props<{ operacion: any }>()
+  props<{ operacion: DocumentoOperacion }>()
 );
 
 export const setSelectedDocumentoOperacionTipo = createAction(
   '[Tramite] setSelectedDocumentoOperacionTipo',
-  props<{ documentoOperacionTipo: any }>()
+  props<{ documentoOperacionTipo: DropDownItem }>()
 );

@@ -3,11 +3,15 @@ import { MessageService } from 'primeng/api';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import { EstudianteState } from '../../state/reducers/estudiante.reducers';
-import * as tramiteActions from '../../state/actions/tramite.actions';
 import { TramiteState } from '../../state/reducers/tramite.reducers';
+import * as tramiteActions from '../../state/actions/tramite.actions';
 
 import { TramiteService } from '../../services/tramite.service';
+
+import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DropDownItem } from '../../interfaces/estudiante.interface';
+import { TramiteInscripcionCarrera } from '../../interfaces/estudiante.interface';
 
 @Component({
   selector: 'app-documento-form',
@@ -16,19 +20,23 @@ import { TramiteService } from '../../services/tramite.service';
   providers: [MessageService],
 })
 export class DocumentoFormComponent implements OnInit {
-  @Input() isUpdate: boolean = false;
-  public documento: any = undefined;
-  public documentoTipos: any[] = [];
-  public documentoTipoSelected: any = undefined;
-  public documentoEstados: any[] = [];
-  public documentoEstadoSelected: any = undefined;
-  public tramite: any = undefined;
+  @Input() isUpdated: boolean = false;
+
+  public documentoInscripcionCarreraFaltante?: DocumentoInscripcionCarreraFaltantes = undefined;
+  public documentoInscripcionCarrera?: DocumentoInscripcionCarrera = undefined;
+
+  public documentoEstados: DropDownItem[] = [];
+  public documentoEstadoSelected?: DropDownItem = undefined;
+  public tramite?: TramiteInscripcionCarrera = undefined;
 
   public savedLoading: boolean = false;
+  public nombreDocumentoTipo: string = '';
+  public documentoTipoId: number = 0;
+
   public adjunto: string = '';
   public cantidad: number = 0;
-  public fechaLimitedeEntrega: any = '';
-  public fechaVencimiento: any = '';
+  public fechaLimitedeEntrega: Date | undefined;
+  public fechaVencimiento: Date | undefined;
 
   public dateFormat: string = 'dd-mm-yy'
 
@@ -40,11 +48,7 @@ export class DocumentoFormComponent implements OnInit {
     private tramiteService: TramiteService,
     private messageService: MessageService
   ) {
-    this.tramiteService.getListDocumentoTipoSelected().then((response: any) => {
-      this.documentoTipos = response || [];
-    })
-
-    this.tramiteService.getListDocumentoEstadoSelected().then((response: any) => {
+    this.tramiteService.getDropDownDocumentoEstado().then((response: any) => {
       this.documentoEstados = response || [];
     })
   }
@@ -55,35 +59,55 @@ export class DocumentoFormComponent implements OnInit {
     })
 
     this.tramiteSubscriptions = this.store.select('tramite').subscribe(state => {
-      this.documento = state.documento;
+      this.documentoInscripcionCarreraFaltante = state.documentoFaltante;
+      this.documentoInscripcionCarrera = state.documento;
 
-      if (this.isUpdate && this.documento) {
-        this.fechaVencimiento = this._stringToDate(this.documento.fechaVencimiento) ;
-        this.fechaLimitedeEntrega = this._stringToDate(this.documento.fechaLimitedeEntrega);
-        this.cantidad = this.documento.cantidad;
-        this.adjunto = this.documento.adjunto;
+      if (!this.isUpdated && this.documentoInscripcionCarreraFaltante) {
+        this.documentoTipoId = this.documentoInscripcionCarreraFaltante.documentoTipoId;
+        this.nombreDocumentoTipo = this.documentoInscripcionCarreraFaltante.nombreDocumentoTipo;
+      }
 
-        this.documentoTipoSelected = { id: this.documento.documentoTipoId, nombre: this.documento.nombreDocumentoTipo };
-        this.documentoEstadoSelected = { id: this.documento.documentoEstadoId, nombre: this.documento.nombreDocumentoEstado };
+      if (this.isUpdated && this.documentoInscripcionCarrera) {
+        this.documentoTipoId = this.documentoInscripcionCarrera.documentoTipoId;
+        this.nombreDocumentoTipo = this.documentoInscripcionCarrera?.nombreDocumentoTipo || '';
+
+        this.fechaVencimiento = this._stringToDate(this.documentoInscripcionCarrera.fechaVencimiento || '');
+        this.fechaLimitedeEntrega = this._stringToDate(this.documentoInscripcionCarrera.fechaLimitedeEntrega);
+        this.cantidad = this.documentoInscripcionCarrera.cantidad;
+        this.adjunto = this.documentoInscripcionCarrera.adjunto || '';
+
+        this.documentoEstadoSelected = { id: this.documentoInscripcionCarrera.documentoEstadoId, nombre: this.documentoInscripcionCarrera.nombreDocumentoEstado || '' };
       }
     })
   }
 
   ngOnDestroy(): void {
-    this.tramiteSubscriptions.unsubscribe();
     this.estudianteSubscriptions.unsubscribe();
+    this.tramiteSubscriptions.unsubscribe();
   }
 
-  setUri(uri: string) {
+  setUri(uri: string): void {
     this.adjunto = uri;
   }
 
   async guardarDocumento() {
+    if (!this.isUpdated && this.documentoInscripcionCarreraFaltante) {
+      console.log('save')
+      await this._crearDocumento()
+    }
+
+    if (this.isUpdated && this.documentoInscripcionCarrera) {
+      console.log('update')
+      await this._actualizarDocumento()
+    }
+  }
+
+  async _crearDocumento() {
     this.savedLoading = true;
+
     if (this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
       !this.fechaVencimiento ||
-      !this.documentoTipoSelected ||
       !this.documentoEstadoSelected ||
       !this.tramite) {
       this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
@@ -91,59 +115,71 @@ export class DocumentoFormComponent implements OnInit {
       return;
     }
 
-    const documentoDTO = {
-      documentoTipoId: this.documentoTipoSelected.id,
+    const documentoDTO: DocumentoInscripcionCarreraSave = {
+      documentoTipoId: this.documentoTipoId,
       documentoEstadoId: this.documentoEstadoSelected.id,
       tramiteInscripcionCarreraId: this.tramite.id,
-      tramiteSubTipoId: this.tramite.tramiteSubTipoId,
+      tramiteSubTipoId: this.documentoInscripcionCarreraFaltante?.tramiteSubTipoId || 0,
       cantidad: this.cantidad,
-      // fechaRegistro: '',
+      fechaLimiteEntrega: this._dateToString(this.fechaLimitedeEntrega),
+      adjunto: this.adjunto,
+      fechaVencimiento: this._dateToString(this.fechaVencimiento),
+      documentoTipoEstado: false,
+      fechaRegistro: this._dateToString(new Date()),
+    }
+
+    const response = await this.tramiteService.postDocumentoInscripcionCarrera(documentoDTO);
+
+    if (!response) {
+      console.log('saved error')
+      this.savedLoading = false;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      return;
+    }
+
+    console.log('saved ok')
+    this._loadDocumentoInscripcionCarrera(this.tramite.id, documentoDTO.tramiteSubTipoId);
+    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Message Content Saved' });
+    this.savedLoading = false;
+  }
+
+  async _actualizarDocumento() {
+    this.savedLoading = true;
+
+    if (this.adjunto.trim().length < 1 ||
+      !this.fechaLimitedeEntrega ||
+      !this.fechaVencimiento ||
+      !this.documentoEstadoSelected ||
+      !this.tramite) {
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
+      this.savedLoading = false;
+      return;
+    }
+
+    const documentoDTO: DocumentoInscripcionCarreraUpdate = {
+      documentoInscripcionCarreraId: this.documentoInscripcionCarrera?.documentoInscripcioncarreraId || 0,
+      documentoEstadoId: this.documentoEstadoSelected.id,
+      cantidad: this.cantidad,
       fechaLimitedeEntrega: this._dateToString(this.fechaLimitedeEntrega),
       adjunto: this.adjunto,
-      fechaVencimiento: this._dateToString(this.fechaVencimiento)
+      fechaVencimiento: this._dateToString(this.fechaVencimiento),
     }
 
-    const response = (this.isUpdate && this.documento) ?
-      await this.tramiteService.putDocumentoInscripcionCarrera({
-        documentoInscripcioncarreraId: this.documento.documentoInscripcioncarreraId,
-        ...documentoDTO
-      }) :
-      await this.tramiteService.postDocumentoInscripcionCarrera(documentoDTO);
+    const response = await this.tramiteService.putDocumentoInscripcionCarrera(documentoDTO);
 
-    // updated error
-    if (this.documento && response) {
-      console.log('updated error')
+    if (response) {
+      // console.log('updated error')
       this.savedLoading = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
       return;
     }
 
-    // saved error
-    if (!this.documento && !response) {
-      // console.log('saved error')
-      this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
-      return;
-    }
-
-    // updated ok
-    if (this.documento && !response) {
-      console.log('updated ok')
-      this.store.dispatch(
-        tramiteActions.updItemDocumento({ documento: documentoDTO })
+    console.log('updated ok')
+    this._loadDocumentoInscripcionCarrera(
+      this.tramite.id,
+      this.documentoInscripcionCarrera?.tramiteSubTipoId || 0
       );
-      this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Message Content Update' });
-    }
-
-    // saved ok
-    if (!this.documento && response) {
-      console.log('saved ok')
-      this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Message Content Saved' });
-
-      this.store.dispatch(
-        tramiteActions.addItemDocumento({ documento: documentoDTO })
-      );
-    }
+    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Message Content Update' });
 
     this.savedLoading = false;
   }
@@ -159,7 +195,19 @@ export class DocumentoFormComponent implements OnInit {
     return date ? new Date(date) : undefined;
   }
 
-  _dateToString(date: Date): string {
+  _dateToString(date: Date | undefined): string {
     return date ? date.toISOString() : '';
+  }
+
+  async _loadDocumentoInscripcionCarrera(tramiteId: number, tramiteSubTipoId: number) {
+    const response = await this.tramiteService.getListDocumentos(tramiteId, tramiteSubTipoId)
+    const documentos = response || [];
+
+    const response0 = await this.tramiteService.getListDocumentoFaltante(tramiteId, tramiteSubTipoId);
+    const documentosFaltantes = response0 || [];
+
+    this.store.dispatch(
+      tramiteActions.setDocumentos({ documentos: documentos, documentosFaltantes: documentosFaltantes })
+    );
   }
 }

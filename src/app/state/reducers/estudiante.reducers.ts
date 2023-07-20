@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
+import { Inscripcion, Persona, TramiteInscripcionCarrera, TramitesRealizados } from 'src/app/interfaces/estudiante.interface';
 import { setEstudiante, unSetEstudiante, setInscripciones, unSetInscripciones, setTramites, unSetTramites, setTramite, unSetTramite, setTramiteActiveIndex } from '../actions/estudiante.actions';
 
 export interface EstudianteState {
-  estudiante: any;
-  inscripciones: any[];
-  inscripcion: any;
-  tramites: any[];
-  tramite: any;
+  estudiante: Persona | undefined;
+  inscripciones: Inscripcion[];
+  inscripcion: Inscripcion | undefined;
+  tramites: TramitesRealizados[];
+  tramite: TramiteInscripcionCarrera | undefined;
   tramiteActiveIndex: number;
 }
 

@@ -1,0 +1,57 @@
+export interface Tramite{
+    idTramite: number;
+    nombre: string;
+    unidadAcademicaId: number;
+    nombreUnidadAcademica: string;
+}
+
+export interface TramiteSubTipo{
+    tramiteSubTipoId: number;
+    nombreSubTramite: string;
+    estado: boolean;
+    nivelEstudioId: number;
+}
+
+export interface DocumentoPlantilla{
+    id: number;
+    tramite: string;
+    tramiteSubTipoId: number;
+    subTipoTramite: string;
+    fechaRegistro: string;
+    estado: string;
+}
+
+export interface TramiteSubTipoDocumentoPlantillas{
+    tramiteSubTipoId: number;
+    nombreSubTramite: string;
+    estado: boolean;
+    nivelEstudioId: number;
+    documentoPlantillas: DocumentoPlantilla[];
+}
+
+export interface DocumentoOperacion{
+    documentoOperacionId?: number;
+    funcionarioId?: number;
+    nombreFuncionario?: string;
+    descripcion?: string;
+    estado: boolean;
+    fechaOperacion?: string;
+    adjunto?: string;
+    documentoOperacionTipoId?: number;
+    nombreDocumentoOperacionTipo?: string;
+}
+
+export interface DocumentoOperacionSave{
+    documentoInscripcionCarreraId?: number;
+    funcionarioId?: number;
+    documentoOperacionTipoId?: number;
+    descripcion?: string;
+    estado: boolean;
+    fechaOperacion?: Date;
+    adjunto?: string;
+}
+
+export interface DocumentoOperacionTipo{
+    documentoOperacionTipoId: number;
+    nombre: string;
+}

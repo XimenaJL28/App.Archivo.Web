@@ -1,1 +1,0 @@
-export { BuscarPersona } from "./persona.interface";

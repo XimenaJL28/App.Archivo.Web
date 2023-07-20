@@ -2,11 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import * as tramiteActions from '../../state/actions/tramite.actions';
 import { EstudianteState } from '../../state/reducers/estudiante.reducers';
 import { TramiteState } from '../../state/reducers/tramite.reducers';
 
 import { TramiteService } from '../../services/tramite.service';
+
+import { setColorDocumentoEstado } from '../../utils/color';
+
+import { DocumentoOperacion } from '../../interfaces/tramite.interface';
+import { DocumentoInscripcionCarrera, TramiteInscripcionCarrera } from '../../interfaces/estudiante.interface';
 
 @Component({
   selector: 'app-documento-inscripcion',
@@ -14,13 +20,12 @@ import { TramiteService } from '../../services/tramite.service';
   styleUrls: ['./documento-inscripcion.component.scss'],
 })
 export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
-  public tramite: any = undefined;
-  public documentos: any[] = [];
-  public documento: any = undefined;
-  public operaciones: any[] = [];
-  public operacion: any = undefined;
+  public tramite?: TramiteInscripcionCarrera = undefined;
+  public documentos: DocumentoInscripcionCarrera[] = [];
+  public documento?: DocumentoInscripcionCarrera = undefined;
+  public operaciones: DocumentoOperacion[] = [];
+  public operacion?: DocumentoOperacion = undefined;
 
-  public visibleDocumentoSave: boolean = false;
   public visibleDocumentoUpdate: boolean = false;
   public visibleOperacion: boolean = false;
 
@@ -50,8 +55,8 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
     this.estudianteSubscriptions.unsubscribe();
   }
 
-  async getOperaciones(documento: any) {
-    const response = await this.tramiteService.getListOperaciones(documento.documentoInscripcioncarreraId);
+  async getOperaciones(documento: DocumentoInscripcionCarrera) {
+    const response = await this.tramiteService.getListOperaciones(documento.documentoInscripcioncarreraId || 0);
     const operaciones = response || [];
 
     this.store.dispatch(
@@ -59,7 +64,7 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
     );
   }
 
-  getOperacion(operacion: any) {
+  getOperacion(operacion: DocumentoOperacion): void {
     this.store.dispatch(
       tramiteActions.setOperacion({ operacion: operacion })
     )
@@ -67,26 +72,13 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
     this.visibleOperacion = true;
   }
 
-  nuevoDocumento() {
-    this.visibleDocumentoSave = true;
-  }
-
-  async editarDocumento(documento: any) {
+  async editarDocumento(documento: DocumentoInscripcionCarrera) {
     this.getOperaciones(documento).then(() => {
       this.visibleDocumentoUpdate = true;
     })
   }
 
-  setColorDocumentoEstado(documento: any) {
-    switch (documento.nombreDocumentoEstado) {
-      case 'Inactivo':
-        return 'success';
-      case 'Activo':
-        return 'warning';
-      case 'Reprogramado':
-        return 'danger';
-      default:
-        return 'info'
-    }
+  getColorDocumentoEstado(documento: DocumentoInscripcionCarrera): string {
+    return setColorDocumentoEstado(documento);
   }
 }

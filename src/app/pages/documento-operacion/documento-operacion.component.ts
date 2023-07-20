@@ -3,11 +3,14 @@ import { MessageService } from 'primeng/api';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import { UserState } from '../../state/reducers/user.reducer';
 import { TramiteState } from '../../state/reducers/tramite.reducers';
 import * as tramiteActions from '../../state/actions/tramite.actions';
 
 import { TramiteService } from '../../services/tramite.service';
+import { DocumentoInscripcionCarrera, DropDownItem } from '../../interfaces/estudiante.interface';
+import { DocumentoOperacion, DocumentoOperacionSave } from '../../interfaces/tramite.interface';
 
 @Component({
   selector: 'app-documento-operacion',
@@ -16,16 +19,16 @@ import { TramiteService } from '../../services/tramite.service';
   providers: [MessageService]
 })
 export class DocumentoOperacionComponent implements OnInit, OnDestroy {
-  public documento: any = undefined;
-  public user: any = undefined;
+  public documento?: DocumentoInscripcionCarrera = undefined;
+  public user?: UserState = undefined;
 
-  public documentoOperacionTipos: any[] = [];
+  public documentoOperacionTipos: DropDownItem[] = [];
+  public documentoOperacionTipoSelected?: DropDownItem = undefined;
   public fechaOperacion: string = '';
   public nombreFuncionario: string = '';
   public adjunto: string = '';
   public descripcion: string = '';
 
-  public documentoOperacionTipoSelected: any = undefined;
   public savedLoading: boolean = false;
 
   private tramiteSubscriptions!: Subscription;
@@ -37,7 +40,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.tramiteService.getDocumentoOperacionTipoSelected().then((response: any) => {
+    this.tramiteService.getDropDownDocumentoOperacionTipo().then((response: any) => {
       this.documentoOperacionTipos = response || [];
     })
 
@@ -51,18 +54,18 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     })
   }
 
-  setSelectedDocumentoOperacionTipo(event: any) {
-    this.store.dispatch(
-      tramiteActions.setSelectedDocumentoOperacionTipo({ documentoOperacionTipo: event.value })
-    );
-  }
-
   ngOnDestroy(): void {
     this.tramiteSubscriptions.unsubscribe();
     this.userSubscriptions.unsubscribe();
   }
 
-  setUri(uri: string) {
+  setSelectedDocumentoOperacionTipo(event: any): void {
+    this.store.dispatch(
+      tramiteActions.setSelectedDocumentoOperacionTipo({ documentoOperacionTipo: event.value })
+    );
+  }
+
+  setUri(uri: string): void {
     this.adjunto = uri;
   }
 
@@ -71,21 +74,23 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
 
     // validacion de datos
     if (this.adjunto.trim().length < 1 ||
+      !this.user ||
       this.descripcion.trim().length < 1 ||
       !this.documentoOperacionTipoSelected ||
-      !this.documento ||
-      !this.user) {
+      !this.documento
+    ) {
       this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
       this.savedLoading = false;
       return;
     }
 
-    const operacionDTO = {
-      documentoInscripcionCarreraId: this.documento.documentoInscripcioncarreraId,
-      funcionarioId: this.user.id,
+    const operacionDTO: DocumentoOperacionSave = {
+      documentoInscripcionCarreraId: this.documento.documentoInscripcioncarreraId || 0,
+      funcionarioId: this.user.id || 0,
       documentoOperacionTipoId: this.documentoOperacionTipoSelected.id,
       descripcion: this.descripcion,
       adjunto: this.adjunto,
+      estado: false
     }
 
     const response = await this.tramiteService.postDocumentoOperacion(operacionDTO);
@@ -100,17 +105,17 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
 
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
 
-    this.store.dispatch(
+    /*this.store.dispatch(
       tramiteActions.addItemOperacion({ operacion: operacionDTO })
-    );
+    );*/
   }
 
-  nuevaOperacion() {
+  nuevaOperacion(): void {
     this._clearForm();
-    this.nombreFuncionario = this.user.nombreFuncionario || 'desconocido';
+    this.nombreFuncionario = this.user?.nombre || 'desconocido';
   }
 
-  _clearForm() {
+  _clearForm(): void {
     this.descripcion = '';
     this.adjunto = '';
     this.fechaOperacion = '';

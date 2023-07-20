@@ -1,8 +1,9 @@
 import { createAction, props } from '@ngrx/store';
+import { Inscripcion, Persona, TramiteInscripcionCarrera, TramitesRealizados } from 'src/app/interfaces/estudiante.interface';
 
 export const setEstudiante = createAction(
   '[Estudiante] setEstudiante',
-  props<{ estudiante: any }>()
+  props<{ estudiante: Persona }>()
 );
 
 export const unSetEstudiante = createAction(
@@ -11,7 +12,7 @@ export const unSetEstudiante = createAction(
 
 export const setInscripciones = createAction(
   '[Estudiante] setInscripciones',
-  props<{ inscripciones: any[] }>()
+  props<{ inscripciones: Inscripcion[] }>()
 );
 
 export const unSetInscripciones = createAction(
@@ -20,7 +21,7 @@ export const unSetInscripciones = createAction(
 
 export const setTramites = createAction(
   '[Estudiante] setTramites',
-  props<{ tramites: any[], inscripcion: any }>()
+  props<{ tramites: TramitesRealizados[], inscripcion: Inscripcion }>()
 );
 
 export const unSetTramites = createAction(
@@ -29,7 +30,7 @@ export const unSetTramites = createAction(
 
 export const setTramite = createAction(
   '[Estudiante] setTramite',
-  props<{ tramite: any }>()
+  props<{ tramite: TramiteInscripcionCarrera }>()
 );
 
 export const unSetTramite = createAction(

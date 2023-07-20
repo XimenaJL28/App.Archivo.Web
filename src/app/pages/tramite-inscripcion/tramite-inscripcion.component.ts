@@ -3,8 +3,14 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import { EstudianteState } from '../../state/reducers/estudiante.reducers';
 import { TramiteState } from '../../state/reducers/tramite.reducers';
+import * as tramiteActions from '../../state/actions/tramite.actions';
+
+import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, Inscripcion, Persona, TramiteInscripcionCarrera } from 'src/app/interfaces/estudiante.interface';
+
+import { setColorDocumentoEstado } from '../../utils/color';
 
 @Component({
   selector: 'app-tramite-inscripcion',
@@ -12,11 +18,13 @@ import { TramiteState } from '../../state/reducers/tramite.reducers';
   styleUrls: ['./tramite-inscripcion.component.scss']
 })
 export class TramiteInscripcionComponent implements OnInit, OnDestroy {
-  public tramite: any = undefined;
-  public estudiante: any = undefined;
-  public inscripcion: any = undefined;
-  public documentos: any[] = [];
-  public documentosFaltantes: any[] = [];
+  public tramite?: TramiteInscripcionCarrera = undefined;
+  public estudiante?: Persona = undefined;
+  public inscripcion?: Inscripcion = undefined;
+  public documentos: DocumentoInscripcionCarrera[] = [];
+  public documentosFaltantes: DocumentoInscripcionCarreraFaltantes[] = [];
+
+  public visibleDocumentoSave: boolean = false;
 
   private estudianteSubscriptions!: Subscription;
   private tramiteSubscriptions!: Subscription;
@@ -44,7 +52,14 @@ export class TramiteInscripcionComponent implements OnInit, OnDestroy {
     this.estudianteSubscriptions.unsubscribe();
   }
 
-  navigateToDocumento() {
-    this.router.navigate([`/tramite/documento`]);
+  getColorDocumentoEstado(documento: DocumentoInscripcionCarrera): string {
+    return setColorDocumentoEstado(documento);
+  }
+
+  async nuevoDocumento(documento: DocumentoInscripcionCarreraFaltantes) {
+    this.store.dispatch(
+      tramiteActions.setDocumentoFaltante({ documentoFaltante: documento })
+    )
+    this.visibleDocumentoSave = true;
   }
 }

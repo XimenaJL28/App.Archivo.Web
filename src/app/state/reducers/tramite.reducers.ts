@@ -1,23 +1,25 @@
 import { createReducer, on } from '@ngrx/store';
-import { addItemDocumento, addItemOperacion, setDocumento, setDocumentos, setOperacion, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion, updItemDocumento, updItemOperacion } from '../actions/tramite.actions';
+import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DropDownItem } from '../../interfaces/estudiante.interface';
+import { DocumentoOperacion } from '../../interfaces/tramite.interface';
+import { addItemDocumento, addItemOperacion, setDocumento, setDocumentoFaltante, setDocumentos, setOperacion, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion, updItemDocumento, updItemOperacion } from '../actions/tramite.actions';
 
 export interface TramiteState {
-  documentos: any[];
-  documento: any;
-  operaciones: any[];
-  operacion: any;
-  documentosFaltantes: any[];
-
-  documentoOperacionTipo: any;
+  documentos: DocumentoInscripcionCarrera[];
+  documento: DocumentoInscripcionCarrera | undefined;
+  documentosFaltantes: DocumentoInscripcionCarreraFaltantes[];
+  documentoFaltante: DocumentoInscripcionCarreraFaltantes | undefined;
+  operaciones: DocumentoOperacion[];
+  operacion: DocumentoOperacion | undefined;
+  documentoOperacionTipo: DropDownItem | undefined;
 }
 
 export const initialState: TramiteState = {
   documentos: [],
   documento: undefined,
   documentosFaltantes: [],
+  documentoFaltante: undefined,
   operaciones: [],
   operacion: undefined,
-
   documentoOperacionTipo: undefined,
 }
 
@@ -59,6 +61,12 @@ export const tramiteReducer = createReducer(
       operacion: undefined,
     })),
 
+  on(setDocumentoFaltante, (state, { documentoFaltante }) => (
+    {
+      ...state,
+      documentoFaltante: { ...documentoFaltante },
+    })),
+
   on(setOperacion, (state, { operacion }) => (
     {
       ...state,
@@ -88,7 +96,7 @@ export const tramiteReducer = createReducer(
   on(updItemDocumento, (state, { documento }) => (
     {
       ...state,
-      documentos: [{ ...documento }, state.documentos.filter(item => item.id !== documento.id)],
+      /*documentos: [{ ...documento }, state.documentos.filter(item => item.documentoInscripcioncarreraId !== documento?.documentoInscripcioncarreraId)],*/
       documento: { ...documento },
     }
   )),
@@ -96,7 +104,7 @@ export const tramiteReducer = createReducer(
   on(updItemOperacion, (state, { operacion }) => (
     {
       ...state,
-      operaciones: [{ ...operacion }, state.operaciones.filter(item => item.id !== operacion.id)],
+      /*operaciones: [{ ...operacion }, state.operaciones.filter(item => item.documentoOperacionId !== operacion?.documentoOperacionId)],*/
       operacion: { ...operacion },
     })),
 

@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import * as tramiteActions from '../../state/actions/tramite.actions';
 import { TramiteState } from '../../state/reducers/tramite.reducers';
 
@@ -39,15 +40,15 @@ export class PlantillaFormComponent implements OnInit, OnDestroy {
     private tramiteService: TramiteService,
     private messageService: MessageService) {
 
-    this.tramiteService.getListDocumentoTipoSelected().then((response: any) => {
+    this.tramiteService.getDropDownDocumentoTipo().then((response: any) => {
       this.documentoTipos = response || [];
     })
 
-    this.tramiteService.getListDocumentoPlantillaEstadoSelected().then((response: any) => {
+    this.tramiteService.getDropDownDocumentoPlantillaEstado().then((response: any) => {
       this.documentoPlanillaEstados = response || [];
     })
 
-    this.tramiteService.getListCarreraSelected().then((response: any) => {
+    this.tramiteService.getDropDownCarrera().then((response: any) => {
       this.carreras = response || [];
     })
   }

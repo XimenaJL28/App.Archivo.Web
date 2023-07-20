@@ -16,7 +16,7 @@ import { PlantillaFormComponent } from './plantilla-form/plantilla-form.componen
     DragndropDirective,
     OperacionViewComponent,
     DocumentoFormComponent,
-    PlantillaFormComponent,
+    PlantillaFormComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +28,7 @@ import { PlantillaFormComponent } from './plantilla-form/plantilla-form.componen
     DragndropDirective,
     OperacionViewComponent,
     DocumentoFormComponent,
-    PlantillaFormComponent,
+    PlantillaFormComponent
   ]
 })
 export class ComponentsModule { }
