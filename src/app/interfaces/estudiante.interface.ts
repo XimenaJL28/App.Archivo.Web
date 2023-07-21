@@ -51,6 +51,7 @@ export interface DocumentoInscripcionCarreraFaltantes {
   documentoTipoId: number;
   nombreDocumentoTipo: string;
   tramiteSubTipoId: number;
+  estadoExpiracion: boolean;
 }
 
 export interface DocumentoInscripcionCarreraSave {

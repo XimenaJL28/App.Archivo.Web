@@ -33,7 +33,7 @@
   </div>
   <div class="grid">
     <div class="col-12 md:col-3">
-      <span class="text-900 font-semibold mr-2">Fecha :</span>
+      <span class="text-900 font-semibold mr-2">Fecha Registro:</span>
       <span class="font-medium"> {{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="col-12 md:col-9">
@@ -63,7 +63,7 @@
       <tr>
         <td>{{ documentosFaltantesIndex.nombreDocumentoTipo | titlecase }}</td>
         <td>
-          <p-button (onClick)="nuevoDocumento(documentosFaltantesIndex)" icon="fa-solid fa-plus" styleClass="p-button-rounded">
+          <p-button (onClick)="nuevoDocumento(documentosFaltantesIndex)" icon="fa-solid fa-plus" styleClass="p-button-rounded" title="Añadir documento">
           </p-button>
         </td>
       </tr>

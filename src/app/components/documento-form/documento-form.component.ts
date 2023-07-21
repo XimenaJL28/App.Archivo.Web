@@ -139,7 +139,7 @@ export class DocumentoFormComponent implements OnInit {
 
     console.log('saved ok')
     await this._loadDocumentoInscripcionCarrera(this.tramite.id, documentoDTO.tramiteSubTipoId);
-    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Message Content Saved' });
+    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Guardado Exitosamente' });
     this.savedLoading = false;
   }
 
@@ -169,11 +169,11 @@ export class DocumentoFormComponent implements OnInit {
 
     if (!response) {
       this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo efectuar cambios' });
       console.log('updated error')
       return;
     }
-    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Message Content Update' });
+    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Actualizado Correctamente' });
 
     console.log('updated ok')
     await this._loadDocumentoInscripcionCarrera(

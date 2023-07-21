@@ -9,7 +9,7 @@
     <span class="font-medium">{{ tramite.tramite | titlecase }} {{ tramite.subTipoTramite | titlecase }} </span>
   </div>
   <div class="col-12 md:col-3">
-    <span class="text-900 font-semibold mr-2">Fecha:</span>
+    <span class="text-900 font-semibold mr-2">Fecha del Trámite:</span>
     <span class="font-medium"> {{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</span>
   </div>
 </div>
@@ -29,8 +29,8 @@
             <th>Documento Tipo</th>
             <th>Cantidad</th>
             <th>Documento Estado</th>
-            <th>Fecha Límite</th>
             <th>Fecha Registro</th>
+            <th>Fecha Límite</th>
             <th style="width: 10%;"></th>
           </tr>
         </ng-template>
@@ -43,14 +43,14 @@
               <p-tag [value]="documentoItem.nombreDocumentoEstado"
                 [severity]="getColorDocumentoEstado(documentoItem)"></p-tag>
             </td>
-            <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td>{{ documentoItem.fechaRegistro | date:'dd/MM/yyyy' }}</td>
+            <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td style="text-align: center;">
               <p-button (onClick)="getOperaciones(documentoItem)" icon="fa-solid fa-search"
-                styleClass="p-button-rounded" class="mr-1">
+                styleClass="p-button-rounded" class="mr-1" title="Ver operaciones del documento">
               </p-button>
               <p-button (onClick)="editarDocumento(documentoItem)" icon="fa-solid fa-pencil"
-                styleClass="p-button-rounded">
+                styleClass="p-button-rounded" title="Modificar documento">
               </p-button>
             </td>
           </tr>
@@ -82,7 +82,7 @@
             [ngClass]="{'table-row-select': operacionItem.documentoOperacionId === operacion?.documentoOperacionId || 0 }">
             <td>{{ operacionItem.documentoOperacionId }}</td>
             <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
-            <td>{{ operacionItem.nombreFuncionario}}</td>
+            <td>{{ operacionItem.nombreFuncionario | titlecase }}</td>
             <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
             <td>{{ operacionItem.descripcion }}</td>
             <td style="text-align: center;">
@@ -97,13 +97,13 @@
 </div>
 
 <!-- Formulario de documentos -->
-<p-dialog *ngIf="documento" header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate"
+<p-dialog header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate"
   [style]="{width: '85vw', height :'100vh'}">
   <app-documento-form [isUpdated]="true"></app-documento-form>
 </p-dialog>
 
 <!-- Formulario de operaciones -->
-<p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
-  [style]="{width: '85vw', height :'100vh'}">
-  <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
+<p-dialog *ngIf="documento && operacion" header="Operación" [(visible)]="visibleOperacion"
+  [style]="{width: '85vw', height :'100vh'}" >
+  <app-operacion-view [documento]="documento" [operacion]="operacion" ></app-operacion-view>
 </p-dialog>

@@ -6,9 +6,9 @@
 <div *ngIf="documento">
   <div class="grid">
     <div class="col-12">
-      <span class="text-900 font-semibold mr-2">Trámite sup tipo:</span>
-      <p class="text-700 font-medium mt-0 mb-0">{{ documento.nombreTramiteSubTipo }}</p>
-      <span class="text-900 font-semibold mr-2">Fecha:</span>
+      <span class="text-900 font-semibold mr-2">Trámite Sub Tipo:</span>
+      <p class="text-700 font-medium mt-0 mb-0">{{ documento.nombreTramiteSubTipo | titlecase }}</p>
+      <span class="text-900 font-semibold mr-2">Fecha Registro Documento:</span>
       <span class="text-900 font-medium">{{ documento.fechaRegistro | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="col-12">
@@ -23,7 +23,7 @@
     <!-- Formulario de operaciones -->
     <div class="col-12">
       <div class="flex justify-content-between align-content-start">
-        <h3 class="text-700">Registrar operacion</h3>
+        <h3 class="text-700">Registrar Operación</h3>
         <div>
           <p-button label="Nuevo" (click)="nuevaOperacion()" styleClass="p-button-secondary" class="mr-2"></p-button>
           <p-button label="Guardar" [loading]="savedLoading" (click)="guardarOperacion()"></p-button>
@@ -34,7 +34,7 @@
 
   <div class="grid mt-2">
     <div *ngIf="fechaOperacion.length > 0" class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Fecha:</span>
+      <span class="text-900 font-semibold mr-2">Fecha Operación:</span>
       <span class="font-medium"> {{ fechaOperacion | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="col-12 md:col-8">
@@ -46,14 +46,14 @@
   <div class="grid">
     <div class="col-12 md:col-4">
       <div class="flex flex-column gap-2">
-        <label htmlFor="tipo-operacion">Tipo de Operacion</label>
+        <label htmlFor="tipo-operacion">Tipo de Operación</label>
         <p-dropdown [options]="documentoOperacionTipos" (onChange)="setSelectedDocumentoOperacionTipo($event)"
           [(ngModel)]="documentoOperacionTipoSelected" optionLabel="nombre" class="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
     <div class="col-12 md:col-8">
       <div class="flex flex-column gap-2">
-        <label htmlFor="descripcion">Descripcion</label>
+        <label htmlFor="descripcion">Descripción</label>
         <input pInputText [(ngModel)]="descripcion" id="descripcion" class="p-inputtext-sm" />
         <small id="descripcion-help"></small>
       </div>
