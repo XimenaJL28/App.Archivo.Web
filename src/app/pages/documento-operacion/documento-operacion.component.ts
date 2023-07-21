@@ -10,7 +10,7 @@ import * as tramiteActions from '../../state/actions/tramite.actions';
 
 import { TramiteService } from '../../services/tramite.service';
 import { DocumentoInscripcionCarrera, DropDownItem } from '../../interfaces/estudiante.interface';
-import { DocumentoOperacion, DocumentoOperacionSave } from '../../interfaces/tramite.interface';
+import { DocumentoOperacionSave } from '../../interfaces/tramite.interface';
 
 @Component({
   selector: 'app-documento-operacion',
@@ -51,6 +51,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
 
     this.userSubscriptions = this.store.select('user').subscribe(state => {
       this.user = state;
+      this.nombreFuncionario = this._getNombreFuncionario();
     })
   }
 
@@ -73,13 +74,13 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
     this.savedLoading = true;
 
     // validacion de datos
-    if (//this.adjunto.trim().length < 1 ||
+    if (this.adjunto.trim().length < 1 ||
       !this.user ||
       this.descripcion.trim().length < 1 ||
       !this.documentoOperacionTipoSelected ||
       !this.documento
     ) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores insertados' });
       this.savedLoading = false;
       return;
     }
@@ -90,7 +91,7 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
       documentoOperacionTipoId: this.documentoOperacionTipoSelected.id,
       descripcion: this.descripcion,
       adjunto: this.adjunto,
-      estado: false
+      estado: true
     }
 
     const response = await this.tramiteService.postDocumentoOperacion(operacionDTO);
@@ -99,27 +100,22 @@ export class DocumentoOperacionComponent implements OnInit, OnDestroy {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
       return;
     }
+    console.log(response, "response Guardado");
 
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
-
-    const documentoOperacion: DocumentoOperacion = {
-      ...operacionDTO,
-      documentoOperacionId: response?.documentoOperacionId || 1,
-      fechaOperacion: response?.fechaOperacion || new Date().toString(),
-      nombreDocumentoOperacionTipo: this.documentoOperacionTipoSelected.nombre,
-      nombreFuncionario: this._getNombreFuncionario(),
-    }
+    const responseOperaciones = await this.tramiteService.getListOperaciones(this.documento.documentoInscripcioncarreraId);
+    const operaciones = responseOperaciones || [];
 
     this.store.dispatch(
-      tramiteActions.addItemOperacion({ operacion: documentoOperacion })
+      tramiteActions.setOperaciones({ operaciones: operaciones })
     );
 
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
     this.savedLoading = false;
   }
 
   nuevaOperacion(): void {
     this._clearForm();
-    this.nombreFuncionario = this._getNombreFuncionario();
+
   }
 
   _clearForm(): void {

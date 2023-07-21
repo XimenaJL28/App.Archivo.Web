@@ -1,14 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
 import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DropDownItem } from '../../interfaces/estudiante.interface';
 import { DocumentoOperacion } from '../../interfaces/tramite.interface';
-import { addItemDocumento, addItemOperacion, setDocumento, setDocumentoFaltante, setDocumentos, setOperacion, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion, updItemDocumento, updItemOperacion } from '../actions/tramite.actions';
+import { setDocumento, setDocumentoFaltante, setDocumentos, setOperacion, setOperaciones, setSelectedDocumentoOperacionTipo, unSetDocumento, unSetDocumentos, unSetOperacion, unSetOperaciones } from '../actions/tramite.actions';
 
 export interface TramiteState {
   documentos: DocumentoInscripcionCarrera[];
   documento: DocumentoInscripcionCarrera | undefined;
   documentosFaltantes: DocumentoInscripcionCarreraFaltantes[];
-  documentoFaltante: DocumentoInscripcionCarreraFaltantes | undefined;
   operaciones: DocumentoOperacion[];
+
+  documentoFaltante: DocumentoInscripcionCarreraFaltantes | undefined;
   operacion: DocumentoOperacion | undefined;
   documentoOperacionTipo: DropDownItem | undefined;
 }
@@ -17,8 +18,9 @@ export const initialState: TramiteState = {
   documentos: [],
   documento: undefined,
   documentosFaltantes: [],
-  documentoFaltante: undefined,
   operaciones: [],
+
+  documentoFaltante: undefined,
   operacion: undefined,
   documentoOperacionTipo: undefined,
 }
@@ -33,6 +35,7 @@ export const tramiteReducer = createReducer(
       documentosFaltantes: [...documentosFaltantes],
       operaciones: [],
       operacion: undefined,
+      documentoFaltante: undefined,
     })),
 
   on(unSetDocumentos, (state) => (
@@ -79,14 +82,27 @@ export const tramiteReducer = createReducer(
       operacion: undefined,
     })),
 
-  on(addItemOperacion, (state, { operacion }) => (
+  on(setSelectedDocumentoOperacionTipo, (state, { documentoOperacionTipo }) => (
     {
       ...state,
-      operaciones: [{ ...operacion }, ...state.operaciones],
-      operacion: { ...operacion },
+      documentoOperacionTipo: { ...documentoOperacionTipo },
     })),
 
-  on(addItemDocumento, (state, { documento }) => (
+  on(setOperaciones, (state, { operaciones }) => (
+    {
+      ...state,
+      operaciones: [...operaciones],
+      operacion: undefined,
+    })),
+
+  on(unSetOperaciones, (state) => (
+    {
+      ...state,
+      operaciones: [],
+      operacion: undefined,
+    })),
+  /*
+    on(addItemDocumento, (state, { documento }) => (
     {
       ...state,
       documentos: [{ ...documento }, ...state.documentos],
@@ -96,21 +112,22 @@ export const tramiteReducer = createReducer(
   on(updItemDocumento, (state, { documento }) => (
     {
       ...state,
-      /*documentos: [{ ...documento }, state.documentos.filter(item => item.documentoInscripcioncarreraId !== documento?.documentoInscripcioncarreraId)],*/
+      documentos: [{ ...documento }, state.documentos.filter(item => item.documentoInscripcioncarreraId !== documento?.documentoInscripcioncarreraId)],
       documento: { ...documento },
     }
   )),
 
+  on(addItemOperacion, (state, { operacion }) => (
+    {
+      ...state,
+      operaciones: [{ ...operacion }, ...state.operaciones],
+      operacion: { ...operacion },
+    })),
   on(updItemOperacion, (state, { operacion }) => (
     {
       ...state,
-      /*operaciones: [{ ...operacion }, state.operaciones.filter(item => item.documentoOperacionId !== operacion?.documentoOperacionId)],*/
+      operaciones: [{ ...operacion }, state.operaciones.filter(item => item.documentoOperacionId !== operacion?.documentoOperacionId)],
       operacion: { ...operacion },
     })),
-
-  on(setSelectedDocumentoOperacionTipo, (state, { documentoOperacionTipo }) => (
-    {
-      ...state,
-      documentoOperacionTipo: { ...documentoOperacionTipo },
-    })),
+    */
 )

@@ -4,14 +4,17 @@ export function setColorDocumentoEstado(documento: DocumentoInscripcionCarrera):
   const fechaVencimiento = new Date(documento.fechaVencimiento || '')
   const fechaRegistro = new Date(documento.fechaRegistro)
 
-  if (monthDiff(fechaRegistro, fechaVencimiento) < 3)
-    return 'danger';
+  // if (monthDiff(fechaRegistro, fechaVencimiento) < 3)
+  //   return 'danger';
 
-  if (documento.nombreDocumentoEstado === 'Inactivo')
+  if (documento.nombreDocumentoEstado === 'Completado')
     return 'success';
 
   if (documento.nombreDocumentoEstado === 'Activo')
     return 'warning';
+
+  if (documento.nombreDocumentoEstado === 'Inactivo')
+    return 'primary';
 
   if (documento.nombreDocumentoEstado === 'Reprogramado')
     return 'danger';

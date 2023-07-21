@@ -68,6 +68,21 @@ export interface DocumentoInscripcionCarreraSave {
   fechaVencimiento?: string;
 }
 
+export interface DocumentoInscripcionCarreraUpdateResponse {
+  documentoInscripcioncarreraId: number;
+  nombreDocumentoTipo: string;
+  documentoTipoId: number;
+  documentoEstadoId: number;
+  tramiteInscripcionCarreraId: number;
+  tramiteSubTipoId: number;
+  cantidad: number;
+  fechaLimiteEntrega: string;
+  fechaRegistro: string;
+  adjunto: string;
+  documentoTipoEstado: boolean;
+  fechaVencimiento: string;
+}
+
 export interface DocumentoInscripcionCarreraUpdate {
   documentoInscripcionCarreraId: number;
   documentoEstadoId: number;

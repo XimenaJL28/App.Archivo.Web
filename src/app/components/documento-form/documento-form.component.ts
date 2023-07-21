@@ -105,7 +105,7 @@ export class DocumentoFormComponent implements OnInit {
   async _crearDocumento() {
     this.savedLoading = true;
 
-    if (//this.adjunto.trim().length < 1 ||
+    if (this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
       !this.fechaVencimiento ||
       !this.documentoEstadoSelected ||
@@ -124,7 +124,7 @@ export class DocumentoFormComponent implements OnInit {
       fechaLimiteEntrega: this._dateToString(this.fechaLimitedeEntrega),
       adjunto: this.adjunto,
       fechaVencimiento: this._dateToString(this.fechaVencimiento),
-      documentoTipoEstado: false,
+      documentoTipoEstado: true,
       fechaRegistro: this._dateToString(new Date()),
     }
 
@@ -138,7 +138,7 @@ export class DocumentoFormComponent implements OnInit {
     }
 
     console.log('saved ok')
-    this._loadDocumentoInscripcionCarrera(this.tramite.id, documentoDTO.tramiteSubTipoId);
+    await this._loadDocumentoInscripcionCarrera(this.tramite.id, documentoDTO.tramiteSubTipoId);
     this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Message Content Saved' });
     this.savedLoading = false;
   }
@@ -146,12 +146,12 @@ export class DocumentoFormComponent implements OnInit {
   async _actualizarDocumento() {
     this.savedLoading = true;
 
-    if (//this.adjunto.trim().length < 1 ||
+    if (this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
       !this.fechaVencimiento ||
       !this.documentoEstadoSelected ||
       !this.tramite) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores insertados' });
       this.savedLoading = false;
       return;
     }
@@ -167,19 +167,19 @@ export class DocumentoFormComponent implements OnInit {
 
     const response = await this.tramiteService.putDocumentoInscripcionCarrera(documentoDTO);
 
-    if (response) {
-      console.log('updated error')
+    if (!response) {
       this.savedLoading = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      console.log('updated error')
       return;
     }
+    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Message Content Update' });
 
     console.log('updated ok')
-    this._loadDocumentoInscripcionCarrera(
+    await this._loadDocumentoInscripcionCarrera(
       this.tramite.id,
       this.documentoInscripcionCarrera?.tramiteSubTipoId || 0
-      );
-    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Message Content Update' });
+    );
 
     this.savedLoading = false;
   }
@@ -200,11 +200,11 @@ export class DocumentoFormComponent implements OnInit {
   }
 
   async _loadDocumentoInscripcionCarrera(tramiteId: number, tramiteSubTipoId: number) {
-    const response = await this.tramiteService.getListDocumentos(tramiteId, tramiteSubTipoId)
-    const documentos = response || [];
+    const responseDocumentos = await this.tramiteService.getListDocumentos(tramiteId, tramiteSubTipoId)
+    const documentos = responseDocumentos || [];
 
-    const response0 = await this.tramiteService.getListDocumentoFaltante(tramiteId, tramiteSubTipoId);
-    const documentosFaltantes = response0 || [];
+    const responseDocumentoFaltantes = await this.tramiteService.getListDocumentoFaltante(tramiteId, tramiteSubTipoId);
+    const documentosFaltantes = responseDocumentoFaltantes || [];
 
     this.store.dispatch(
       tramiteActions.setDocumentos({ documentos: documentos, documentosFaltantes: documentosFaltantes })

@@ -26,6 +26,11 @@ export const setDocumentoFaltante = createAction(
   props<{ documentoFaltante: DocumentoInscripcionCarreraFaltantes }>()
 );
 
+export const setSelectedDocumentoOperacionTipo = createAction(
+  '[Tramite] setSelectedDocumentoOperacionTipo',
+  props<{ documentoOperacionTipo: DropDownItem }>()
+);
+
 export const setOperacion = createAction(
   '[Tramite] setOperacion',
   props<{ operacion: DocumentoOperacion }>()
@@ -35,11 +40,16 @@ export const unSetOperacion = createAction(
   '[Tramite] unSetOperacion'
 );
 
-export const addItemOperacion = createAction(
-  '[Tramite] addItemOperacion',
-  props<{ operacion: DocumentoOperacion }>()
+export const setOperaciones = createAction(
+  '[Tramite] setOperaciones',
+  props<{ operaciones: DocumentoOperacion[] }>()
 );
 
+export const unSetOperaciones = createAction(
+  '[Tramite] unSetOperaciones'
+);
+
+/*
 export const addItemDocumento = createAction(
   '[Tramite] addItemDocumento',
   props<{ documento: DocumentoInscripcionCarrera }>()
@@ -50,12 +60,13 @@ export const updItemDocumento = createAction(
   props<{ documento: DocumentoInscripcionCarrera }>()
 );
 
+export const addItemOperacion = createAction(
+  '[Tramite] addItemOperacion',
+  props<{ operacion: DocumentoOperacion }>()
+);
+
 export const updItemOperacion = createAction(
   '[Tramite] updItemOperacion',
   props<{ operacion: DocumentoOperacion }>()
 );
-
-export const setSelectedDocumentoOperacionTipo = createAction(
-  '[Tramite] setSelectedDocumentoOperacionTipo',
-  props<{ documentoOperacionTipo: DropDownItem }>()
-);
+*/

@@ -98,12 +98,12 @@
 
 <!-- Formulario de documentos -->
 <p-dialog *ngIf="documento" header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate"
-  [style]="{width: '85vw', height :'85vh'}">
+  [style]="{width: '85vw', height :'100vh'}">
   <app-documento-form [isUpdated]="true"></app-documento-form>
 </p-dialog>
 
 <!-- Formulario de operaciones -->
 <p-dialog *ngIf="documento && operacion" header="Operacion" [(visible)]="visibleOperacion"
-  [style]="{width: '85vw', height :'85vh'}">
+  [style]="{width: '85vw', height :'100vh'}">
   <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
 </p-dialog>

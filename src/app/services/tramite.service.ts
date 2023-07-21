@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DropDownItem, Inscripcion, TramiteInscripcionCarrera } from '../interfaces/estudiante.interface';
+import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DocumentoInscripcionCarreraUpdateResponse, DropDownItem, Inscripcion, TramiteInscripcionCarrera } from '../interfaces/estudiante.interface';
 import { Tramite, TramiteSubTipo, DocumentoPlantilla, TramiteSubTipoDocumentoPlantillas, DocumentoOperacion, DocumentoOperacionSave } from '../interfaces/tramite.interface';
 
 import { MainService } from './main.service';
@@ -54,7 +54,7 @@ export class TramiteService {
   async putDocumentoInscripcionCarrera(documento: DocumentoInscripcionCarreraUpdate) {
     // const url = `${environment.endPoint}/documentoInscripcionCarreras`;
     const url = `${environment.endPoint}Archivos/ActualizarDocInscripcion`;
-    let ans = await this.mainService.put<DocumentoInscripcionCarreraSave>(url, documento);
+    let ans = await this.mainService.put<DocumentoInscripcionCarreraUpdateResponse>(url, documento);
     console.log(ans, "servicePut")
     return ans;
   }
