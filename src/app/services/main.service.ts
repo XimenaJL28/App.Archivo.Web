@@ -30,7 +30,8 @@ export class MainService {
     private readonly http: HttpClient,
     private readonly router: Router,
     private readonly messageService: MessageService,
-    private readonly store: Store<{ user: UserState }>) {
+    // private readonly store: Store<{ user: UserState }>
+  ) {
 
   }
 
