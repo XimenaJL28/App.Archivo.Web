@@ -12,6 +12,7 @@ import { TramiteService } from '../../services/tramite.service';
 
 import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DropDownItem } from '../../interfaces/estudiante.interface';
 import { TramiteInscripcionCarrera } from '../../interfaces/estudiante.interface';
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-documento-form',
@@ -21,6 +22,7 @@ import { TramiteInscripcionCarrera } from '../../interfaces/estudiante.interface
 })
 export class DocumentoFormComponent implements OnInit {
   @Input() isUpdated: boolean = false;
+  @Output() cerrarDialogModal:EventEmitter<void> = new EventEmitter();
 
   public documentoInscripcionCarreraFaltante?: DocumentoInscripcionCarreraFaltantes = undefined;
   public documentoInscripcionCarrera?: DocumentoInscripcionCarrera = undefined;
@@ -110,7 +112,7 @@ export class DocumentoFormComponent implements OnInit {
       !this.fechaVencimiento ||
       !this.documentoEstadoSelected ||
       !this.tramite) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revizar valores insertados' });
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores insertados' });
       this.savedLoading = false;
       return;
     }
@@ -131,7 +133,7 @@ export class DocumentoFormComponent implements OnInit {
     const response = await this.tramiteService.postDocumentoInscripcionCarrera(documentoDTO);
 
     if (!response) {
-      console.log('saved error')
+      // console.log('saved error')
       this.savedLoading = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
       return;
@@ -139,8 +141,9 @@ export class DocumentoFormComponent implements OnInit {
 
     console.log('saved ok')
     await this._loadDocumentoInscripcionCarrera(this.tramite.id, documentoDTO.tramiteSubTipoId);
-    this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Guardado Exitosamente' });
+    // this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Guardado Exitosamente' });
     this.savedLoading = false;
+    this.cerrarDialogModal.emit();
   }
 
   async _actualizarDocumento() {
@@ -173,7 +176,7 @@ export class DocumentoFormComponent implements OnInit {
       console.log('updated error')
       return;
     }
-    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Actualizado Correctamente' });
+    // this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Actualizado Correctamente' });
 
     console.log('updated ok')
     await this._loadDocumentoInscripcionCarrera(
@@ -182,6 +185,7 @@ export class DocumentoFormComponent implements OnInit {
     );
 
     this.savedLoading = false;
+    this.cerrarDialogModal.emit();
   }
 
   _clearForm() {

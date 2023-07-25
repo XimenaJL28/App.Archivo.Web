@@ -11,10 +11,13 @@ import * as tramiteActions from '../../state/actions/tramite.actions';
 import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, Inscripcion, Persona, TramiteInscripcionCarrera } from 'src/app/interfaces/estudiante.interface';
 
 import { setColorDocumentoEstado } from '../../utils/color';
+import { MessageService } from 'primeng/api';
+import { MainService } from '../../services/main.service';
 
 @Component({
   selector: 'app-tramite-inscripcion',
   templateUrl: './tramite-inscripcion.component.html',
+  providers: [MessageService],
   styleUrls: ['./tramite-inscripcion.component.scss']
 })
 export class TramiteInscripcionComponent implements OnInit, OnDestroy {
@@ -31,7 +34,9 @@ export class TramiteInscripcionComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService,
+    private readonly MainService: MainService
   ) { }
 
   ngOnInit(): void {
@@ -61,5 +66,11 @@ export class TramiteInscripcionComponent implements OnInit, OnDestroy {
       tramiteActions.setDocumentoFaltante({ documentoFaltante: documento })
     )
     this.visibleDocumentoSave = true;
+  }
+
+  cerrarDialogModal():void {
+    this.visibleDocumentoSave = false;
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Guardado Exitosamente' });
+    // this.MainService.mostrarToast({ severity: 'success', summary: 'Saved', detail: 'Guardado Exitosamente' });
   }
 }

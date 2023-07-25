@@ -66,8 +66,6 @@ export class PlantillaFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.tramiteSubscriptions.unsubscribe();
   }
-
   async guardarPlantilla() {
-
   }
 }

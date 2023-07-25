@@ -1,7 +1,10 @@
 <div class="flex align-items-center justify-content-center">
   <h3 class="text-800 mb-0 mt-0 mr-2">Buscar Estudiante</h3>
+</div>
+<div style="padding-top: 2rem; text-align: center;">
   <p-autoComplete [suggestions]="estudianteEncontrados" (completeMethod)="buscarEstudiante($event)"
     (onSelect)="setEstudianteSeleccionado($event)" field="nombreCompleto"></p-autoComplete>
+
 </div>
 
 <!-- Estudiante encontrado -->
@@ -20,7 +23,7 @@
     <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
       <div class="grid">
         <div class="col-12 md:col-4">
-          <span class="text-900 font-semibold mr-2">C.I :</span>
+          <span class="text-900 font-semibold mr-2">Carné :</span>
           <span class="font-medium"> {{ persona.documentoIdentidad }}</span>
         </div>
         <div class="col-12 md:col-5">
@@ -87,10 +90,10 @@
         </ng-template>
       </p-table>
     </div>
-  </div>  
+  </div>
 
   <!-- Tabla de trámites académicos -->
-  <div *ngIf="tramites.length > 0">
+  <div *ngIf="haytramites && tramites.length > 0">
     <h3 class="mb-0 mt-2 text-700">Trámites realizados</h3>
     <div class="grid mt-2">
       <div class="col-12">
@@ -132,5 +135,8 @@
         </p-accordion>
       </div>
     </div>
+  </div>
+  <div *ngIf="!haytramites">
+    <p>No tiene trámites pendientes</p>
   </div>
 </div>

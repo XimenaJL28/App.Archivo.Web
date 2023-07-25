@@ -84,7 +84,7 @@
             <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
             <td>{{ operacionItem.nombreFuncionario | titlecase }}</td>
             <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
-            <td>{{ operacionItem.descripcion }}</td>
+            <td>{{ operacionItem.descripcion | titlecase }}</td>
             <td style="text-align: center;">
               <p-button (onClick)="getOperacion(operacionItem)" icon="fa-solid fa-search" styleClass="p-button-rounded">
               </p-button>
@@ -97,13 +97,14 @@
 </div>
 
 <!-- Formulario de documentos -->
-<p-dialog header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate"
-  [style]="{width: '85vw', height :'100vh'}">
-  <app-documento-form [isUpdated]="true"></app-documento-form>
+<p-dialog header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate" [style]="{width: '85vw', height :'100vh'}">
+  <app-documento-form [isUpdated]="true" (cerrarDialogModal)="cerrarDialogModal()"></app-documento-form>
 </p-dialog>
 
 <!-- Formulario de operaciones -->
 <p-dialog *ngIf="documento && operacion" header="Operación" [(visible)]="visibleOperacion"
-  [style]="{width: '85vw', height :'100vh'}" >
-  <app-operacion-view [documento]="documento" [operacion]="operacion" ></app-operacion-view>
+  [style]="{width: '85vw', height :'100vh'}">
+  <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
 </p-dialog>
+
+<p-toast></p-toast>

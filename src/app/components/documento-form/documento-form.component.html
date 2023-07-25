@@ -12,7 +12,7 @@
       <small id="fecha-limite-help"></small>
     </div>
   </div>
-  <div class="col-12 md:col-3">
+  <div class="col-12 md:col-3" >
     <div class="flex flex-column gap-2">
       <label htmlFor="fecha-vencimiento">Fecha de Vencimiento</label>
       <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento"></p-calendar>
@@ -24,22 +24,22 @@
 <div class="grid">
   <div class="col-12 md:col-5">
     <div class="flex flex-column gap-2">
-      <span class="text-900 font-semibold">Documento tipo</span>
-      <span class="font-medium">{{ nombreDocumentoTipo }}</span>
+      <span class="text-900 font-semibold">Nombre del documento</span>
+      <span class="font-medium">{{ nombreDocumentoTipo | titlecase }}</span>
     </div>
   </div>
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-2">
       <label htmlFor="tipo-operacion">Documento Estado</label>
       <p-dropdown [options]="documentoEstados" [(ngModel)]="documentoEstadoSelected" optionLabel="nombre"
-        class="p-inputtext-sm"></p-dropdown>
+        class="p-inputtext-sm" [style]="{'width': '77%'}"></p-dropdown>
     </div>
   </div>
 
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-2">
       <label htmlFor="cantidad">Cantidad</label>
-      <p-inputNumber [(ngModel)]="cantidad" [min]="0" mode="decimal" class="p-inputtext-sm"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="cantidad" [min]="0" mode="decimal" class="p-inputtext-sm" [style]="{'width': '77%'}"></p-inputNumber>
     </div>
   </div>
 </div>

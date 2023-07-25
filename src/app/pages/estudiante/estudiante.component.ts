@@ -30,6 +30,9 @@ export class EstudianteComponent implements OnInit, OnDestroy {
 
   private estudianteSubscriptions!: Subscription;
 
+  //?variables auxiliares
+  haytramites: boolean = true;
+
   constructor(
     private readonly estudianteService: EstudianteService,
     private readonly tramiteService: TramiteService,
@@ -60,6 +63,7 @@ export class EstudianteComponent implements OnInit, OnDestroy {
       return;
     }
 
+
     const response = await this.estudianteService.buscarEstudiante(textSearch);
     this.estudianteEncontrados = response || [];
   }
@@ -79,6 +83,8 @@ export class EstudianteComponent implements OnInit, OnDestroy {
   async _getInscripciones(estudianteId: number) {
     const responseInscripciones = await this.tramiteService.getInscripciones(estudianteId);
     const inscripciones = responseInscripciones || [];
+    this.haytramites = true;
+
 
     this.store.dispatch(
       estudianteActions.setInscripciones({ inscripciones: inscripciones })
@@ -89,6 +95,9 @@ export class EstudianteComponent implements OnInit, OnDestroy {
     const response = await this.tramiteService.getListTramites(inscripcion.idInscripcionSede);
     const tramites = response || [];
     const tramitesOrdenados = this._agruparTramites(tramites);
+    if(response?.length==0){
+      this.haytramites=false;  
+    }    
 
     this.store.dispatch(
       estudianteActions.setTramites(

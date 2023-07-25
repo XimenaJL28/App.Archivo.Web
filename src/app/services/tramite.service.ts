@@ -38,6 +38,7 @@ export class TramiteService {
     // const url = `${environment.endPoint}/documentoInscripcionCarreraFaltantes`;
     const url = `${environment.endPoint}Archivos/ListaDocumentosfaltantes?idTramiteInscripcionCarrera=${tramiteInscripcionCarreraId}&idtramitesubtipo=${tramiteSubTipoId}`;
     let ans = await this.mainService.get<DocumentoInscripcionCarreraFaltantes[]>(url);
+    
     return ans;
   }
   // Datos de estudiante

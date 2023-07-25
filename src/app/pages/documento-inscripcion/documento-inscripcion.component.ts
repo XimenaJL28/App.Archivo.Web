@@ -10,6 +10,7 @@ import { TramiteState } from '../../state/reducers/tramite.reducers';
 import { TramiteService } from '../../services/tramite.service';
 
 import { setColorDocumentoEstado } from '../../utils/color';
+import { MessageService } from 'primeng/api';
 
 import { DocumentoOperacion } from '../../interfaces/tramite.interface';
 import { DocumentoInscripcionCarrera, TramiteInscripcionCarrera } from '../../interfaces/estudiante.interface';
@@ -18,6 +19,7 @@ import { DocumentoInscripcionCarrera, TramiteInscripcionCarrera } from '../../in
   selector: 'app-documento-inscripcion',
   templateUrl: './documento-inscripcion.component.html',
   styleUrls: ['./documento-inscripcion.component.scss'],
+  providers: [MessageService],
 })
 export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
   public tramite?: TramiteInscripcionCarrera = undefined;
@@ -35,6 +37,7 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
     private tramiteService: TramiteService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -80,5 +83,10 @@ export class DocumentoInscripcionComponent implements OnInit, OnDestroy {
 
   getColorDocumentoEstado(documento: DocumentoInscripcionCarrera): string {
     return setColorDocumentoEstado(documento);
+  }
+
+  cerrarDialogModal():void {
+    this.visibleDocumentoUpdate = false;
+    this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Actualizado Correctamente' });
   }
 }

@@ -1,95 +1,102 @@
 <!-- Estudiante -->
-<div *ngIf="estudiante && inscripcion" class="grid">
-  <div class="col-12 md:col-3">
-    <span class="text-900 font-semibold mr-2">CI :</span>
-    <span class="font-medium">{{ estudiante.documentoIdentidad }}</span>
-  </div>
-  <div class="col-12 md:col-5">
-    <span class="text-900 font-semibold mr-2">Estudiante :</span>
-    <span class="font-medium"> {{ estudiante.nombreCompleto }} </span>
-  </div>
-  <div class="col-12 md:col-4">
-    <span class="text-900 font-semibold mr-2">Carrera :</span>
-    <span class="font-medium">{{ inscripcion.carrera | titlecase}}</span>
-  </div>
-</div>
+<div class="fade-in">
 
-<!-- Listado de tramite inscripcion carrera -->
-<div *ngIf="tramite == undefined">
-  <h3 class="text-700">Seleccionar un trámite</h3>
-</div>
-
-<!-- Tramite de estudiante -->
-<div *ngIf="tramite && estudiante">
-  <div class="grid">
+  <div *ngIf="estudiante && inscripcion" class="grid">
     <div class="col-12 md:col-3">
-      <span class="text-900 font-semibold mr-2">Folio :</span>
-      <span class="font-medium">{{ estudiante.nroFolio }}</span>
+      <span class="text-900 font-semibold mr-2">Carné :</span>
+      <span class="font-medium">{{ estudiante.documentoIdentidad }}</span>
     </div>
-    <div class="col-12 md:col-9">
-      <span class="text-900 font-semibold mr-2">Trámite :</span>
-      <span class="font-medium">{{ tramite.tramite | titlecase }} {{ tramite.subTipoTramite | titlecase }} </span>
+    <div class="col-12 md:col-5">
+      <span class="text-900 font-semibold mr-2">Estudiante :</span>
+      <span class="font-medium"> {{ estudiante.nombreCompleto }} </span>
     </div>
-  </div>
-  <div class="grid">
-    <div class="col-12 md:col-3">
-      <span class="text-900 font-semibold mr-2">Fecha Registro:</span>
-      <span class="font-medium"> {{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</span>
-    </div>
-    <div class="col-12 md:col-9">
-      <span class="text-900 font-semibold mr-2">Estado :</span>
-      <span class="font-medium"> {{ tramite.estado }}</span>
+    <div class="col-12 md:col-4">
+      <span class="text-900 font-semibold mr-2">Carrera :</span>
+      <span class="font-medium">{{ inscripcion.carrera | titlecase}}</span>
     </div>
   </div>
-</div>
 
-<div *ngIf="tramite && documentos.length == 0">
-  <h3 class="text-700">Sin documentos presentados</h3>
-</div>
+  <!-- Listado de tramite inscripcion carrera -->
+  <div *ngIf="tramite == undefined">
+    <h3 class="text-700">Seleccionar un trámite</h3>
+  </div>
 
-<!-- Documentos faltantes  -->
-<div *ngIf="documentosFaltantes.length > 0">
-  <h3 class="text-700">Documentos Faltantes</h3>
+  <!-- Tramite de estudiante -->
+  <div *ngIf="tramite && estudiante">
+    <div class="grid">
+      <div class="col-12 md:col-3">
+        <span class="text-900 font-semibold mr-2">Folio :</span>
+        <span class="font-medium">{{ estudiante.nroFolio }}</span>
+      </div>
+      <div class="col-12 md:col-9">
+        <span class="text-900 font-semibold mr-2">Trámite :</span>
+        <span class="font-medium">{{ tramite.tramite | titlecase }} {{ tramite.subTipoTramite | titlecase }} </span>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12 md:col-3">
+        <span class="text-900 font-semibold mr-2">Fecha Registro:</span>
+        <span class="font-medium"> {{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="col-12 md:col-9">
+        <span class="text-900 font-semibold mr-2">Estado :</span>
+        <span class="font-medium"> {{ tramite.estado }}</span>
+      </div>
+    </div>
+  </div>
 
-  <p-table [value]="documentosFaltantes" responsiveLayout="scroll"
-    [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm">
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th>Nombre</th>
-        <th style="width: 5%;"></th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-documentosFaltantesIndex let-columns="columns">
-      <tr>
-        <td>{{ documentosFaltantesIndex.nombreDocumentoTipo | titlecase }}</td>
-        <td>
-          <p-button (onClick)="nuevoDocumento(documentosFaltantesIndex)" icon="fa-solid fa-plus" styleClass="p-button-rounded" title="Añadir documento">
-          </p-button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+  <div *ngIf="tramite && documentos.length == 0">
+    <h3 class="text-700">Sin documentos presentados</h3>
+  </div>
 
-<!-- Documentos Presentados -->
-<div *ngIf="documentos.length > 0">
-  <h3 class="text-700">Documentos Presentados</h3>
-  <div class="grid mt-3">
-    <div *ngFor="let documento of documentos" class="col-12 md:col-6 lg:col-4 xl:col-3">
-      <div class="flex flex-column align-items-center">
-        <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo | titlecase }}</h4>
-        <div *ngIf="documento.nombreDocumentoEstado">
-          <p-tag [value]="documento.nombreDocumentoEstado" [severity]="getColorDocumentoEstado(documento)"></p-tag>
+  <!-- Documentos faltantes  -->
+  <div *ngIf="documentosFaltantes.length > 0">
+    <h3 class="text-700">Documentos Faltantes</h3>
+
+    <p-table [value]="documentosFaltantes" responsiveLayout="scroll"
+      [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>Nombre</th>
+          <th style="width: 5%;"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-documentosFaltantesIndex let-columns="columns">
+        <tr>
+          <td>{{ documentosFaltantesIndex.nombreDocumentoTipo | titlecase }}</td>
+          <td>
+            <p-button (onClick)="nuevoDocumento(documentosFaltantesIndex)" icon="fa-solid fa-plus"
+              styleClass="p-button-rounded" title="Añadir documento">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Documentos Presentados -->
+  <div *ngIf="documentos.length > 0">
+    <h3 class="text-700">Documentos Presentados</h3>
+    <div class="grid mt-3">
+      <div *ngFor="let documento of documentos" class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <div class="flex flex-column align-items-center">
+          <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo | titlecase }}</h4>
+          <p-image src="{{documento.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image>
+          <!-- <span class="font-medium"> <Label>Vencimiento :</Label>{{ documento.fechaVencimiento | date:'dd/MM/yyyy'
+        }}</span> -->
+          <div *ngIf="documento.nombreDocumentoEstado">
+            <p-tag [value]="documento.nombreDocumentoEstado" [severity]="getColorDocumentoEstado(documento)"></p-tag>
+          </div>
         </div>
-        <p-image src="{{documento.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image>
-        <span class="font-medium"> <Label>Vencimiento :</Label>{{ documento.fechaVencimiento | date:'dd/MM/yyyy'
-          }}</span>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Formulario de documentos -->
-<p-dialog *ngIf="documentosFaltantes.length > 0" header="Registrar Documentos" [(visible)]="visibleDocumentoSave" [style]="{width: '90vw', height :'100vh'}">
-  <app-documento-form [isUpdated]="false"></app-documento-form>
+<p-dialog *ngIf="documentosFaltantes.length > 0" header="Registrar Documentos" [(visible)]="visibleDocumentoSave"
+  [style]="{width: '90vw', height :'100vh'}">
+  <app-documento-form [isUpdated]="false" (cerrarDialogModal)="cerrarDialogModal()"></app-documento-form>
 </p-dialog>
+
+<p-toast></p-toast>

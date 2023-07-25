@@ -18,10 +18,10 @@
       <ng-template pTemplate="body" let-tramiteItem let-columns="columns">
         <tr [ngClass]="{'table-row-select': tramiteItem.idTramite === tramite?.idTramite || 0 }">
           <td>{{ tramiteItem.nombre | titlecase}}</td>
-          <td>{{ tramiteItem.nombreUnidadAcademica }}</td>
+          <td>{{ tramiteItem.nombreUnidadAcademica | titlecase }}</td>
           <td>
             <p-button (onClick)="getSubtramites(tramiteItem)" icon="fa-solid fa-folder-open"
-              styleClass="p-button-rounded p-button-sm">
+              styleClass="p-button-rounded p-button-sm" title="Ver Sub Trámites">
             </p-button>
           </td>
         </tr>
@@ -39,8 +39,8 @@
         <p-accordionTab *ngFor="let tramiteSubTipoItem of tramiteSubTipos; index as i">
           <ng-template pTemplate="header">
             <div class="flex align-items-center">
-              <span class="vertical-align-middle">{{ tramiteSubTipoItem.nombreSubtramite }} ({{
-                tramiteSubTipoItem.nombreSubtramite}})</span>
+              <span class="vertical-align-middle">{{ tramiteSubTipoItem.nombreSubtramite | titlecase}} ({{
+                tramiteSubTipoItem.nombreSubtramite | titlecase }})</span>
             </div>
           </ng-template>
           <ng-template pTemplate="content">
@@ -59,7 +59,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-documentoPlantillaIndex let-columns="columns">
                   <tr>
-                    <td>{{ documentoPlantillaIndex.nombreDocumento }}</td>
+                    <td>{{ documentoPlantillaIndex.nombreDocumento | titlecase }}</td>
                     <td>{{ documentoPlantillaIndex.cantidadMinima }}</td>
                     <td>{{ documentoPlantillaIndex.plazoMaximo }}</td>
                     <td>{{ documentoPlantillaIndex.obligatorio }}</td>
