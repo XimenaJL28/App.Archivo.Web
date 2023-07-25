@@ -1,9 +1,9 @@
 <div class="flex align-items-center justify-content-center">
   <h3 class="text-800 mb-0 mt-0 mr-2">Buscar Estudiante</h3>
 </div>
-<div style="padding-top: 2rem; text-align: center;">
+<div style="padding-top: 1rem; text-align: center;">
   <p-autoComplete [suggestions]="estudianteEncontrados" (completeMethod)="buscarEstudiante($event)"
-    (onSelect)="setEstudianteSeleccionado($event)" field="nombreCompleto"></p-autoComplete>
+    (onSelect)="setEstudianteSeleccionado($event)" field="nombreCompleto" class=".p-autocomplete"></p-autoComplete>
 
 </div>
 

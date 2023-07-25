@@ -9,8 +9,14 @@
     border-radius: 60%;
 }
 
-.nya{
-background-color: black;
+.nya {
+    background-color: black;
 }
 
 
+:host {
+    ::ng-deep .p-inputtext {
+        width: 25rem;
+
+    }
+}
