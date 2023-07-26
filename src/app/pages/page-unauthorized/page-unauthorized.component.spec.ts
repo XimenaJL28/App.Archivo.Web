@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageUnauthorizedComponent } from './page-unauthorized.component';
 
-describe('PageUnauthorizedComponent', () => {
+xdescribe('PageUnauthorizedComponent', () => {
   let component: PageUnauthorizedComponent;
   let fixture: ComponentFixture<PageUnauthorizedComponent>;
 

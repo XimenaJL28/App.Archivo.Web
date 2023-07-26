@@ -1,14 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimengModule } from '../primeng.module';
+import { NgOptimizedImage } from '@angular/common';
 
 import { DragndropComponent } from './dragndrop/dragndrop.component';
 import { DragndropDirective } from './dragndrop/dragndrop.directive';
 
-import { OperacionViewComponent } from './operacion-view/operacion-view.component';
-import { DocumentoFormComponent } from './documento-form/documento-form.component';
+import { OperacionViewComponent } from './operacion/operacion-view/operacion-view.component';
+import { DocumentoFormComponent } from './documento/documento-form/documento-form.component';
 import { FormsModule } from '@angular/forms';
-import { PlantillaFormComponent } from './plantilla-form/plantilla-form.component';
+import { EstudianteSearchComponent } from './estudiante/estudiante-search/estudiante-search.component';
+import { EstudianteViewComponent } from './estudiante/estudiante-view/estudiante-view.component';
+import { EstudianteInscripcionesComponent } from './estudiante/estudiante-inscripciones/estudiante-inscripciones.component';
+import { EstudianteTramitesComponent } from './estudiante/estudiante-tramites/estudiante-tramites.component';
+import { TramiteHeaderComponent } from './tramite/tramite-header/tramite-header.component';
+import { TramitePresentadoComponent } from './tramite/tramite-presentado/tramite-presentado.component';
+import { TramiteFaltanteComponent } from './tramite/tramite-faltante/tramite-faltante.component';
+import { DocumentoPresentadoComponent } from './documento/documento-presentado/documento-presentado.component';
+import { DocumentoOperacionesComponent } from './documento/documento-operaciones/documento-operaciones.component';
+import { OperacionFormComponent } from './operacion/operacion-form/operacion-form.component';
 
 @NgModule({
   declarations: [
@@ -16,19 +26,38 @@ import { PlantillaFormComponent } from './plantilla-form/plantilla-form.componen
     DragndropDirective,
     OperacionViewComponent,
     DocumentoFormComponent,
-    PlantillaFormComponent
+    EstudianteSearchComponent,
+    EstudianteViewComponent,
+    EstudianteInscripcionesComponent,
+    EstudianteTramitesComponent,
+    TramiteHeaderComponent,
+    TramitePresentadoComponent,
+    TramiteFaltanteComponent,
+    DocumentoPresentadoComponent,
+    DocumentoOperacionesComponent,
+    OperacionFormComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    PrimengModule
+    NgOptimizedImage,
+    PrimengModule,
   ],
   exports: [
     DragndropComponent,
     DragndropDirective,
     OperacionViewComponent,
     DocumentoFormComponent,
-    PlantillaFormComponent
+    EstudianteSearchComponent,
+    EstudianteViewComponent,
+    EstudianteInscripcionesComponent,
+    EstudianteTramitesComponent,
+    TramiteHeaderComponent,
+    TramitePresentadoComponent,
+    TramiteFaltanteComponent,
+    DocumentoPresentadoComponent,
+    DocumentoOperacionesComponent,
+    OperacionFormComponent
   ]
 })
 export class ComponentsModule { }

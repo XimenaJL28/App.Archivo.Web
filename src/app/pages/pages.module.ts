@@ -15,12 +15,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PagesComponent } from './pages.component';
 import { PageUnauthorizedComponent } from './page-unauthorized/page-unauthorized.component';
 import { ComponentsModule } from '../components/components.module';
-import { EstudianteComponent } from './estudiante/estudiante.component';
+import { EstudiantePageComponent } from './estudiante-page/estudiante-page.component';
 import { TramiteInscripcionStepsComponent } from './tramite-inscripcion-steps/tramite-inscripcion-steps.component';
-import { DocumentoOperacionComponent } from './documento-operacion/documento-operacion.component';
-import { DocumentoInscripcionComponent } from './documento-inscripcion/documento-inscripcion.component';
-import { TramiteInscripcionComponent } from './tramite-inscripcion/tramite-inscripcion.component';
-import { TramiteComponent } from './tramite/tramite.component';
+import { TramitesPageComponent } from './tramites-page/tramites-page.component';
+import { TramitePageComponent } from './tramite-page/tramite-page.component';
+import { DocumentoPageComponent } from './documento-page/documento-page.component';
+import { OperacionPageComponent } from './operacion-page/operacion-page.component';
 
 
 //? Routes
@@ -30,16 +30,15 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'estudiante', component: EstudianteComponent },
-      { path: 'tramites', component: TramiteComponent },
+      { path: 'estudiante', component: EstudiantePageComponent },
+      { path: 'tramites', component: TramitesPageComponent },
       {
         path: 'tramite',
         component: TramiteInscripcionStepsComponent,
         children: [
           { path: '', redirectTo: 'inscripcion', pathMatch: 'full' },
-          { path: 'inscripcion', component: TramiteInscripcionComponent },
-          { path: 'documento', component: DocumentoInscripcionComponent },
-          { path: 'operacion', component: DocumentoOperacionComponent },
+          { path: 'inscripcion', component: TramitePageComponent },
+          { path: 'documento', component: DocumentoPageComponent },
         ],
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -55,12 +54,12 @@ const routes: Routes = [
     PageNotFoundComponent,
     PagesComponent,
     PageUnauthorizedComponent,
-    EstudianteComponent,
-    TramiteComponent,
-    TramiteInscripcionComponent,
+    EstudiantePageComponent,
+    TramitesPageComponent,
+    TramitePageComponent,
     TramiteInscripcionStepsComponent,
-    DocumentoOperacionComponent,
-    DocumentoInscripcionComponent
+    DocumentoPageComponent,
+    OperacionPageComponent,
   ],
   imports: [
     CommonModule,

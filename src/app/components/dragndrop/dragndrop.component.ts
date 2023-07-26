@@ -10,22 +10,21 @@ import { ThemeState } from 'src/app/state/reducers/theme.reducer';
   styleUrls: ['./dragndrop.component.scss']
 })
 export class DragndropComponent implements OnInit {
-
   @Input() nameFile: string = "imagen";
   @Input() uri: string = "";
-
+  @Input() maxSizeMB: number = 5;
   themeState$: Observable<ThemeState>;
   //TODO: Verify type files
   @Input() tipeAccept!: string;
   @Output() fileDropped: EventEmitter<string> = new EventEmitter<string>();
 
   isUpload = false;
-
   porcentajeProgreso: number = 0;
+  public message:string = '';
 
   constructor(
     public mainService: MainService,
-    private readonly store: Store<{theme: ThemeState}>) {
+    private readonly store: Store<{ theme: ThemeState }>) {
     mainService.xporcentaje.subscribe((resp: number) => {
       this.porcentajeProgreso = resp;
     });
@@ -33,17 +32,25 @@ export class DragndropComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!this.tipeAccept){
+    if (!this.tipeAccept) {
       throw new Error("Input [tipeAccept] must be provided in Dragndrop Component");
     }
   }
 
   onFileDropped(event: any) {
-    this.uploadFile(event[0]);
+    const validImage = this._isValidImageSize(event);
+    if (validImage) {
+      this.uploadFile(event[0]);
+    }
+    this.message = !validImage ? `La imagen supera los ${this.maxSizeMB} MB` : '';
   }
 
   fileBrowseHandler(file: any) {
-    this.uploadFile(file.files[0]);
+    const validFile = this._isValidImageSize(file.files[0]);
+    if (validFile) {
+      this.uploadFile(file.files[0]);
+    }
+    this.message = !validFile ? `El archivo supera los ${this.maxSizeMB} MB` : '';
   }
 
   async uploadFile(file: any) {
@@ -55,6 +62,10 @@ export class DragndropComponent implements OnInit {
       // return resp;
     });
   }
-  
 
+  _isValidImageSize(file: any): boolean {
+    const fileSizeBytes = Number(file.size);
+    const fileSizeMB = Number((fileSizeBytes / 1048576).toFixed(1));
+    return fileSizeMB <= this.maxSizeMB;
+  }
 }

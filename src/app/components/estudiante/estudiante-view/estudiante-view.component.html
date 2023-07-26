@@ -1,0 +1,48 @@
+<div class="mt-4 fade-in">
+  <h3 class="mb-0 mt-0 text-700">Datos del Estudiante</h3>
+</div>
+<p-divider></p-divider>
+<!-- Datos del estudiante encontrado -->
+<div class="grid">
+  <div class="col-12 xl:col-3">
+    <div>
+      <img alt="" style="height: 120px; width: 120px; background-image: url('{{persona.foto}}');" class="perfil-foto">
+    </div>
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
+    <div class="grid">
+      <div class="col-12 md:col-4">
+        <span class="text-900 font-semibold mr-2">Carné :</span>
+        <span class="font-medium"> {{ persona.documentoIdentidad }}</span>
+      </div>
+      <div class="col-12 md:col-5">
+        <span class="text-900 font-semibold mr-2">Nombre :</span>
+        <span class="font-medium"> {{ persona.nombreCompleto}}</span>
+      </div>
+      <div class="col-12 md:col-3">
+        <span class="text-900 font-semibold mr-2">Género :</span>
+        <span class="font-medium"> {{ persona.genero | titlecase }}</span>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12 md:col-4">
+        <span class="text-900 font-semibold mr-2">Celular :</span>
+        <span class="font-medium"> {{ persona.celular }}</span>
+      </div>
+      <div class="col-12 md:col-6">
+        <span class="text-900 font-semibold mr-2">Fecha de Nacimiento :</span>
+        <span class="font-medium"> {{ persona.fechaNacimiento | date:'dd/MM/yyyy' }}</span>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12 md:col-4">
+        <span class="text-900 font-semibold mr-2">Sede :</span>
+        <span class="font-medium"> {{ persona.sede }}</span>
+      </div>
+      <div class="col-12 md:col-3">
+        <span class="text-900 font-semibold mr-2">Nacionalidad :</span>
+        <span class="font-medium">{{ persona.nacionalidad | titlecase }}</span>
+      </div>
+    </div>
+  </div>
+</div>

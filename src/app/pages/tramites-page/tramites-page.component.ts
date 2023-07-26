@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { TramiteService } from '../../services/tramite.service';
 
 @Component({
-  selector: 'app-tramite',
-  templateUrl: './tramite.component.html',
-  styleUrls: ['./tramite.component.scss']
+  selector: 'app-tramites-page',
+  templateUrl: './tramites-page.component.html',
+  styleUrls: ['./tramites-page.component.scss']
 })
-export class TramiteComponent implements OnInit {
+export class TramitesPageComponent implements OnInit {
   public tramite: any = undefined;
   public tramites: any[] = [];
   public tramiteSubTipos: any[] = [];

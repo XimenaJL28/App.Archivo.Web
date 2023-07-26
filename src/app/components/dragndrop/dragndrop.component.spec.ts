@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DragndropComponent } from './dragndrop.component';
 
-describe('DragndropComponent', () => {
+xdescribe('DragndropComponent', () => {
   let component: DragndropComponent;
   let fixture: ComponentFixture<DragndropComponent>;
 

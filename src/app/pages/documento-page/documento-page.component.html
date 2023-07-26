@@ -1,0 +1,43 @@
+<!-- Tramite inscripcion  -->
+<div *ngIf="tramite == undefined">
+  <h3 class="text-700">Seleccionar un trámite</h3>
+</div>
+
+<div *ngIf="tramite" class="grid">
+  <div class="col-12 md:col-9">
+    <span class="text-900 font-semibold mr-2">Nombre del Trámite:</span>
+    <span class="font-medium">{{ tramite.tramite | titlecase }} {{ tramite.subTipoTramite | titlecase }} </span>
+  </div>
+  <div class="col-12 md:col-3">
+    <span class="text-900 font-semibold mr-2">Fecha del Trámite:</span>
+    <span class="font-medium"> {{ tramite.fechaRegistro | date:'dd/MM/yyyy' }}</span>
+  </div>
+</div>
+
+<!-- Tabla de tramite inscripcion -->
+<h3 *ngIf="tramite && documentos.length == 0" class="text-700">Sin documentos presentados</h3>
+<h3 *ngIf="tramite != undefined && documentos.length > 0" class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
+
+<app-documento-presentado [documentos]="documentos" [documento]="documento"
+  (getDocumentoSeleccionado)="setDocumentoSeleccionado($event)">
+</app-documento-presentado>
+
+<app-documento-operaciones [documento]="documento" [operaciones]="operaciones"
+  (getOperacionSeleccionada)="setOperacionSeleccionada($event)" (getNuevaOperacion)="setNuevaOperacion()">
+</app-documento-operaciones>
+
+<!-- Formulario de documentos -->
+<p-dialog *ngIf="documento" header="Modificar Documentos" [(visible)]="visibleDocumento"
+  [style]="{width: '85vw', height :'100vh'}">
+  <app-documento-form [isUpdated]="true" (cerrarDialogModal)="cerrarDocumentoDialogModal()"></app-documento-form>
+</p-dialog>
+
+<!-- Formulario de operaciones -->
+<p-dialog header="Operacion" [(visible)]="visibleOperacionView" [style]="{width: '85vw', height :'100vh'}">
+  <app-operacion-view></app-operacion-view>
+</p-dialog>
+
+<p-dialog header="Crear operacion" [(visible)]="visibleOperacionForm" [style]="{width: '85vw', height :'100vh'}">
+  <app-operacion-form [documento]="documento" (cerrarDialogModal)="cerrarOperacionDialogModal()"></app-operacion-form>
+</p-dialog>
+<p-toast></p-toast>

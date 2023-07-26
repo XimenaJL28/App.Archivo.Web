@@ -1,0 +1,24 @@
+<!-- Documentos faltantes  -->
+<div *ngIf="documentosFaltantes.length > 0">
+  <h3 class="text-700">Documentos Faltantes</h3>
+
+  <p-table [value]="documentosFaltantes" responsiveLayout="scroll"
+    [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Nombre</th>
+        <th style="width: 5%;"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-documentosFaltantesIndex let-columns="columns">
+      <tr>
+        <td>{{ documentosFaltantesIndex.nombreDocumentoTipo | titlecase }}</td>
+        <td>
+          <p-button (click)="setDocumentoFaltante(documentosFaltantesIndex)" icon="fa-solid fa-plus"
+            styleClass="p-button-rounded">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

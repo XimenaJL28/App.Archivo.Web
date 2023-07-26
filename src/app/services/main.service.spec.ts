@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MainService } from './main.service';
 import { environment } from '../../environments/environment';
 
-fdescribe('MainService', () => {
+describe('MainService', () => {
   let mainService: MainService;
   let messageService: MessageService;
   let router: Router;

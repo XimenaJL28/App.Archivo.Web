@@ -1,0 +1,33 @@
+<div class="grid mt-2">
+  <div class="col-12">
+    <p-table *ngIf="inscripciones.length > 0" [value]="inscripciones"
+      [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }" styleClass="p-datatable p-component p-datatable-sm"
+      responsiveLayout="scroll">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>Carrera</th>
+          <th>Código</th>
+          <th>Modelo Estudio</th>
+          <th>Nivel de Estudio </th>
+          <th>Sistema de Estudio</th>
+          <th style="width: 5%;">Trámites</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-inscripcionItem let-columns="columns">
+        <tr
+          [ngClass]="{'table-row-select': inscripcionItem.idInscripcionSede === inscripcion?.idInscripcionSede || 0 }">
+          <td>{{ inscripcionItem.carrera | titlecase}}</td>
+          <td>{{ inscripcionItem.codigo }}</td>
+          <td>{{ inscripcionItem.modeloEstudio | titlecase}}</td>
+          <td>{{ inscripcionItem.nivelEstudio | titlecase}}</td>
+          <td>{{ inscripcionItem.sistemaEstudio }}</td>
+          <td>
+            <p-button (onClick)="setInscripcionSeleccionada(inscripcionItem)" icon="fa-solid fa-folder-open"
+              styleClass="p-button-rounded p-button-sm" title="Ver trámites del estudiante">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DocumentoInscripcionCarreraUpdateResponse, DropDownItem, Inscripcion, TramiteInscripcionCarrera } from '../interfaces/estudiante.interface';
+import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DropDownItem, Inscripcion, TramiteInscripcionCarrera } from '../interfaces/estudiante.interface';
 import { Tramite, TramiteSubTipo, DocumentoPlantilla, TramiteSubTipoDocumentoPlantillas, DocumentoOperacion, DocumentoOperacionSave } from '../interfaces/tramite.interface';
 
 import { MainService } from './main.service';
@@ -14,56 +14,46 @@ export class TramiteService {
 
   // Datos de estudiante
   async getInscripciones(personaId: number) {
-    // const url = `${environment.endPoint}/inscripciones`;
     const url = `${environment.endPoint}Archivos/ListaInscripciones?IdEstudiante=${personaId}`;
     let ans = await this.mainService.get<Inscripcion[]>(url);
     return ans;
   }
 
   async getListTramites(inscripcionId: number) {
-    // const url = `${environment.endPoint}/tramiteInscripcionCarreras`;
     const url = `${environment.endPoint}Archivos/ListaTramites?IdInscripcion=${inscripcionId}`;
     let ans = await this.mainService.get<TramiteInscripcionCarrera[]>(url);
     return ans;
   }
 
   async getListDocumentos(tramiteInscripcionCarreraId: number, tramiteSubTipoId: number) {
-    // const url = `${environment.endPoint}/documentoInscripcionCarreras`;
     const url = `${environment.endPoint}Archivos/ListaDocumentoTramite?TramiteInscripcionCarreraId=${tramiteInscripcionCarreraId}&tramitesubtipoId=${tramiteSubTipoId}`;
     let ans = await this.mainService.get<DocumentoInscripcionCarrera[]>(url);
     return ans;
   }
 
   async getListDocumentoFaltante(tramiteInscripcionCarreraId: number, tramiteSubTipoId: number) {
-    // const url = `${environment.endPoint}/documentoInscripcionCarreraFaltantes`;
     const url = `${environment.endPoint}Archivos/ListaDocumentosfaltantes?idTramiteInscripcionCarrera=${tramiteInscripcionCarreraId}&idtramitesubtipo=${tramiteSubTipoId}`;
     let ans = await this.mainService.get<DocumentoInscripcionCarreraFaltantes[]>(url);
-    
     return ans;
   }
   // Datos de estudiante
 
-
   // CRUD Documentos
   async postDocumentoInscripcionCarrera(documento: DocumentoInscripcionCarreraSave) {
-    // const url = `${environment.endPoint}/documentoInscripcionCarreras`;
     const url = `${environment.endPoint}Archivos/AgregarDocumentoInscripcion`;
     let ans = await this.mainService.post<DocumentoInscripcionCarreraSave>(url, documento);
     return ans;
   }
 
   async putDocumentoInscripcionCarrera(documento: DocumentoInscripcionCarreraUpdate) {
-    // const url = `${environment.endPoint}/documentoInscripcionCarreras`;
     const url = `${environment.endPoint}Archivos/ActualizarDocInscripcion`;
-    let ans = await this.mainService.put<DocumentoInscripcionCarreraUpdateResponse>(url, documento);
-    console.log(ans, "servicePut")
+    let ans = await this.mainService.put<DocumentoInscripcionCarreraSave>(url, documento);
     return ans;
   }
   // CRUD Documentos
 
   // CRUD Operaciones
   async postDocumentoOperacion(operacion: DocumentoOperacionSave) {
-    //const url = `${environment.endPoint}/documentoOperaciones`;
     const url = `${environment.endPoint}Operacion/Agregaroperacion`;
     let ans = await this.mainService.post<DocumentoOperacion>(url, operacion);
     return ans;
@@ -112,6 +102,10 @@ export class TramiteService {
     const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
+    if (response.length == 0) {
+      return response as DropDownItem[];
+    }
+
     return response.map((item) => {
       return {
         id: item.tramiteSubTipoId,
@@ -124,6 +118,10 @@ export class TramiteService {
     const url = `${environment.endPoint}Operacion/ListaDeoperaciontipo`;
     let ans: any = await this.mainService.get(url);
     const response = (ans || []) as any[];
+
+    if (response.length == 0) {
+      return response as DropDownItem[];
+    }
 
     return response.map((item) => {
       return {
@@ -138,6 +136,10 @@ export class TramiteService {
     const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
+    if (response.length == 0) {
+      return response as DropDownItem[];
+    }
+
     return response.map((item) => {
       return {
         id: item.documentoEstadoId,
@@ -150,6 +152,10 @@ export class TramiteService {
     const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=2`;
     const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
+
+    if (response.length == 0) {
+      return response as DropDownItem[];
+    }
 
     return response.map((item) => {
       return {
@@ -164,6 +170,10 @@ export class TramiteService {
     const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
+    if (response.length == 0) {
+      return response as DropDownItem[];
+    }
+
     return response.map((item) => {
       return {
         id: item.tramiteSubTipoId,
@@ -177,6 +187,10 @@ export class TramiteService {
     const ans = await this.mainService.get(url);
     const response = (ans || []) as any[];
 
+    if (response.length == 0) {
+      return response as DropDownItem[];
+    }
+
     return response.map((item) => {
       return {
         id: item.tramiteSubTipoId,
@@ -184,5 +198,5 @@ export class TramiteService {
       }
     })
   }
-  // DropDown para formularios 
+  // DropDown para formularios
 }

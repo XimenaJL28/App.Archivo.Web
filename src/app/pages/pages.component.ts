@@ -21,6 +21,8 @@ export class PagesComponent implements OnInit {
   themeState$: Observable<ThemeState>;
 
 
+
+
   @HostBinding('class') className = '';
   toggle = false;
   userName = "Ximena Justiniano";
@@ -64,8 +66,6 @@ export class PagesComponent implements OnInit {
 
     //? Load user data when user is logged
     this.accountService.getProfile();
-
-
   }
 
   async tienePermisos() {

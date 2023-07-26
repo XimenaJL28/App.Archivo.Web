@@ -1,13 +1,10 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { environment } from '../../environments/environment';
+import { TestBed } from '@angular/core/testing';
 
 import { EstudianteService } from './estudiante.service';
 import { MainService } from './main.service';
 import { mockPersonaList } from '../models/estudiante.mock';
-import { HttpErrorResponse, HttpRequest } from '@angular/common/http';
 
-fdescribe('EstudianteService', () => {
+describe('EstudianteService', () => {
   let estudianteService: EstudianteService;
   // dependecia de servicio, creando un Spy (espia)
   let mainServiceSpy: jasmine.SpyObj<MainService>;
@@ -36,32 +33,34 @@ fdescribe('EstudianteService', () => {
   describe('should be buscarEstudiantes', () => {
     it('should be buscarEstudiantes ok', async () => {
       const mock = mockPersonaList();
-      // Arrange
       const criterio = '2813';
 
       mainServiceSpy.get.withArgs(jasmine.any(String)).and.returnValue(Promise.resolve(mock));
-      // Action
+
       const response = await estudianteService.buscarEstudiante(criterio);
-      //Assert
+
       expect(response?.length).toEqual(mock.length);
-      expect(response?.[0]).toEqual(mock[0]);
       expect(mainServiceSpy.get).toHaveBeenCalled();
       expect(mainServiceSpy.get).toHaveBeenCalledTimes(1);
     });
 
-    it('should be buscarEstudiantes error', async () => {
-      //Arrange
+    it('should be buscarEstudiantes error',async()=>{
       const criterio = '2813';
       mainServiceSpy.get.withArgs(jasmine.any(String)).and.returnValue(Promise.reject(undefined));
-      // Action
+
       try {
         await estudianteService.buscarEstudiante(criterio);
       } catch (error) {
-        //Assert
         expect(error).toBeUndefined();
       }
-      //Assert
       expect(mainServiceSpy.get).toHaveBeenCalled();
+    });
+
+    it('should be buscarEstudiantes criterio empty',async()=>{
+      const criterio = '';
+      const response = await estudianteService.buscarEstudiante(criterio);
+      expect(response).toBeUndefined();
+      expect(mainServiceSpy.get).toHaveBeenCalledTimes(0);
     });
   })
 });

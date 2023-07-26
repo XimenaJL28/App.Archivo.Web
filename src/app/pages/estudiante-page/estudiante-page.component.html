@@ -1,0 +1,16 @@
+<div class="flex align-items-center justify-content-center">
+  <app-estudiante-search (getEstudianteSeleccionado)="setEstudianteSeleccionado($event)">
+  </app-estudiante-search>
+</div>
+
+<div *ngIf="persona" class="mt-4 fade-in">
+  <app-estudiante-view [persona]="persona">
+  </app-estudiante-view>
+
+  <app-estudiante-inscripciones [inscripcion]="inscripcion" [inscripciones]="inscripciones"
+    (getInscripcionSeleccionada)="setInscripcionSeleccionada($event)">
+  </app-estudiante-inscripciones>
+
+  <app-estudiante-tramites [tramites]="tramites" [tramite]="tramite" [tramiteActiveIndex]="tramiteActiveIndex" (getTramiteSeleccionado)="setTramiteSeleccionado($event)">
+  </app-estudiante-tramites>
+</div>

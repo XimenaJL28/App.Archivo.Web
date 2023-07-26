@@ -12,9 +12,6 @@ import { MessageService } from 'primeng/api';
   providedIn: 'root'
 })
 export class MainService {
-
-
-
   toggle: BehaviorSubject<boolean> = new BehaviorSubject(false);
   xporcentaje: BehaviorSubject<number> = new BehaviorSubject(0);
 
@@ -25,16 +22,13 @@ export class MainService {
   inscripcionSeleccionada: BehaviorSubject<any> = new BehaviorSubject(0);
   cad: Subject<string> = new Subject<string>();
 
-
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
     private readonly messageService: MessageService,
-    // private readonly store: Store<{ user: UserState }>
-  ) {
-
+    //private readonly store: Store<{ user: UserState }>
+    ) {
   }
-
 
   private createHeaders(): HttpHeaders {
 
