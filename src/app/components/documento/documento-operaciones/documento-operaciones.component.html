@@ -24,9 +24,9 @@
             [ngClass]="{'table-row-select': operacionItem.documentoOperacionId === operacion?.documentoOperacionId || 0 }">
             <td>{{ operacionItem.documentoOperacionId }}</td>
             <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
-            <td>{{ operacionItem.nombreFuncionario}}</td>
+            <td>{{ operacionItem.nombreFuncionario | titlecase }}</td>
             <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
-            <td>{{ operacionItem.descripcion }}</td>
+            <td>{{ operacionItem.descripcion | titlecase }}</td>
             <td style="text-align: center;">
               <p-button (click)="setOperacion(operacionItem)" icon="fa-solid fa-eye" styleClass="p-button-rounded" title="Ver descripción de la operación">
               </p-button>

@@ -1,10 +1,10 @@
 <div *ngIf="documento" class="grid">
   <div class="col-12 md:col-8">
-    <span class="text-900 font-semibold mr-2">Trámite sup tipo :</span>
-    <span class="font-medium">{{ documento.nombreTramiteSubTipo }}</span>
+    <span class="text-900 font-semibold mr-2">Sub Tipo de Tramite :</span>
+    <span class="font-medium">{{ documento.nombreTramiteSubTipo | titlecase }}</span>
   </div>
   <div class="col-12 md:col-4">
-    <span class="text-900 font-semibold mr-2">Fecha :</span>
+    <span class="text-900 font-semibold mr-2">Fecha Registro de Documento:</span>
     <span class="font-medium">{{ documento.fechaRegistro | date:'dd/MM/yyyy'}}</span>
   </div>
 </div>
@@ -21,23 +21,23 @@
     <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">
       <div class="grid">
         <div class="col-12 md:col-4">
-          <span class="text-900 font-semibold mr-2">Fecha :</span>
+          <span class="text-900 font-semibold mr-2">Fecha Operación:</span>
           <span class="font-medium"> {{ operacion.fechaOperacion | date:'dd/MM/yyyy' }}</span>
         </div>
         <div class="col-12 md:col-8">
           <span class="text-900 font-semibold mr-2">Funcionario :</span>
-          <span class="font-medium"> {{ operacion.nombreFuncionario }}</span>
+          <span class="font-medium"> {{ operacion.nombreFuncionario | titlecase }}</span>
         </div>
       </div>
 
       <div class="grid">
         <div class="col-12 md:col-4">
-          <span class="text-900 font-semibold mr-2">Operacion :</span>
-          <span class="font-medium"> {{ operacion.nombreDocumentoOperacionTipo }}</span>
+          <span class="text-900 font-semibold mr-2">Operación :</span>
+          <span class="font-medium"> {{ operacion.nombreDocumentoOperacionTipo | titlecase }}</span>
         </div>
         <div class="col-12 md:col-8">
-          <span class="text-900 font-semibold mr-2">Descripcion :</span>
-          <span class="font-medium"> {{ operacion.descripcion }}</span>
+          <span class="text-900 font-semibold mr-2">Descripción :</span>
+          <span class="font-medium"> {{ operacion.descripcion | titlecase }}</span>
         </div>
       </div>
     </div>

@@ -15,6 +15,6 @@ export class EstudianteInscripcionesComponent {
   constructor() { }
 
   setInscripcionSeleccionada(inscripcion: Inscripcion): void {
-    this.getInscripcionSeleccionada.emit(inscripcion);
+    this.getInscripcionSeleccionada.emit(inscripcion);    
   }
 }

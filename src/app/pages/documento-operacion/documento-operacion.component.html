@@ -6,7 +6,7 @@
 <div *ngIf="documento">
   <div class="grid">
     <div class="col-12">
-      <span class="text-900 font-semibold mr-2">Trámite Sub Tipo:</span>
+      <span class="text-900 font-semibold mr-2">Sub Tipo Trámite:</span>
       <p class="text-700 font-medium mt-0 mb-0">{{ documento.nombreTramiteSubTipo | titlecase }}</p>
       <span class="text-900 font-semibold mr-2">Fecha Registro Documento:</span>
       <span class="text-900 font-medium">{{ documento.fechaRegistro | date:'dd/MM/yyyy' }}</span>
@@ -25,7 +25,7 @@
       <div class="flex justify-content-between align-content-start">
         <h3 class="text-700">Registrar Operación</h3>
         <div>
-          <p-button label="Nuevo" (click)="nuevaOperacion()" styleClass="p-button-secondary" class="mr-2"></p-button>
+          <p-button label="Nuevo" (click)="nuevaOperacion()" styleClass="p-button-secondary" class="mr-2" icon="fa-solid fa-plus"></p-button>
           <p-button label="Guardar" [loading]="savedLoading" (click)="guardarOperacion()"></p-button>
         </div>
       </div>
@@ -34,7 +34,7 @@
 
   <div class="grid mt-2">
     <div *ngIf="fechaOperacion.length > 0" class="col-12 md:col-4">
-      <span class="text-900 font-semibold mr-2">Fecha Operación:</span>
+      <span class="text-900 font-semibold mr-2">Fecha Operación:</span> 
       <span class="font-medium"> {{ fechaOperacion | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="col-12 md:col-8">

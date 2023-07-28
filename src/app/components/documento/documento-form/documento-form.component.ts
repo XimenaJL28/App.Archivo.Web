@@ -34,6 +34,7 @@ export class DocumentoFormComponent implements OnInit {
   public savedLoading: boolean = false;
   public nombreDocumentoTipo: string = '';
   public documentoTipoId: number = 0;
+  public isDocumentoIndefinido: boolean = false;
 
   public adjunto: string = '';
   public cantidad: number = 1;
@@ -81,7 +82,15 @@ export class DocumentoFormComponent implements OnInit {
 
         this.documentoEstadoSelected = { id: this.documentoInscripcionCarrera.documentoEstadoId, nombre: this.documentoInscripcionCarrera.nombreDocumentoEstado || '' };
       }
+      this.tramiteSubscriptions = this.store.select('tramite').subscribe(state => {
+        this.setDocumentoIndefinido(this.nombreDocumentoTipo);
+      })
     })
+  }
+
+  setDocumentoIndefinido(nombreDocumento: string): void {
+    const documentosIndefinidos = ['xj2813', 'otis', 'scott'];
+    this.isDocumentoIndefinido = documentosIndefinidos.includes(nombreDocumento);
   }
 
   ngOnDestroy(): void {

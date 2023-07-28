@@ -33,11 +33,11 @@
 </p-dialog>
 
 <!-- Formulario de operaciones -->
-<p-dialog header="Operacion" [(visible)]="visibleOperacionView" [style]="{width: '85vw', height :'100vh'}">
+<p-dialog header="Operación" [(visible)]="visibleOperacionView" [style]="{width: '85vw', height :'100vh'}">
   <app-operacion-view></app-operacion-view>
 </p-dialog>
 
-<p-dialog header="Crear operacion" [(visible)]="visibleOperacionForm" [style]="{width: '85vw', height :'100vh'}">
+<p-dialog header="Crear Operación" [(visible)]="visibleOperacionForm" [style]="{width: '85vw', height :'100vh'}">
   <app-operacion-form [documento]="documento" (cerrarDialogModal)="cerrarOperacionDialogModal()"></app-operacion-form>
 </p-dialog>
 <p-toast></p-toast>

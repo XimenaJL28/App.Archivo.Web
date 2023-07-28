@@ -16,8 +16,10 @@
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-1">
       <label htmlFor="fecha-vencimiento">Fecha de Vencimiento</label>
+      <!-- <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento"
+        [style]="{'width':'100%'}"></p-calendar> -->
       <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento"
-        [style]="{'width':'100%'}"></p-calendar>
+        [style]="{'width':'100%'}" [disabled]="isDocumentoIndefinido"></p-calendar>
       <small id="fecha-vencimiento-help"></small>
     </div>
   </div>
@@ -26,8 +28,8 @@
 <div class="grid">
   <div class="col-12 md:col-5">
     <div class="flex flex-column gap-1">
-      <span class="text-900 font-semibold">Documento tipo</span>
-      <span class="font-medium">{{ nombreDocumentoTipo }}</span>
+      <span class="text-900 font-semibold">Nombre Documento</span>
+      <span class="font-medium">{{ nombreDocumentoTipo | titlecase}}</span>
     </div>
   </div>
   <div class="col-12 md:col-3">
@@ -41,8 +43,7 @@
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-1">
       <label htmlFor="cantidad">Cantidad</label>
-      <p-inputNumber [(ngModel)]="cantidad" [min]="1" class="p-inputtext-sm"
-        [style]="{'width':'100%'}"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="cantidad" [min]="1" class="p-inputtext-sm" [style]="{'width':'100%'}"></p-inputNumber>
     </div>
   </div>
 </div>
@@ -57,6 +58,7 @@
   </div>
 </div>
 <div class="card flex justify-content-end">
-  <p-button label="Guardar" [loading]="savedLoading" (click)="guardarDocumento()" icon="fa-solid fa-floppy-disk"></p-button>
+  <p-button [loading]="savedLoading" (click)="guardarDocumento()"
+    icon="fa-solid fa-floppy-disk" styleClass="p-button-rounded"></p-button>
 </div>
 <p-toast></p-toast>
