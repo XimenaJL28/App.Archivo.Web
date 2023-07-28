@@ -14,7 +14,7 @@ export class DocumentoPresentadoComponent {
   @Input() documento?: DocumentoInscripcionCarrera = undefined;
 
   @Output() getDocumentoSeleccionado: EventEmitter<{documento: DocumentoInscripcionCarrera, update: boolean}> = new EventEmitter();
-
+  public visibleOperacionForm: boolean = false;
   constructor() { }
 
   setDocumentoSeleccionado(documentoInscripcioncarreraId: DocumentoInscripcionCarrera, update = false): void {
@@ -23,5 +23,9 @@ export class DocumentoPresentadoComponent {
 
   getColorDocumentoEstado(documento: DocumentoInscripcionCarrera): string {
     return setColorDocumentoEstado(documento);
+  }
+
+  setVisibleOperacion() {
+    this.visibleOperacionForm = true;
   }
 }

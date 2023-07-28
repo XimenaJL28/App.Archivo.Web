@@ -1,4 +1,4 @@
-<!-- Tramite inscripcion  -->
+<!-- Tramite inscripcion 
 <div *ngIf="tramite == undefined">
   <h3 class="text-700">Seleccionar un trámite</h3>
 </div>
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<!-- Tabla de tramite inscripcion -->
+ Tabla de tramite inscripcion 
 
 <h3 *ngIf="tramite && documentos.length == 0" class="text-700">Sin documentos presentados</h3>
 <h3 *ngIf="tramite != undefined && documentos.length > 0" class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
@@ -46,7 +46,7 @@
             <td>{{ documentoItem.fechaRegistro | date:'dd/MM/yyyy' }}</td>
             <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td style="text-align: center;">
-              <p-button (onClick)="getOperaciones(documentoItem)" icon="fa-solid fa-search"
+              <p-button (onClick)="getOperacion(operacionItem)" icon="fa-solid fa-search"
                 styleClass="p-button-rounded" class="mr-1" title="Ver operaciones del documento">
               </p-button>
               <p-button (onClick)="editarDocumento(documentoItem)" icon="fa-solid fa-pencil"
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<!-- Tabla de operaciones -->
+ Tabla de operaciones 
 <div *ngIf="operaciones.length > 0">
   <h3 class="text-700">Operaciones Realizadas</h3>
   <div class="grid mt-2">
@@ -96,15 +96,15 @@
   </div>
 </div>
 
-<!-- Formulario de documentos -->
+Formulario de documentos 
 <p-dialog header="Modificar Documentos" [(visible)]="visibleDocumentoUpdate" [style]="{width: '85vw', height :'100vh'}">
   <app-documento-form [isUpdated]="true" (cerrarDialogModal)="cerrarDialogModal()"></app-documento-form>
 </p-dialog>
 
-<!-- Formulario de operaciones -->
+Formulario de operaciones 
 <p-dialog *ngIf="documento && operacion" header="Operación" [(visible)]="visibleOperacion"
   [style]="{width: '85vw', height :'100vh'}">
   <app-operacion-view [documento]="documento" [operacion]="operacion"></app-operacion-view>
 </p-dialog>
 
-<p-toast></p-toast>
+<p-toast></p-toast> -->
