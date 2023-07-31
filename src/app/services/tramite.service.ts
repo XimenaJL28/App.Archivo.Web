@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DropDownItem, Inscripcion, TramiteInscripcionCarrera } from '../interfaces/estudiante.interface';
-import { Tramite, TramiteSubTipo, DocumentoPlantilla, TramiteSubTipoDocumentoPlantillas, DocumentoOperacion, DocumentoOperacionSave } from '../interfaces/tramite.interface';
+import { Tramite, TramiteSubTipo, DocumentoPlantilla, TramiteSubTipoDocumentoPlantillas, DocumentoOperacion, DocumentoOperacionSave, UnidadAcademica } from '../interfaces/tramite.interface';
 
 import { MainService } from './main.service';
 
@@ -67,9 +67,15 @@ export class TramiteService {
   // CRUD Operaciones
 
   // CRUD Tramites
-  async getListTramiteUniversidad() {
-    const url = `${environment.endPoint}Plantilla/ListaTramites`;
+  async getListTramiteUniversidad(unidadAcademicaId: number) {
+    const url = `${environment.endPoint}Plantilla/ListaTramites?UnidadAcademicaId=${unidadAcademicaId}`;
     let ans = await this.mainService.get<Tramite[]>(url);
+    return ans;
+  }
+
+  async getListUnidadAcademica() {
+    const url = `${environment.endPoint}Plantilla/ListaUnidadAcademica`;
+    let ans = await this.mainService.get<UnidadAcademica[]>(url);
     return ans;
   }
 

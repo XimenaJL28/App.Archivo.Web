@@ -29,7 +29,7 @@
 <!-- Formulario de documentos -->
 <p-dialog *ngIf="documento" header="Modificar Documentos" [(visible)]="visibleDocumento"
   [style]="{width: '85vw', height :'100vh'}">
-  <app-documento-form [isUpdated]="true" (cerrarDialogModal)="cerrarDocumentoDialogModal()"></app-documento-form>
+  <app-documento-form (cerrarDialogModal)="cerrarDocumentoDialogModal()"></app-documento-form>
 </p-dialog>
 
 <!-- Formulario de operaciones -->

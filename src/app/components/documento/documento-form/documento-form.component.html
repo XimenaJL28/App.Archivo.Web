@@ -1,4 +1,21 @@
 <div class="grid">
+  <div class="col-12 md:col-4">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="tipo-operacion">Tipo de Operación</label>
+      <p-dropdown [options]="documentoOperacionTipos" [(ngModel)]="documentoOperacionTipoSelected" optionLabel="nombre"
+        class="p-inputtext-sm" [style]="{'width':'100%'}"></p-dropdown>
+    </div>
+  </div>
+  <div class="col-12 md:col-8">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="descripcion">Descripción</label>
+      <input pInputText [(ngModel)]="descripcion" id="descripcion" class="p-inputtext-sm" />
+      <small id="descripcion-help"></small>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
   <div class="col-12 md:col-5">
     <div class="flex flex-column gap-1">
       <span class="text-900 font-semibold">Nombre del Trámite</span>
@@ -34,16 +51,14 @@
   </div>
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-1">
-      <label htmlFor="tipo-operacion">Documento Estado</label>
-      <p-dropdown [options]="documentoEstados" [(ngModel)]="documentoEstadoSelected" optionLabel="nombre"
-        class="p-inputtext-sm" [style]="{'width':'100%'}" [disabled]="!isUpdated"></p-dropdown>
+
     </div>
   </div>
 
   <div class="col-12 md:col-3">
     <div class="flex flex-column gap-1">
       <label htmlFor="cantidad">Cantidad</label>
-      <p-inputNumber [(ngModel)]="cantidad" [min]="1" class="p-inputtext-sm" [style]="{'width':'100%'}"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="cantidad" [min]="0" class="p-inputtext-sm" [style]="{'width':'100%'}"></p-inputNumber>
     </div>
   </div>
 </div>
@@ -58,7 +73,7 @@
   </div>
 </div>
 <div class="card flex justify-content-end">
-  <p-button [loading]="savedLoading" (click)="guardarDocumento()"
-    icon="fa-solid fa-floppy-disk" styleClass="p-button-rounded"></p-button>
+  <p-button [loading]="savedLoading" (click)="guardarDocumento()" icon="fa-solid fa-floppy-disk"
+    styleClass="p-button-rounded"></p-button>
 </div>
 <p-toast></p-toast>

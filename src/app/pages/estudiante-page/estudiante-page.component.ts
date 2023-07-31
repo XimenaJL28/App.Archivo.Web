@@ -137,17 +137,6 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       estudianteActions.setTramiteActiveIndex({ index: index })
     )
-
-    const response = await this.tramiteService.getListDocumentos(tramite.id, tramite.tramiteSubTipoId)
-    const documentos = response || [];
-
-    const response0 = await this.tramiteService.getListDocumentoFaltante(tramite.id, tramite.tramiteSubTipoId);
-    const documentosFaltantes = response0 || [];
-
-    this.store.dispatch(
-      tramiteActions.setDocumentos({ documentos: documentos, documentosFaltantes: documentosFaltantes })
-    );
-
     this.router.navigate([`/tramite/inscripcion`]);
   }
 }

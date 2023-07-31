@@ -16,4 +16,10 @@ export class TramitePresentadoComponent {
   getColorDocumentoEstado(documento: DocumentoInscripcionCarrera): string {
     return setColorDocumentoEstado(documento);
   }
+
+  getDiasFaltantes(documento: DocumentoInscripcionCarrera): number {
+    const fechaActual = new Date();
+    return 13;
+    //return documento.fechaLimitedeEntrega() - fechaActual();
+  }
 }

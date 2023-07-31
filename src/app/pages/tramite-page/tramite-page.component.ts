@@ -9,6 +9,8 @@ import { TramiteState } from '../../state/reducers/tramite.reducers';
 import * as tramiteActions from '../../state/actions/tramite.actions';
 
 import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, Inscripcion, Persona, TramiteInscripcionCarrera } from '../../interfaces/estudiante.interface';
+import { Tramite } from 'src/app/interfaces/tramite.interface';
+import { TramiteService } from 'src/app/services/tramite.service';
 
 @Component({
   selector: 'app-tramite-page',
@@ -32,19 +34,36 @@ export class TramitePageComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
     private messageService: MessageService,
+    private tramiteService: TramiteService
   ) { }
 
   ngOnInit(): void {
-    this.estudianteSubscriptions = this.store.select('estudiante').subscribe(state => {
-      this.estudiante = state.estudiante;
-      this.inscripcion = state.inscripcion;
-      this.tramite = state.tramite;
-    })
-
     this.tramiteSubscriptions = this.store.select('tramite').subscribe(state => {
       this.documentos = state.documentos;
       this.documentosFaltantes = state.documentosFaltantes;
     })
+
+    this.estudianteSubscriptions = this.store.select('estudiante').subscribe(state => {
+      this.estudiante = state.estudiante;
+      this.inscripcion = state.inscripcion;
+      this.tramite = state.tramite;
+      if (this.tramite) {
+        this.getTramites(this.tramite);
+      }
+    })
+
+
+  }
+
+  getTramites(tramite: TramiteInscripcionCarrera): void {
+    this.tramiteService.getListDocumentos(tramite.id, tramite.tramiteSubTipoId)
+      .then((response) => {
+        const documentos = response || [];
+        this.store.dispatch(
+          tramiteActions.setDocumentos({ documentos: documentos, documentosFaltantes: [] })
+        );
+      })
+
   }
 
   ngOnDestroy(): void {

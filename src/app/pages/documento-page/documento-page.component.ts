@@ -79,6 +79,7 @@ export class DocumentoPageComponent implements OnInit, OnDestroy {
   }
 
   cerrarDocumentoDialogModal(): void {
+    console.log('asasa doc mod');
     this.visibleDocumento = false;
     this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'Message Content Saved' });
   }

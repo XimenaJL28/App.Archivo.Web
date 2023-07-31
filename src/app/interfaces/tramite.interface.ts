@@ -55,3 +55,14 @@ export interface DocumentoOperacionTipo {
   documentoOpeacionTipoId: number;
   nombre: string;
 }
+
+export interface UnidadAcademica {
+  id: number;
+  nombre: string;
+  niveldeEstudio: NiveldeEstudio[];
+}
+
+export interface NiveldeEstudio {
+  id: number;
+  nombre: string;
+}

@@ -85,7 +85,7 @@ export interface DocumentoInscripcionCarreraUpdateResponse {
 
 export interface DocumentoInscripcionCarreraUpdate {
   documentoInscripcionCarreraId: number;
-  documentoEstadoId: number;
+  documentoEstadoId?: number;
   cantidad: number;
   fechaLimitedeEntrega: string;
   adjunto?: string;

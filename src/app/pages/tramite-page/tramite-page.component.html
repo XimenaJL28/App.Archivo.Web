@@ -11,6 +11,6 @@
 <!-- Formulario de documentos -->
 <p-dialog *ngIf="documentosFaltantes.length > 0" header="Registrar Documentos" [(visible)]="visibleDocumentoSave"
   [style]="{width: '90vw', height :'100vh'}">
-  <app-documento-form [isUpdated]="false" (cerrarDialogModal)="cerrarDialogModal()"></app-documento-form>
+  <app-documento-form (cerrarDialogModal)="cerrarDialogModal()"></app-documento-form>
 </p-dialog>
 <p-toast></p-toast>
