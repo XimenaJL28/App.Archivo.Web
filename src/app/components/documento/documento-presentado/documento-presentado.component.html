@@ -17,7 +17,7 @@
           <tr
             [ngClass]="{'table-row-select': documentoItem.documentoInscripcioncarreraId === documento?.documentoInscripcioncarreraId || 0 }">
             <td>{{ documentoItem.nombreDocumentoTipo | titlecase }}</td>
-            <td>{{ documentoItem.cantidad }}</td>
+            <td>{{ documentoItem.cantidad }} de {{documentoItem.cantidadRequerida}}</td>
             <td>
               <p-tag [value]="documentoItem.nombreDocumentoEstado"
                 [severity]="getColorDocumentoEstado(documentoItem)"></p-tag>

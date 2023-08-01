@@ -19,6 +19,7 @@ export interface DocumentoPlantilla {
   subTipoTramite: string;
   fechaRegistro: string;
   estado: string;
+  cantidadRequerida: number;
 }
 
 export interface TramiteSubTipoDocumentoPlantillas {
