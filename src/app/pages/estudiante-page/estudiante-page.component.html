@@ -11,6 +11,10 @@
     (getInscripcionSeleccionada)="setInscripcionSeleccionada($event)">
   </app-estudiante-inscripciones>
 
+  <div *ngIf="noTieneTramites">
+    <p>No hay trámites pendientes</p>
+  </div>
+
   <app-estudiante-tramites [tramites]="tramites" [tramite]="tramite" [tramiteActiveIndex]="tramiteActiveIndex" (getTramiteSeleccionado)="setTramiteSeleccionado($event)">
   </app-estudiante-tramites>
 </div>

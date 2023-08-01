@@ -1,39 +1,37 @@
 <!-- Tabla de operaciones -->
-<div *ngIf="operaciones.length > 0">
-  <div class="flex justify-content-between align-content-start">
-    <h3 class="text-700">Operaciones Realizadas</h3>
-    <p-button (click)="setNuevaOperacion()" label="Crear">
-    </p-button>
-  </div>
-  <div class="grid mt-2">
-    <div class="col-12">
-      <p-table [value]="operaciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-        styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
-        <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th style="width: 7%;">Nº</th>
-            <th>Operación</th>
-            <th>Funcionario</th>
-            <th>Fecha Operación</th>
-            <th>Descripción</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-operacionItem let-columns="columns">
-          <tr
-            [ngClass]="{'table-row-select': operacionItem.documentoOperacionId === operacion?.documentoOperacionId || 0 }">
-            <td>{{ operacionItem.documentoOperacionId }}</td>
-            <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
-            <td>{{ operacionItem.nombreFuncionario | titlecase }}</td>
-            <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
-            <td>{{ operacionItem.descripcion | titlecase }}</td>
-            <td style="text-align: center;">
-              <p-button (click)="setOperacion(operacionItem)" icon="fa-solid fa-eye" styleClass="p-button-rounded" title="Ver descripción de la operación">
-              </p-button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+<h3 *ngIf="operaciones.length > 0" class="text-700">Operaciones Realizadas</h3>
+
+<div *ngIf="operaciones.length > 0" class="grid mt-2">
+  <div class="col-12">
+    <p-table [value]="operaciones" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+      styleClass="p-datatable p-component p-datatable-sm">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 8%;">Nº</th>
+          <th style="width: 20%;">Operación</th>
+          <th style="width: 25%;">Funcionario</th>
+          <th style="width: 12%;">Fecha Operación</th>
+          <th style="width: 30%;">Descripción</th>
+          <th style="width: 5%;"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-operacionItem let-columns="columns">
+        <tr
+          [ngClass]="{'table-row-select': operacionItem.documentoOperacionId === operacion?.documentoOperacionId || 0 }">
+          <td>{{ operacionItem.documentoOperacionId }}</td>
+          <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
+          <td pTooltip="{{ operacionItem.nombreFuncionario }}" tooltipPosition="top" class="xj2813">{{ operacionItem.nombreFuncionario | titlecase }}</td>
+          <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
+          <td pTooltip="{{ operacionItem.descripcion }}" tooltipPosition="top" class="xj2813">
+            {{ operacionItem.descripcion | titlecase }}
+          </td>
+          <td style="text-align: center;">
+            <p-button (click)="setOperacion(operacionItem)" icon="fa-solid fa-eye" styleClass="p-button-rounded"
+              title="Ver descripción de la operación">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>

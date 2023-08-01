@@ -27,6 +27,8 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
   public tramite?: TramiteInscripcionCarrera = undefined;
   public tramiteActiveIndex: number = 0;
 
+  public noTieneTramites:boolean = false;
+
   constructor(
     private readonly tramiteService: TramiteService,
     private store: Store<{ estudiante: EstudianteState }>,
@@ -59,7 +61,7 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       estudianteActions.setEstudiante({ estudiante: estudiante })
     )
-    this._getInscripciones(estudiante.id)
+    this._getInscripciones(estudiante.id);
   }
 
   async _getInscripciones(estudianteId: number) {
@@ -69,6 +71,7 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       estudianteActions.setInscripciones({ inscripciones: inscripciones })
     )
+    this.noTieneTramites = false;
   }
 
   // Inscripciones
@@ -86,6 +89,8 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       estudianteActions.setTramiteActiveIndex({ index: -1 })
     )
+
+    this.noTieneTramites = tramitesOrdenados.length == 0;
   }
 
   _ordenarTramitesPorNombre(tramiteList: TramiteInscripcionCarrera[]): TramiteInscripcionCarrera[] {

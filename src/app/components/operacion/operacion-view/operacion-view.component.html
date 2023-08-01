@@ -1,6 +1,6 @@
 <div *ngIf="documento" class="grid">
   <div class="col-12 md:col-8">
-    <span class="text-900 font-semibold mr-2">Sub Tipo de Tramite :</span>
+    <span class="text-900 font-semibold mr-2">Grupo de Documentos :</span>
     <span class="font-medium">{{ documento.nombreTramiteSubTipo | titlecase }}</span>
   </div>
   <div class="col-12 md:col-4">
@@ -15,7 +15,7 @@
   <div class="grid">
     <div class="col-12 xl:col-3">
       <div>
-        <p-image src="{{operacion.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image>
+        <p-image src="{{operacion.adjunto}}" alt="Image" width="200" height="250" [preview]="true"></p-image>
       </div>
     </div>
     <div class="col-12 sm:col-12 md:col-12 lg:col-12 xl:col-9">

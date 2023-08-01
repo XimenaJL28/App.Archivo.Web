@@ -31,6 +31,7 @@ export class DocumentoFormComponent implements OnInit {
   public documentoOperacionTipoSelected?: DropDownItem = undefined;
   public nombreFuncionario: string = '';
   public descripcion: string = '';
+  public adjuntoOperacion: string = '';
   private userSubscriptions!: Subscription;
   // documento
 
@@ -102,14 +103,18 @@ export class DocumentoFormComponent implements OnInit {
   getDocumentoIndefinido(): boolean {
     // es fecha null
     const nombreDocumento = this.documentoInscripcionCarrera?.nombreDocumentoTipo || '';
-    console.log(nombreDocumento, "ci");
-    console.log(this.documentoInscripcionCarrera?.fechaVencimiento, "fecha");
+    // console.log(nombreDocumento, "ci");
+    // console.log(this.documentoInscripcionCarrera?.fechaVencimiento, "fecha");
     //this.isDocumentoIndefinido = !documentoInscripcionCarrera.fechaVencimiento && nombreDocumento !== 'CEDULA DE IDENTIDAD - FOTOCOPIA SIMPLE VIGENTE';
     return nombreDocumento === 'CEDULA DE IDENTIDAD - FOTOCOPIA SIMPLE VIGENTE';
   }
 
   setUri(uri: string): void {
     this.adjunto = uri;
+  }
+
+  setUriOperacion(uri:string):void {
+    this.adjuntoOperacion = uri;
   }
 
   async guardarDocumento() {
@@ -120,19 +125,19 @@ export class DocumentoFormComponent implements OnInit {
       !this.fechaLimitedeEntrega ||
       (!this.fechaVencimiento && this.getDocumentoIndefinido()) ||
       !this.tramite) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores insertados docu' });
+      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores del documento' });
       this.savedLoading = false;
       return;
     }
 
     // operacion
-    if (this.adjunto.trim().length < 1 ||
+    if (this.adjuntoOperacion.trim().length < 1 ||
       !this.user ||
       this.descripcion.trim().length < 1 ||
       !this.documentoOperacionTipoSelected ||
       !this.documentoInscripcionCarrera
     ) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores insertados ope' });
+      this.messageService.add({ severity: 'error', summary: 'Datos no válidos', detail: 'Revisar valores de la operación' });
       this.savedLoading = false;
       return;
     }
@@ -153,7 +158,7 @@ export class DocumentoFormComponent implements OnInit {
       funcionarioId: this.user.id,
       documentoOperacionTipoId: this.documentoOperacionTipoSelected.id,
       descripcion: this.descripcion,
-      adjunto: this.adjunto,
+      adjunto: this.adjuntoOperacion,
       estado: true
     }
 
@@ -161,7 +166,7 @@ export class DocumentoFormComponent implements OnInit {
     const responseOperacion = await this.tramiteService.postDocumentoOperacion(operacionDTO);
     if (!responseOperacion) {
       this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error op' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepcion al guardar operación' });
       return;
     }
 
@@ -169,7 +174,7 @@ export class DocumentoFormComponent implements OnInit {
     const response = await this.tramiteService.putDocumentoInscripcionCarrera(documentoDTO);
     if (!response) {
       this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error doc' });
+      this.messageService.add({ severity: 'error', summary: 'Verificar Datos', detail: 'Ha sucedido una excepción al modificar documento' });
       return;
     }
 
@@ -194,17 +199,11 @@ export class DocumentoFormComponent implements OnInit {
     );
 
     this.adjunto = '';
+    this.adjuntoOperacion ='';
     this.descripcion = '';
 
     this.savedLoading = false;
     this.cerrarDialogModal.emit();
-  }
-
-  _clearForm() {
-    this.adjunto = '';
-    this.cantidad = 0;
-    this.fechaLimitedeEntrega = undefined;
-    this.fechaVencimiento = undefined;
   }
 
   _stringToDate(date: string): Date | undefined {

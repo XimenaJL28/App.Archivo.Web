@@ -87,7 +87,7 @@ export class OperacionFormComponent implements OnInit {
     const response = await this.tramiteService.postDocumentoOperacion(operacionDTO);
     if (!response) {
       this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Se produjo un error al guardar' });
       return;
     }
 

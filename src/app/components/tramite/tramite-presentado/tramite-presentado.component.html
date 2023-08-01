@@ -6,11 +6,11 @@
       <div class="flex flex-column align-items-center">
         <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo | titlecase }}</h4>
         <p-image src="{{documento.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image>
-        <span *ngIf="documento.nombreDocumentoEstado !=='Completado'" class="font-medium"> <label>Plazo Máximo :
-          </label>{{ getDiasFaltantes(documento) }}</span>
         <div *ngIf="documento.nombreDocumentoEstado">
           <p-tag [value]="documento.nombreDocumentoEstado" [severity]="getColorDocumentoEstado(documento)"></p-tag>
         </div>
+        <span *ngIf="documento.nombreDocumentoEstado !=='Completado'" class="font-medium"> <label>Plazo Máximo :
+          </label>{{ getDiasFaltantes(documento) }} días</span>
       </div>
     </div>
   </div>
