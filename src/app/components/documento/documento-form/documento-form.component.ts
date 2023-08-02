@@ -33,9 +33,8 @@ export class DocumentoFormComponent implements OnInit {
   public descripcion: string = '';
   public adjuntoOperacion: string = '';
   private userSubscriptions!: Subscription;
+  
   // documento
-
-
   public documentoInscripcionCarrera?: DocumentoInscripcionCarrera = undefined;
 
   public tramite?: TramiteInscripcionCarrera = undefined;
@@ -131,7 +130,8 @@ export class DocumentoFormComponent implements OnInit {
     }
 
     // operacion
-    if (this.adjuntoOperacion.trim().length < 1 ||
+    if (
+      // this.adjuntoOperacion.trim().length < 1 ||
       !this.user ||
       this.descripcion.trim().length < 1 ||
       !this.documentoOperacionTipoSelected ||
@@ -166,7 +166,7 @@ export class DocumentoFormComponent implements OnInit {
     const responseOperacion = await this.tramiteService.postDocumentoOperacion(operacionDTO);
     if (!responseOperacion) {
       this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepcion al guardar operación' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepción al guardar operación' });
       return;
     }
 
