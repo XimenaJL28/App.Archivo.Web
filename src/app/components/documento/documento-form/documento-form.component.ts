@@ -119,9 +119,10 @@ export class DocumentoFormComponent implements OnInit {
   async guardarDocumento() {
     this.savedLoading = true;
 
-    // documento
+    // Validaciones de documento
     if (this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
+      this.fechaLimitedeEntrega < new Date() ||
       (!this.fechaVencimiento && this.getDocumentoIndefinido()) ||
       !this.tramite) {
       this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores del documento' });
@@ -129,7 +130,7 @@ export class DocumentoFormComponent implements OnInit {
       return;
     }
 
-    // operacion
+    // Validaciones de Operaciones
     if (
       // this.adjuntoOperacion.trim().length < 1 ||
       !this.user ||
