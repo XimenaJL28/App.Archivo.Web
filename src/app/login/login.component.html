@@ -3,39 +3,9 @@
     <div class="contenedor">
         <p-card class="box fadein shadow-8" *ngIf="!sedes.dataCargada">
             <div>
-                <img src="https://saads.blob.core.windows.net/resource/imagenes/Logos/SFICAZULVERDE.png" alt="logo U"
-                    class="logo">
-                <h2 class="title">Welcome Back</h2>
-            </div>
-            <div>
-                <span class="p-float-label w-full mb-3 mt-2">
-                    <input type="text" pInputText [(ngModel)]="user.userName" id="user" class="w-full">
-                    <label for="user">Usuario</label>
-                </span>
-                <span class="p-float-label p-input-icon-right w-full mb-3 mt-2">
-                    <i class="pi" [ngClass]="{'pi-eye': showPassword, 'pi-eye-slash': !showPassword}"
-                        (click)="toggleShowPassword()"></i>
-                    <input [type]="(showPassword) ? 'text':'password'" pInputText [(ngModel)]="user.password" id="pass"
-                        class="w-full">
-                    <label for="pass">Contraseña</label>
-                </span>
-            </div>
-
-            <div class="flex align-items-center justify-content-between mb-4">
-                <div class="flex align-items-center">
-                    <p-checkbox id="rememberme" [binary]="true" [(ngModel)]="remember" styleClass="mr-2"></p-checkbox>
-                    <label for="rememberme" class="text-900">Recuerdame</label>
-                </div>
-                <a routerLink="/recovery"
-                    class="font-medium no-underline ml-2 text-primary text-right cursor-pointer">Olvidaste tu
-                    Contraseña?</a>
-            </div>
-
-            <div class="text-center mt-4">
-                <button pButton type="button" class="p-button-raised w-full" label="Iniciar Sesion"
-                    (click)="verificarCredencial()" [loading]="cargandoData"
-                    icon="fa-sharp fa-solid fa-right-to-bracket">
-                </button>
+                <img src="https://portal.upds.edu.bo/index/images/isologo.png" alt="logo U" class="logo">
+                <h3 class="title">Sistema de Gestión de Archivos</h3>
+                <h2 class="title"></h2>
             </div>
             <div class="text-center mt-2">
                 <button pButton type="button" class="p-button-danger w-full" label="Iniciar Sesión con Office 365"
