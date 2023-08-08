@@ -45,6 +45,7 @@ export interface DocumentoInscripcionCarrera {
   adjunto?: string;
   estadoDocumento?: boolean;
   fechaVencimiento?: string;
+  vecimiento?: boolean;
 }
 
 export interface DocumentoInscripcionCarreraFaltantes {

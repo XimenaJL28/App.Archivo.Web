@@ -33,7 +33,7 @@ export class DocumentoFormComponent implements OnInit {
   public descripcion: string = '';
   public adjuntoOperacion: string = '';
   private userSubscriptions!: Subscription;
-  
+
   // documento
   public documentoInscripcionCarrera?: DocumentoInscripcionCarrera = undefined;
 
@@ -101,18 +101,20 @@ export class DocumentoFormComponent implements OnInit {
 
   getDocumentoIndefinido(): boolean {
     // es fecha null
-    const nombreDocumento = this.documentoInscripcionCarrera?.nombreDocumentoTipo || '';
+    console.log();
+
+    const nombreDocumento = this.documentoInscripcionCarrera?.vecimiento || '';
     // console.log(nombreDocumento, "ci");
     // console.log(this.documentoInscripcionCarrera?.fechaVencimiento, "fecha");
     //this.isDocumentoIndefinido = !documentoInscripcionCarrera.fechaVencimiento && nombreDocumento !== 'CEDULA DE IDENTIDAD - FOTOCOPIA SIMPLE VIGENTE';
-    return nombreDocumento === 'CEDULA DE IDENTIDAD - FOTOCOPIA SIMPLE VIGENTE';
+    return nombreDocumento == true;
   }
 
   setUri(uri: string): void {
     this.adjunto = uri;
   }
 
-  setUriOperacion(uri:string):void {
+  setUriOperacion(uri: string): void {
     this.adjuntoOperacion = uri;
   }
 
@@ -200,7 +202,7 @@ export class DocumentoFormComponent implements OnInit {
     );
 
     this.adjunto = '';
-    this.adjuntoOperacion ='';
+    this.adjuntoOperacion = '';
     this.descripcion = '';
 
     this.savedLoading = false;
