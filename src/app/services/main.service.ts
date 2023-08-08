@@ -6,6 +6,8 @@ import { Router } from '@angular/router'
 import { UserState } from '../state/reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+import { ThemeState } from '../state/reducers/theme.reducer';
+import { toggleTheme } from '../state/actions/theme.actions';
 
 
 @Injectable({
@@ -18,16 +20,23 @@ export class MainService {
   //Permisos
   public interfaces = [];
   public persona: any = {};
+  themeState$: Observable<ThemeState>;
+
 
   inscripcionSeleccionada: BehaviorSubject<any> = new BehaviorSubject(0);
   cad: Subject<string> = new Subject<string>();
+
+
 
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
     private readonly messageService: MessageService,
+    private readonly store: Store<{ theme: ThemeState }>
     //private readonly store: Store<{ user: UserState }>
-    ) {
+  ) {
+    this.themeState$ = this.store.select("theme");
+
   }
 
   private createHeaders(): HttpHeaders {
@@ -179,50 +188,16 @@ export class MainService {
   logout() {
     localStorage.removeItem('Authorization');
     this.router.navigateByUrl('/login');
+    if (localStorage.getItem('darkMode') == 'true') {
+      this.toggleTheme();
+    }
+
   }
 
+  toggleTheme() {
+    this.store.dispatch(toggleTheme());
+  }
 
-
-
-  //! ---------------Funciones que hacen peticiones--------------- //
-  // [GET]
-  // public async request(url: string) {
-  //   const headers = this.getCabecera();
-  //   let ans = await new Promise((resolve, reject) => {
-  //     this.http.get(url, { headers, observe: 'response' }).subscribe({
-  //       next: (response) => {
-  //         console.log(response);
-  //         resolve(response.body);
-  //       },
-  //       error: (err) => {
-  //         if(err.status == 401 || err.status == 403)
-  //           this.logOut();
-  //         reject(err);
-  //       }
-  //     })
-  //   });
-  //   return ans;
-  // }
-
-
-  // [POST]
-  // public async requestPost(url: string, obj: any = null) {
-  //   const headers = this.getCabecera();
-  //   let ans = await new Promise((resolve, reject) => {
-  //     this.http.post(url, obj, { headers, observe: 'response' }).subscribe({
-  //       next: (response) => {
-  //         console.log(response);
-  //         resolve(response.body);
-  //       },
-  //       error: (err) => {
-  //         if (err.status == 401 || err.status == 403)
-  //           this.logout();
-  //         reject(err);
-  //       }
-  //     })
-  //   });
-  //   return ans;
-  // }
 
   uploadPhoto(file: File) {
     this.xporcentaje.next(0);
