@@ -4,7 +4,7 @@
 <p-divider></p-divider>
 
 <!-- Tabla de tramites académicos -->
-<div *ngIf="tramites.length > 0" class="grid mt-2">
+<!-- <div *ngIf="tramites.length > 0" class="grid mt-2">
   <div class="col-12">
     <p-table [value]="tramites" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
       styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll" [paginator]="true" [rows]="5">
@@ -28,7 +28,14 @@
       </ng-template>
     </p-table>
   </div>
+</div>-->
+<div class="card flex justify-content-center">
+
+  <p-dropdown [options]="tramites" [(ngModel)]="tramite" optionLabel="nombre"
+    (onChange)="getSubtramites(tramite.idTramite)"></p-dropdown>
 </div>
+
+
 
 <!-- Tabla de tramites realizados  -->
 <div *ngIf="tramiteSubTipos.length > 0">
@@ -70,4 +77,7 @@
       </p-accordion>
     </div>
   </div>
+</div>
+<div *ngIf="tramiteSubTipos.length == 0" style="text-align: center;">
+  <h3>No hay Tipos de Tramites</h3>
 </div>

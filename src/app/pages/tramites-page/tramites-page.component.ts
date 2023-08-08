@@ -29,23 +29,23 @@ export class TramitesPageComponent implements OnInit {
             this.tramites = request;
           });
       })
+    this.getSubtramites(1);
   }
 
   async _getTramites() {
     const unidadAcademica = this.unidadAcademica.find(item => item.nombre === 'UNIVERSIDAD')
     const unidadAcademicaId = unidadAcademica ? unidadAcademica.id : 0;
 
-    console.log(unidadAcademica, 'unidadAcademica');
+    // console.log(unidadAcademica, 'unidadAcademica');
     const response = await this.tramiteService.getListTramiteUniversidad(unidadAcademicaId);
     const tramites = response || [];
-    console.log(tramites, 'tr');
+    // console.log(tramites, 'tr');
     return tramites;
   }
 
   async getSubtramites(tramite: any) {
-    const response = await this.tramiteService.getListTramiteSubTipo(tramite.idTramite);
+    const response = await this.tramiteService.getListTramiteSubTipo(tramite);
     this.tramiteSubTipos = response || [];
-
-    this.tramite = tramite;
+    // this.tramite = tramite;
   }
 }
