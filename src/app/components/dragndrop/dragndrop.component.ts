@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { MainService } from 'src/app/services/main.service';
-import { ThemeState } from 'src/app/state/reducers/theme.reducer';
+
+import { MainService } from '../../services/main.service';
+import { ThemeState } from '../../state/reducers/theme.reducer';
 
 @Component({
   selector: 'app-dragndrop',
@@ -20,7 +21,7 @@ export class DragndropComponent implements OnInit {
 
   isUpload = false;
   porcentajeProgreso: number = 0;
-  public message:string = '';
+  public message: string = '';
 
   constructor(
     public mainService: MainService,
@@ -37,20 +38,12 @@ export class DragndropComponent implements OnInit {
     }
   }
 
-  onFileDropped(event: any) {
-    const validImage = this._isValidImageSize(event);
-    if (validImage) {
-      this.uploadFile(event[0]);
-    }
-    this.message = !validImage ? `La imagen supera los ${this.maxSizeMB} MB` : '';
+  async onFileDropped(event: any) {
+    await this._processFile(event);
   }
 
-  fileBrowseHandler(file: any) {
-    const validFile = this._isValidImageSize(file.files[0]);
-    if (validFile) {
-      this.uploadFile(file.files[0]);
-    }
-    this.message = !validFile ? `El archivo supera los ${this.maxSizeMB} MB` : '';
+  async fileBrowseHandler(file: any) {
+    await this._processFile(file.files[0]);
   }
 
   async uploadFile(file: any) {
@@ -67,5 +60,28 @@ export class DragndropComponent implements OnInit {
     const fileSizeBytes = Number(file.size);
     const fileSizeMB = Number((fileSizeBytes / 1048576).toFixed(1));
     return fileSizeMB <= this.maxSizeMB;
+  }
+
+  _isValidFileType(file: any): boolean {
+    const name = file.name || '';
+    const filesTypeAccept = this.tipeAccept.split(',');
+    return filesTypeAccept.some(item => name.endsWith(item))
+  }
+
+  async _processFile(file: any) {
+    const validFile = this._isValidImageSize(file);
+    if (!validFile) {
+      this.message = `El archivo supera los ${this.maxSizeMB} MB`;
+      return;
+    }
+
+    const validFileType = this._isValidFileType(file);
+    if (!validFileType) {
+      this.message = `Solo se acepta archivos de tipo: ${ this.tipeAccept}`;
+      return;
+    }
+
+    await this.uploadFile(file);
+    this.message = '';
   }
 }

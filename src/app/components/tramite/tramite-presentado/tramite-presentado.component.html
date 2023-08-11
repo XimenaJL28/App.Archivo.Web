@@ -5,7 +5,18 @@
     <div *ngFor="let documento of documentos" class="col-12 md:col-6 lg:col-4 xl:col-3">
       <div class="flex flex-column align-items-center">
         <h4 class="text-center mb-1 mt-0">{{ documento.nombreDocumentoTipo | titlecase }}</h4>
-        <p-image src="{{documento.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image>
+        <!-- pdf -->
+        <div *ngIf="documento.adjunto?.endsWith('.pdf')" class="flex align-items-center">
+          <!-- <i class="pi pi-file-pdf" style="font-size: 100px"></i> -->
+          <div style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+            <a href="{{documento.adjunto}}" target="_blank"><i class="pi pi-file-pdf" style="font-size: 100px"></i></a>
+          </div>
+        </div>
+
+        <!-- imagen -->
+        <p-image src="{{documento.adjunto}}" *ngIf="!documento.adjunto?.endsWith('.pdf')" alt="Image" width="100" height="150" [preview]="true"></p-image>
+
+        <!-- <p-image src="{{documento.adjunto}}" alt="Image" width="100" height="150" [preview]="true"></p-image> -->
         <div *ngIf="documento.nombreDocumentoEstado">
           <p-tag [value]="documento.nombreDocumentoEstado" [severity]="getColorDocumentoEstado(documento)"></p-tag>
         </div>

@@ -1,10 +1,19 @@
-<div class="container full-width" appDnd (fileDropped)="onFileDropped($event)"
-  [ngClass]="{'color-black': !(themeState$ | async)!.darkMode}">
-  <div *ngIf="!isUpload else spinner">
-    <input type="file" #fileDropRef id="fileDropRef" [accept]="tipeAccept"
-      (change)="fileBrowseHandler($event.target)" />
 
-    <img [src]="uri" *ngIf="uri != ''" class="img">
+<div class="container full-width" appDnd (fileDropped)="onFileDropped($event)"
+[ngClass]="{'color-black': !(themeState$ | async)!.darkMode}">
+<div *ngIf="!isUpload else spinner">
+  <input type="file" #fileDropRef id="fileDropRef" [accept]="tipeAccept"
+  (change)="fileBrowseHandler($event.target)" />
+  <!-- pdf -->
+  <div *ngIf="uri != '' && uri.endsWith('.pdf')" class="flex align-items-center justify-content-center m-3">
+    <!-- <i class="pi pi-file-pdf" style="font-size: 100px"></i> -->
+    <div style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+      <a href="{{uri}}" target="_blank"><i class="pi pi-file-pdf" style="font-size: 100px"></i></a>
+    </div>
+    <!-- <a href="{{uri}}" target="_blank"><i class="pi pi-search ml-2"></i></a> -->
+  </div>
+    <!-- image -->
+    <img [src]="uri" *ngIf="uri != '' && !uri.endsWith('.pdf')" class="img">
     <p class="mt-0 mb-0">Tamaño mínimo de imagen {{ maxSizeMB }} MB</p>
     <p *ngIf="message.length > 0" [ngStyle]="{color: 'var(--red-500)'}">{{ message }}</p>
     <h3 class="mt-0">Arrastrar y soltar {{nameFile}} aquí</h3>
