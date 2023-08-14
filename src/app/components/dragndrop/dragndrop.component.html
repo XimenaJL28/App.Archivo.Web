@@ -6,11 +6,9 @@
   (change)="fileBrowseHandler($event.target)" />
   <!-- pdf -->
   <div *ngIf="uri != '' && uri.endsWith('.pdf')" class="flex align-items-center justify-content-center m-3">
-    <!-- <i class="pi pi-file-pdf" style="font-size: 100px"></i> -->
     <div style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
       <a href="{{uri}}" target="_blank"><i class="pi pi-file-pdf" style="font-size: 100px"></i></a>
     </div>
-    <!-- <a href="{{uri}}" target="_blank"><i class="pi pi-search ml-2"></i></a> -->
   </div>
     <!-- image -->
     <img [src]="uri" *ngIf="uri != '' && !uri.endsWith('.pdf')" class="img">
