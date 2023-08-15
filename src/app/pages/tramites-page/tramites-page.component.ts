@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 import { TramiteService } from '../../services/tramite.service';
 import { UnidadAcademica } from 'src/app/interfaces/tramite.interface';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialogPlantillaComponent } from 'src/app/components/dialog-plantilla/dialog-plantilla.component';
 
 @Component({
   selector: 'app-tramites-page',
   templateUrl: './tramites-page.component.html',
-  styleUrls: ['./tramites-page.component.scss']
+  styleUrls: ['./tramites-page.component.scss'],
+  providers: [DialogService]
+
 })
 export class TramitesPageComponent implements OnInit {
   public unidadAcademica: UnidadAcademica[] = [];
@@ -17,6 +21,7 @@ export class TramitesPageComponent implements OnInit {
 
   constructor(
     private readonly tramiteService: TramiteService
+    , public dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -48,4 +53,12 @@ export class TramitesPageComponent implements OnInit {
     this.tramiteSubTipos = response || [];
     // this.tramite = tramite;
   }
+
+  showDialogPlantilla() {
+    const ref = this.dialogService.open(DialogPlantillaComponent, {
+      header: 'Agregar plantilla',
+      width: '400px'
+    });
+  }
+
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimengModule } from '../primeng.module';
 import { NgOptimizedImage } from '@angular/common';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 import { DragndropComponent } from './dragndrop/dragndrop.component';
@@ -21,6 +20,7 @@ import { TramiteFaltanteComponent } from './tramite/tramite-faltante/tramite-fal
 import { DocumentoPresentadoComponent } from './documento/documento-presentado/documento-presentado.component';
 import { DocumentoOperacionesComponent } from './documento/documento-operaciones/documento-operaciones.component';
 import { OperacionFormComponent } from './operacion/operacion-form/operacion-form.component';
+import { DialogPlantillaComponent } from './dialog-plantilla/dialog-plantilla.component';
 
 
 @NgModule({
@@ -38,14 +38,14 @@ import { OperacionFormComponent } from './operacion/operacion-form/operacion-for
     TramiteFaltanteComponent,
     DocumentoPresentadoComponent,
     DocumentoOperacionesComponent,
-    OperacionFormComponent
+    OperacionFormComponent,
+    DialogPlantillaComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgOptimizedImage,
     PrimengModule,
-    PdfViewerModule,
   ],
   exports: [
     DragndropComponent,
