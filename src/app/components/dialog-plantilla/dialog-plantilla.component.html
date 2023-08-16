@@ -1,1 +1,18 @@
-<p>Holamundo</p>
+<div *ngIf="!guardando else spinner">
+    <div class="col-12 mt-2 " style="padding-bottom: 25rem;">
+        <span appearance="outline" class="p-float-label">
+            <p-dropdown [options]="carrera" optionLabel="nombre" [filter]="true" filterBy="nombre" [showClear]="true"
+                optionValue="id" id="float-input" styleClass="w-full">
+            </p-dropdown>
+            <label for="float-input">Carreras</label>
+        </span>
+    </div>
+
+
+</div>
+
+<ng-template #spinner>
+    <div class="w-full text-center" style="padding-top: 100px;">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+</ng-template>

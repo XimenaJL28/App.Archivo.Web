@@ -57,7 +57,7 @@ export class TramitesPageComponent implements OnInit {
   showDialogPlantilla() {
     const ref = this.dialogService.open(DialogPlantillaComponent, {
       header: 'Agregar plantilla',
-      width: '400px'
+      width: '600px'
     });
   }
 

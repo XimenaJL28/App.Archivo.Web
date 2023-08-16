@@ -12,7 +12,6 @@ export class PlantillaService {
   //traer plantilla de documentos 
   async GetPlantilla(TramiteSubtipoId: any, CarreraId: any) {
     let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaDocumentosPlantilla/${TramiteSubtipoId}/carreraId/${CarreraId}`);
-    console.log(ans);
     return ans;
   }
 
@@ -20,21 +19,18 @@ export class PlantillaService {
   //traer los estados de una plantilla (indispensable, obligatorio, opcional)
   async GetListestadoPlantilla() {
     let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaEstadoPlantilla`);
-    console.log(ans);
     return ans;
   }
 
   //traer lista de carreras de un estudiante
   async GetListCarrera() {
     let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaCarrera`);
-    console.log(ans);
     return ans;
   }
 
   //traer plantilla de documentos 
   async GetTramitesSubTramites(UnidadAcademicaId: any) {
     let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaTramiteSubTramite/UnidadAcademicaId/${UnidadAcademicaId}`);
-    console.log(ans);
     return ans;
   }
 

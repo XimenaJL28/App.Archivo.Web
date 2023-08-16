@@ -37,7 +37,7 @@ export interface SubTramiteDto {
 }
 
 //lista tramite
-export interface ListTramiteDTO {
+export interface ListCarreraDTO {
     id: number
     nombre: string
 }
