@@ -78,6 +78,11 @@
     </div>
   </div>
 </div>
+
+<!-- botonque abre la configuracion del modal -->
+<p-dialog header="Plantilla" [(visible)]="showplantilla" [style]="{width: '90vw', height :'100vh'}">
+  <app-dialog-plantilla></app-dialog-plantilla>
+</p-dialog>
 <button pButton pRipple type="button" [icon]="'pi pi-plus'" class="p-button-rounded btn-float p-button-primary btn-save"
   (click)="showDialogPlantilla()" title="Agregar Plantilla"></button>
 <div *ngIf="tramiteSubTipos.length == 0" style="text-align: center;">

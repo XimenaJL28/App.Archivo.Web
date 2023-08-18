@@ -23,23 +23,23 @@ export interface ListaDocumento {
     estadoId: number
 }
 
-//ListaTramiteSubTramite
-export interface TramiteDTO {
+//tramite
+export interface tramite {
     idTramite: number
     nombre: string
-    subTramiteDTO: SubTramiteDto[]
+    items: ListaTramiteDTO[]
 }
-
-export interface SubTramiteDto {
+//ListaTramiteSubTramite
+export interface ListaTramiteDTO {
     id: number
     nombre: string
-    nombreCorto: string
 }
 
 //lista tramite
 export interface ListCarreraDTO {
     id: number
     nombre: string
+    nombreCorto: string
 }
 
 //Estados de un documento en una plantilla
@@ -47,4 +47,17 @@ export interface EstadoDocumentoDTO {
     documentoEstadoId: number
     nombre: string
     estado: boolean
+}
+
+export interface TipoDocuemntoDTO {
+    documentoTipoId: number
+    nombre: string
+    estadoExpiracion: boolean
+    documentoRespaldoId: any
+    documentoRespaldo: any
+}
+
+export interface EstadoPlantillaDTO {
+    estadoId: number
+    nombre: string
 }

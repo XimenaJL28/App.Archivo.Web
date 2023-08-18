@@ -9,7 +9,7 @@ import { DialogPlantillaComponent } from 'src/app/components/dialog-plantilla/di
   selector: 'app-tramites-page',
   templateUrl: './tramites-page.component.html',
   styleUrls: ['./tramites-page.component.scss'],
-  providers: [DialogService]
+  // providers: [DialogService]
 
 })
 export class TramitesPageComponent implements OnInit {
@@ -18,10 +18,11 @@ export class TramitesPageComponent implements OnInit {
   public tramites: any[] = [];
   public tramiteSubTipos: any[] = [];
   public plantillas: any[] = [];
+  showplantilla: boolean = false;
 
   constructor(
     private readonly tramiteService: TramiteService
-    , public dialogService: DialogService,
+
   ) { }
 
   ngOnInit(): void {
@@ -55,10 +56,11 @@ export class TramitesPageComponent implements OnInit {
   }
 
   showDialogPlantilla() {
-    const ref = this.dialogService.open(DialogPlantillaComponent, {
-      header: 'Agregar plantilla',
-      width: '600px'
-    });
+    // const ref = this.dialogService.open(DialogPlantillaComponent, {
+    //   header: 'Agregar plantilla',
+    //   width: '900px'
+    // });
+    this.showplantilla = true;
   }
 
 }

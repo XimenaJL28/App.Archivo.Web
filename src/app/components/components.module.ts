@@ -61,7 +61,8 @@ import { DialogPlantillaComponent } from './dialog-plantilla/dialog-plantilla.co
     TramiteFaltanteComponent,
     DocumentoPresentadoComponent,
     DocumentoOperacionesComponent,
-    OperacionFormComponent
+    OperacionFormComponent,
+    DialogPlantillaComponent
   ]
 })
 export class ComponentsModule { }

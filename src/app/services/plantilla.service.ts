@@ -29,8 +29,8 @@ export class PlantillaService {
   }
 
   //traer plantilla de documentos 
-  async GetTramitesSubTramites(UnidadAcademicaId: any) {
-    let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaTramiteSubTramite/UnidadAcademicaId/${UnidadAcademicaId}`);
+  async GetTramitesSubTramites() {
+    let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaTramiteSubTramite`);
     return ans;
   }
 
@@ -42,6 +42,12 @@ export class PlantillaService {
   //Lista de distintos tipos de documentos
   async ListTipoDocumento() {
     let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaTipoDocumentos`);
+    return ans;
+  }
+
+  //Lista de estados de un documento
+  async ListaEstadoPlantilla() {
+    let ans: any = await this.MainService.get(`${environment.endPoint}Plantilla/ListaEstadoPlantilla`);
     return ans;
   }
 

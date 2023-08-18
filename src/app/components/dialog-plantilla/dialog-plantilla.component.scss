@@ -1,5 +1,35 @@
-// :host {
-//     ::ng-deep  .p-dropdown {
-//         top: 0px !important;
-//     }
-// }
+:host {
+    ::ng-deep .p-dropdown-items-wrapper {
+        // width: 368px;
+        font-size: 15px;
+    }
+
+    ::ng-deep .p-dropdown {
+        width: 100%;
+    }
+
+    ::ng-deep .p-inputnumber-input {
+        border: none;
+        width: 65px;
+    }
+
+    ::ng-deep .prueba .p-dropdown {
+        width: 588px;
+    }
+
+    ::ng-deep .prueba .p-dropdown-items-wrapper {
+        font-size: 16px;
+        max-width: 588px;
+    }
+
+    // ::ng-deep .maxinput .p-inputnumber-input {
+    //     border: none;
+    // }
+
+}
+
+.btn-save {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+}
