@@ -21,6 +21,7 @@ import { DocumentoPresentadoComponent } from './documento/documento-presentado/d
 import { DocumentoOperacionesComponent } from './documento/documento-operaciones/documento-operaciones.component';
 import { OperacionFormComponent } from './operacion/operacion-form/operacion-form.component';
 import { DialogPlantillaComponent } from './dialog-plantilla/dialog-plantilla.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { DialogPlantillaComponent } from './dialog-plantilla/dialog-plantilla.co
     FormsModule,
     NgOptimizedImage,
     PrimengModule,
+    SharedModule
   ],
   exports: [
     DragndropComponent,

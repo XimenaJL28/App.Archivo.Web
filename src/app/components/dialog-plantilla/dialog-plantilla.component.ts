@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DocumentoPlantillaDTO, EstadoPlantillaDTO, ListCarreraDTO, ListaDocumento, ListaTramiteDTO, TipoDocuemntoDTO, tramite } from 'src/app/interfaces/Plantilla.interface';
+import { AddPlantillaDTO, DocumentoPlantillaDTO, EstadoPlantillaDTO, ListCarreraDTO, ListaDocumento, ListaTramiteDTO, TipoDocuemntoDTO, tramite } from 'src/app/interfaces/Plantilla.interface';
 import { PlantillaService } from '../../services/plantilla.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SelectItemGroup } from 'primeng/api';
+import { MainService } from '../../services/main.service';
 
 
 @Component({
@@ -14,10 +15,8 @@ import { SelectItemGroup } from 'primeng/api';
 export class DialogPlantillaComponent implements OnInit {
   //lista de carreras
   carrera: ListCarreraDTO[] = [];
-  list!: ListCarreraDTO;
   //lista de subtramites
   ltramite: tramite[] = [];
-  tramite!: tramite[];
 
   //lista de elementos de la plantilla
   listadocument: ListaDocumento[] = [];
@@ -29,33 +28,37 @@ export class DialogPlantillaComponent implements OnInit {
   //nombredoc
   nombredocs!: string;
 
+  //lista de tramites
+  tramites: SelectItemGroup[] = [];
 
-  //forumulario de envio
-  myForm: FormGroup = this.fb.group({
-    carreraId: [0],
-    tramiteSubTipoId: [0],
-    listaDocumento: [null]
-  });
+  //tramite y carrera seleccionado 
 
-
+  selectramite: any;
+  selectcarrera: any;
 
 
   plantilla: DocumentoPlantillaDTO[] = [];
-  dataCargada!: boolean;
+  dataCargada: boolean = false;
   guardando: boolean = false;
   tabla: boolean = false;
 
-  constructor(private fb: FormBuilder,
-    // , public ref: DynamicDialogRef,
-    // public config: DynamicDialogConfig,
-    private readonly PlantillaService: PlantillaService) { }
+  constructor(
+    private readonly MainService: MainService,
+    private readonly PlantillaService: PlantillaService) {
+  }
 
   ngOnInit(): void {
-    // this.GetPlantilla(1, 1010)
-    this.GetCarrera()
-    this.GetTramitesSubTramites()
-    this.GetListTipoDocumento()
-    this.ListaEstadoPlantilla()
+    Promise.all([
+      this.GetCarrera(),
+
+      this.GetTramitesSubTramites(),
+    ]).then(() => {
+    }).catch(err => {
+    }).finally(() => {
+      this.GetListTipoDocumento();
+      this.ListaEstadoPlantilla();
+      this.dataCargada = true;
+    });
   }
 
 
@@ -112,6 +115,20 @@ export class DialogPlantillaComponent implements OnInit {
     });
   }
 
+  //guardar documento plantilla
+  async AgregarPlantilla() {
+
+    let plantilladto: AddPlantillaDTO = { carreraId: this.selectcarrera, tramiteSubTipoId: this.selectramite, listaDocumento: this.listadocument };
+    let response = await this.PlantillaService.AgregarPlantilla(plantilladto).then((resp: any) => {
+    }).catch((error: any) => {
+      console.log(error);
+      this.MainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar la plantilla' });
+    }).finally(() => {
+      this.MainService.mostrarToast({ severity: 'succes', summary: 'Succes', detail: 'Se ha registrado los documentos a la plantilla' });
+
+    });
+  }
+
 
 
 
@@ -119,23 +136,20 @@ export class DialogPlantillaComponent implements OnInit {
   agregarElemento() {
     const nuevoElemento: ListaDocumento = { cantidadMinima: 2, plazoMaximo: 20, documentoTipoId: 0, estadoId: 0 };
     this.listadocument.push(nuevoElemento);
-    console.log(this.listadocument);
     this.tabla = true;
-
   }
-  //elimina elemnetos de la lista
-  // eliminarelemento() {
-  //   delete this.listadocument[this.listadocument.length - 1];
+  // elimina elemnetos de la lista
+  eliminarelemento(doctipo: number) {
+    // delete this.listadocument[this.listadocument.length - 1];
+    const resultado = this.listadocument.filter(x => x.documentoTipoId != doctipo);
+    this.listadocument = resultado;
+  }
+
+  // async nombredoc(iddoc: number) {
+  //   //buscar el nombre del tipodocumento
+  //   let n = await this.tipodocumento.find(x => x.documentoTipoId == iddoc)?.nombre.toString()!;
+  //   this.nombredocs = n
   // }
-
-  async nombredoc(iddoc: number) {
-    //buscar el nombre del tipodocumento
-    let n = await this.tipodocumento.find(x => x.documentoTipoId == iddoc)?.nombre.toString()!;
-    this.nombredocs = n
-    console.log(this.nombredocs);
-
-
-  }
 
 
 }

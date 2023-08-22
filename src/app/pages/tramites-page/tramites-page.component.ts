@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { TramiteService } from '../../services/tramite.service';
 import { UnidadAcademica } from 'src/app/interfaces/tramite.interface';
-import { DialogService } from 'primeng/dynamicdialog';
-import { DialogPlantillaComponent } from 'src/app/components/dialog-plantilla/dialog-plantilla.component';
 
 @Component({
   selector: 'app-tramites-page',
@@ -35,7 +33,7 @@ export class TramitesPageComponent implements OnInit {
             this.tramites = request;
           });
       })
-    this.getSubtramites(1);
+    // this.getSubtramites(1);
   }
 
   async _getTramites() {
@@ -52,14 +50,9 @@ export class TramitesPageComponent implements OnInit {
   async getSubtramites(tramite: any) {
     const response = await this.tramiteService.getListTramiteSubTipo(tramite);
     this.tramiteSubTipos = response || [];
-    // this.tramite = tramite;
   }
 
   showDialogPlantilla() {
-    // const ref = this.dialogService.open(DialogPlantillaComponent, {
-    //   header: 'Agregar plantilla',
-    //   width: '900px'
-    // });
     this.showplantilla = true;
   }
 

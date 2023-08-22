@@ -1,31 +1,21 @@
-<div *ngIf="!guardando else spinner">
+<div *ngIf="dataCargada else spinner">
     <div class="grid">
 
         <div class="col-12 md:col-6 field" style="padding-top: 2rem; ">
             <span appearance="outline" class="p-float-label">
                 <p-dropdown [options]="carrera" optionLabel="nombre" [filter]="true" filterBy="nombre"
-                    [showClear]="true" optionValue="id" id="float-input" styleClass="w-full">
+                    [showClear]="true" optionValue="id" id="float-input" styleClass="w-full"
+                    [(ngModel)]="selectcarrera">
                 </p-dropdown>
                 <label for="float-input">Carreras</label>
             </span>
         </div>
-        <!-- <div class="col-12 md:col-6 field" style="padding-top: 2rem;">
-            <span appearance="outline" class="p-float-label">
-
-                <p-dropdown [options]="ltramite" [(ngModel)]="tramite" placeholder="Tramites" [editable]="true"
-                    optionLabel="nombreCorto" class="w-full"></p-dropdown>
-                <label for="float-input">Tramites</label>
-            </span>
-
-        </div> -->
         <div class="col-12 md:col-6 field" style="padding-top: 2rem;">
             <span appearance="outline" class="p-float-label">
-                <p-dropdown [options]="ltramite" placeholder="Select a City" [group]="true">
-                    <ng-template let-group pTemplate="group">
+                <p-dropdown [options]="ltramite" [group]="true" [(ngModel)]="selectramite">
+                    <ng-template let-group pTemplate="group ">
                         <div class="flex align-items-center">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                            <span>{{ group.nombre }}</span>
+                            <span>{{ group.label | uppercase }}</span>
                         </div>
                     </ng-template>
                 </p-dropdown>
@@ -39,22 +29,24 @@
             <p-card *ngIf="tabla">
                 <p-table [value]="listadocument" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
-                        <tr>
-                            <th>Nombre documento</th>
-                            <th>Tipo de documento</th>
-                            <th>Cantidad mínima</th>
-                            <th>Plazo maximo</th>
-                            <th>Eliminar</th>
+                        <div class="table-header">
 
-                        </tr>
+                            <tr>
+                                <th>Nombre documento</th>
+                                <th>Tipo de documento</th>
+                                <th>Cantidad mínima</th>
+                                <th>Plazo maximo</th>
+                                <th>Eliminar</th>
+
+                            </tr>
+                        </div>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td style="width: 55%;">
                                 <p-dropdown [options]="tipodocumento" optionLabel="nombre" [filter]="true"
                                     filterBy="nombre" [showClear]="true" optionValue="documentoTipoId" id="float-input"
-                                    [(ngModel)]="product.documentoTipoId" class="prueba"
-                                    (onChange)="nombredoc(product.documentoTipoId)" [title]="nombredocs">
+                                    [(ngModel)]="product.documentoTipoId" class="prueba">
                                 </p-dropdown>
                             </td>
                             <td>
@@ -71,8 +63,13 @@
                             </td>
                             <td style="text-align: center;">
 
-                                <p-inputNumber inputId="integeronly" [(ngModel)]="product.plazoMaximo"
-                                    (ngModelChange)="agregarElemento()"> </p-inputNumber>días
+                                <p-inputNumber inputId="integeronly" [(ngModel)]="product.plazoMaximo">
+                                </p-inputNumber>días
+                            </td>
+                            <td>
+                                <button pButton pRipple type="button" [icon]="'pi pi-trash'"
+                                    class="p-button-rounded btn-float p-button-danger"
+                                    (click)="eliminarelemento(product.documentoTipoId)" title="borrar"></button>
                             </td>
 
                         </tr>
@@ -80,18 +77,19 @@
                     </ng-template>
                 </p-table>
             </p-card>
+            <button pButton pRipple type="button" [icon]="'pi pi-save'"
+                class="p-button-rounded btn-float p-button-primary btn-save" (click)="AgregarPlantilla()"
+                title="Guardar Plantilla"></button>
             <button pButton pRipple type="button" [icon]="'pi pi-plus'"
-                class="p-button-rounded btn-float p-button-primary btn-save" (click)="agregarElemento()"
+                class="p-button-rounded btn-float p-button-primary btn-agregar " (click)="agregarElemento()"
                 title="Agregar Plantilla"></button>
         </div>
     </div>
 
-
-
 </div>
 
 <ng-template #spinner>
-    <div class="w-full text-center" style="padding-top: 100px;">
-        <p-progressSpinner></p-progressSpinner>
+    <div class="w-full text-center">
+        <app-loader style="padding-bottom: 15rem;"></app-loader>
     </div>
 </ng-template>
