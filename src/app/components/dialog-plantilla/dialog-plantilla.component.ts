@@ -124,7 +124,7 @@ export class DialogPlantillaComponent implements OnInit {
       console.log(error);
       this.MainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar la plantilla' });
     }).finally(() => {
-      this.MainService.mostrarToast({ severity: 'succes', summary: 'Succes', detail: 'Se ha registrado los documentos a la plantilla' });
+      this.MainService.mostrarToast({ severity: 'success', summary: 'Success', detail: 'Se ha registrado los documentos a la plantilla' });
 
     });
   }

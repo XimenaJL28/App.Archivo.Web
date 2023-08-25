@@ -29,17 +29,14 @@
             <p-card *ngIf="tabla">
                 <p-table [value]="listadocument" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
-                        <div class="table-header">
+                        <tr>
+                            <th>Nombre documento</th>
+                            <th>Tipo de documento</th>
+                            <th>Cantidad mínima</th>
+                            <th>Plazo maximo</th>
+                            <th>Eliminar</th>
 
-                            <tr>
-                                <th>Nombre documento</th>
-                                <th>Tipo de documento</th>
-                                <th>Cantidad mínima</th>
-                                <th>Plazo maximo</th>
-                                <th>Eliminar</th>
-
-                            </tr>
-                        </div>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
                         <tr>
