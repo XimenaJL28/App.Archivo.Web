@@ -21,6 +21,7 @@ import { TramitesPageComponent } from './tramites-page/tramites-page.component';
 import { TramitePageComponent } from './tramite-page/tramite-page.component';
 import { DocumentoPageComponent } from './documento-page/documento-page.component';
 import { OperacionPageComponent } from './operacion-page/operacion-page.component';
+import { PermisoGuard } from '../guards/permiso.guard';
 
 
 //? Routes
@@ -35,6 +36,8 @@ const routes: Routes = [
       {
         path: 'tramite',
         component: TramiteInscripcionStepsComponent,
+        canActivate: [PermisoGuard],
+        canActivateChild: [PermisoGuard],
         children: [
           { path: '', redirectTo: 'inscripcion', pathMatch: 'full' },
           { path: 'inscripcion', component: TramitePageComponent },

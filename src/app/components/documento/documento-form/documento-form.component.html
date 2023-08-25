@@ -12,13 +12,13 @@
           <div class="col-12 md:col-6">
             <div class="flex flex-column">
               <label htmlFor="fecha-limite">Fecha Límite</label>
-              <p-calendar [(ngModel)]="fechaLimitedeEntrega" dateFormat="{{ dateFormat }}" id="fecha-limite"
-               ></p-calendar>
+              <p-calendar [(ngModel)]="fechaLimitedeEntrega" dateFormat="{{ dateFormat }}"
+                id="fecha-limite"></p-calendar>
               <small id="fecha-limite-help"></small>
             </div>
           </div>
           <div class="col-12 md:col-6" *ngIf="!isDocumentoIndefinido">
-          <!-- <div class="col-12 md:col-6"> -->
+            <!-- <div class="col-12 md:col-6"> -->
             <div class="flex flex-column">
               <label htmlFor="fecha-vencimiento">Fecha de Vencimiento</label>
               <!-- <p-calendar [(ngModel)]="fechaVencimiento" dateFormat="{{ dateFormat }}" id="fecha-vencimiento"
@@ -68,7 +68,8 @@
       <div class="col-12">
         <div class="flex flex-column">
           <label htmlFor="descripcion">Descripción</label>
-          <textarea pInputTextarea [(ngModel)]="descripcion" id="descripcion" class="p-inputtext-sm" rows="2"></textarea>
+          <textarea pInputTextarea [(ngModel)]="descripcion" id="descripcion" class="p-inputtext-sm"
+            rows="2"></textarea>
         </div>
       </div>
       <div class="col-12 md:col-6">
@@ -84,6 +85,6 @@
 
 <div class="card flex justify-content-end">
   <p-button [loading]="savedLoading" (click)="guardarDocumento()" icon="fa-solid fa-floppy-disk"
-    styleClass="p-button-rounded"></p-button>
+    styleClass="p-button-rounded" [hidden]="canSave"></p-button>
 </div>
 <p-toast></p-toast>

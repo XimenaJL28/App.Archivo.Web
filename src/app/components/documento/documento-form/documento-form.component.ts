@@ -15,6 +15,7 @@ import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, Docu
 import { TramiteInscripcionCarrera } from '../../../interfaces/estudiante.interface';
 import { UserState } from 'src/app/state/reducers/user.reducer';
 import { DocumentoOperacionSave } from '../../../interfaces/tramite.interface';
+import { PermisoGuard } from '../../../guards/permiso.guard';
 
 @Component({
   selector: 'app-documento-form',
@@ -25,6 +26,7 @@ import { DocumentoOperacionSave } from '../../../interfaces/tramite.interface';
 export class DocumentoFormComponent implements OnInit {
   @Output() cerrarDialogModal: EventEmitter<void> = new EventEmitter();
 
+  public canSave: boolean = false;
   // operaciones
   public user?: UserState = undefined;
   public documentoOperacionTipos: DropDownItem[] = [];
@@ -57,8 +59,10 @@ export class DocumentoFormComponent implements OnInit {
   constructor(
     private store: Store<{ tramite: TramiteState, estudiante: EstudianteState, user: UserState, }>,
     private tramiteService: TramiteService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private PermisoGuard: PermisoGuard,
   ) {
+    this.canSave = this.PermisoGuard.getPermisoComponente('DocumentoFormComponent', 'guardarDocumento');
   }
 
   ngOnInit(): void {
