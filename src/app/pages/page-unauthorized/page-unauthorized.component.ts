@@ -20,13 +20,13 @@ export class PageUnauthorizedComponent implements OnInit {
     this.timer();
   }
 
-  timer(){
+  timer() {
     setTimeout(() => {
       this.counter--;
-      if(this.counter == 0){
+      if (this.counter == 0) {
         this.mainService.logout();
       }
       else this.timer();
-    }, 1000);
+    }, 600);
   }
 }

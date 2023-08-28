@@ -1,23 +1,9 @@
-import { Permiso } from "../interfaces/permiso.interface";
+import { PermisoInterfaceId } from '../interfaces/permiso.interface';
 
-const admin: Permiso = {
-    rol: 'admin',
-    rutas: ['/', '/home', '/tramites', '/tramite', '/tramite/inscripcion', '/tramite/documento'],
-    rutasHijas: ['/tramite/inscripcion', '/tramite/documento'],
-}
-
-const student: Permiso = {
-    rol: 'student',
-    rutas: ['/', '/home', '/tramite/inscripcion', '/tramite/documento'],
-    rutasHijas: ['/tramite/inscripcion', '/tramite/documento'],
-    componentes: [
-        {
-            nombre: 'DocumentoFormComponent',
-            funciones: ['guardarDocumento']
-        }
-    ]
-}
-export const RBAC: Permiso[] = [
-    admin,
-    student
+export const moduloIdEnlace: PermisoInterfaceId[] = [
+  { id: 36006, enlace: '/home' },
+  { id: 36007, enlace: '/tramite/inscripcion' },
+  { id: 36010, enlace: '/tramite/documento' },
+  { id: 36008, enlace: '/tramite/plantilla' },
+  { id: 36009, enlace: '/tramite/documento' },
 ];

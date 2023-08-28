@@ -62,7 +62,7 @@ export class DocumentoFormComponent implements OnInit {
     private messageService: MessageService,
     private PermisoGuard: PermisoGuard,
   ) {
-    this.canSave = this.PermisoGuard.getPermisoComponente('DocumentoFormComponent', 'guardarDocumento');
+    // this.canSave = this.PermisoGuard.getPermisoComponente('DocumentoFormComponent', 'guardarDocumento');
   }
 
   ngOnInit(): void {
