@@ -8,8 +8,131 @@ import { MainService } from './main.service';
     providedIn: 'root'
 })
 export class PermisosService {
+    ObjPermisArchivo: any;
+    constructor(private readonly mainService: MainService) {
 
-    constructor(private readonly mainService: MainService) { }
+        this.ObjPermisArchivo = {
+            id: 34003,
+            nombre: "Archivo",
+            estado: true,
+            interfaces: [
+                {
+                    "id": 41006,
+                    "titulo": "Estudiante",
+                    "descripcion": "IU de Estudiante",
+                    "ubicacion": "/Estudiante",
+                    "enlaceTutorial": "fa-solid fa-user",
+                    "tipo": 1,
+                    "idModulo": 34003,
+                    "icono": "",
+                    "estado": true,
+                    "tareas": [
+                        {
+                            "id": 51200,
+                            "nombre": "Ver",
+                            "descripcion": "Ver información del estudiante",
+                            "idInterface": 41006,
+                            "tipo": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 41007,
+                    "titulo": "Tramite",
+                    "descripcion": "IU de Tramite",
+                    "ubicacion": "/Tramite",
+                    "enlaceTutorial": "fa-solid fa-file-lines",
+                    "tipo": 1,
+                    "idModulo": 34003,
+                    "icono": "",
+                    "estado": true,
+                    "tareas": [
+                        {
+                            "id": 51201,
+                            "nombre": "Ver",
+                            "descripcion": "Ver información de trámite",
+                            "idInterface": 41007,
+                            "tipo": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 41008,
+                    "titulo": "Documento",
+                    "descripcion": "IU de Documento",
+                    "ubicacion": "/Documento",
+                    "enlaceTutorial": "fa-solid fa-file",
+                    "tipo": 1,
+                    "idModulo": 34003,
+                    "icono": "",
+                    "estado": true,
+                    "tareas": [
+                        {
+                            "id": 51202,
+                            "nombre": "Ver",
+                            "descripcion": "Ver información de documento",
+                            "idInterface": 36010,
+                            "tipo": 2
+                        },
+                        {
+                            "id": 51203,
+                            "nombre": "Editar",
+                            "descripcion": "Editar información de documento",
+                            "idInterface": 36010,
+                            "tipo": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 41008,
+                    "titulo": "Plantilla",
+                    "descripcion": "IU de Plantilla",
+                    "ubicacion": "/Plantilla",
+                    "enlaceTutorial": "fa-solid fa-clipboard-list",
+                    "tipo": 1,
+                    "idModulo": 34003,
+                    "icono": "",
+                    "estado": true,
+                    "tareas": [
+                        {
+                            "id": 51204,
+                            "nombre": "Ver",
+                            "descripcion": "Ver información de plantilla",
+                            "idInterface": 41008,
+                            "tipo": 2
+                        },
+                        {
+                            "id": 51205,
+                            "nombre": "Editar",
+                            "descripcion": "Editar información de plantilla",
+                            "idInterface": 41008,
+                            "tipo": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 41009,
+                    "titulo": "Operacion",
+                    "descripcion": "IU de Operacion",
+                    "ubicacion": "/Operacion",
+                    "enlaceTutorial": "fa-solid fa-gear",
+                    "tipo": 1,
+                    "idModulo": 34003,
+                    "icono": "",
+                    "estado": true,
+                    "tareas": [
+                        {
+                            "id": 51206,
+                            "nombre": "Ver",
+                            "descripcion": "Ver información de una operación",
+                            "idInterface": 36009,
+                            "tipo": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 
     async getPermisos() {
         /*const url = `${environment.endPoint}/permisos`;
@@ -196,4 +319,11 @@ export class PermisosService {
             }
         ]
     }
+
+
+    async VerificarPermisos() {
+        let ans: any = await this.mainService.get(`${environment.urlAccess}Accesos/InterfacesTareas/${this.ObjPermisArchivo.id}`);
+        return ans;
+    }
+
 }

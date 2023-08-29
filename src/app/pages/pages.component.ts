@@ -7,6 +7,7 @@ import { AccountService } from '../services/account.service';
 import { MainService } from '../services/main.service';
 import { ThemeState } from '../state/reducers/theme.reducer';
 import { UserState } from '../state/reducers/user.reducer';
+import { PermisosService } from '../services/permisos.service';
 
 @Component({
   selector: 'app-pages',
@@ -30,10 +31,10 @@ export class PagesComponent implements OnInit {
   darkClassName = 'dark-theme';
 
   persona!: any;
-  appReady = true;
+  appReady = false;
   menus: any[] = [
-    { ubicacion: 'home', titulo: 'Estudiante', icono: 'pi-users', external: false },
-    { ubicacion: 'tramites', titulo: 'Trámites', icono: 'pi-list', external: false },
+    // { ubicacion: 'home', titulo: 'Estudiante', icono: 'pi-users', external: false },
+    // { ubicacion: 'tramites', titulo: 'Trámites', icono: 'pi-list', external: false },
     // { ubicacion: 'register', titulo: 'Register', icono: 'pi-book', external: false },
     // { ubicacion: 'https://portal.upds.edu.bo/ev-docente/#/loginms', titulo: 'Teacher Eval.', icono: 'pi-sliders-h', external: true },
   ];
@@ -52,12 +53,12 @@ export class PagesComponent implements OnInit {
     private readonly mainService: MainService,
     private readonly accountService: AccountService,
     private readonly router: Router,
+    private readonly PermisosService: PermisosService,
     private readonly store: Store<{ theme: ThemeState }>) {
 
     this.themeState$ = this.store.select("theme");
 
 
-    this.appReady = true;
 
 
   }
@@ -65,16 +66,23 @@ export class PagesComponent implements OnInit {
   ngOnInit(): void {
 
     //? Load user data when user is logged
-    this.accountService.getProfile();
+
+    Promise.all([this.obtenerInterfaces(), this.accountService.getProfile()]).then((resp: any) => {
+      this.appReady = true;
+    }).catch((err: any) => {
+      this.mainService.logout();
+    });
+
+    // this.accountService.getProfile();
+    // this.obtenerInterfaces();
   }
 
-  async tienePermisos() {
-    // let response = await this.mainS.getModulos();
-  }
   async obtenerInterfaces() {
-    // let response = await this.mainS.getInterfaces();
-    // this.mainS.interfaces = response;
-    // this.menus = response;
+    let response = await this.PermisosService.VerificarPermisos();
+    this.mainService.interfaces = response;
+    console.log(response);
+
+    this.menus = response;
   }
 
   changeToggle() {
