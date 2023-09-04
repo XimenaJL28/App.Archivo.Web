@@ -44,14 +44,14 @@ export class LoginComponent implements OnInit {
   //? My variables
   showPassword: boolean = false;
 
-  toggleShowPassword(){ this.showPassword = !this.showPassword}
+  toggleShowPassword() { this.showPassword = !this.showPassword }
   //? -------------------
 
   constructor(
-    public readonly router: Router, 
-    private readonly accountService: AccountService, 
+    public readonly router: Router,
+    private readonly accountService: AccountService,
     private readonly messageService: MessageService
-    ) {
+  ) {
     this.token = this.router.parseUrl(this.router.url).queryParams['token'];
     if (this.token != '' && this.token != null) {
       localStorage.setItem('Authorization', this.token);
@@ -59,12 +59,12 @@ export class LoginComponent implements OnInit {
     }
 
     //? Redirect to home page whe user is already logged in
-    if(localStorage.getItem("Authorization")) this.router.navigateByUrl("/home");
+    if (localStorage.getItem("Authorization")) this.router.navigateByUrl("/home");
 
   }
 
   /**
-   * Recupera las credenciales del usuario 
+   * Recupera las credenciales del usuario
    */
   ngOnInit(): void {
     if (localStorage.getItem('credenciales') != null && localStorage.getItem('credenciales') != '') {

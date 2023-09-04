@@ -1,14 +1,14 @@
 <div class="flex justify-content-center">
   <h3 class="mb-0 mt-0">Listado de Trámites</h3>
 </div>
+
 <p-divider></p-divider>
+
 <div class="card flex justify-content-center">
-
   <p-dropdown [options]="tramites" [(ngModel)]="tramite" optionLabel="nombre"
-    (ngModelChange)="getSubtramites(tramite.idTramite)"></p-dropdown>
+    (ngModelChange)="getSubtramites(tramite.idTramite)">
+  </p-dropdown>
 </div>
-
-
 
 <!-- Tabla de tramites realizados  -->
 <div *ngIf="tramiteSubTipos.length > 0">
@@ -54,10 +54,20 @@
 
 <!-- botonque abre la configuracion del modal -->
 <p-dialog header="Plantilla" [(visible)]="showplantilla" [style]="{width: '90vw', height :'100vh'}">
-  <app-dialog-plantilla></app-dialog-plantilla>
+  <app-dialog-plantilla [canEdit]="canEditPlantilla" (cerrarDialogModal)="cerrarPlantillaDialogModal()">
+  </app-dialog-plantilla>
 </p-dialog>
-<button pButton pRipple type="button" [icon]="'pi pi-plus'" class="p-button-rounded btn-float p-button-primary btn-save"
-  (click)="showDialogPlantilla()" title="Agregar Plantilla"></button>
+
+<p-dialog header="Documento tipo" [(visible)]="showDocumentoTipo" [style]="{width: '90vw', height :'100vh'}">
+  <app-documentotipo-form (cerrarDialogModal)="cerrarDocumentoTipoDialogModal()">
+  </app-documentotipo-form>
+</p-dialog>
+
+<button (click)="showDialogPlantilla()" [disabled]="!canViewPlantilla" pButton pRipple type="button" [icon]="'pi pi-plus'"
+class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"></button>
+
+<button (click)="showDialogDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-plus'"
+class="p-button-rounded btn-float p-button-primary btn-agregar " title="Agregar Documento Tipo"></button>
 
 <div *ngIf="tramiteSubTipos.length == 0" style="text-align: center;">
   <p>Grupo de documentos inexistente</p>

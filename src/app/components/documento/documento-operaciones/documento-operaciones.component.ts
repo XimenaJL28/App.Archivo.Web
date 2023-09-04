@@ -12,7 +12,6 @@ export class DocumentoOperacionesComponent {
   @Input() operaciones: DocumentoOperacion[] = [];
   @Input() documento?: DocumentoInscripcionCarrera = undefined;
   @Output() getOperacionSeleccionada: EventEmitter<DocumentoOperacion> = new EventEmitter();
-  @Output() getNuevaOperacion: EventEmitter<void> = new EventEmitter();
 
   public operacion?: DocumentoOperacion = undefined;
 
@@ -20,9 +19,5 @@ export class DocumentoOperacionesComponent {
 
   setOperacion(operacion: DocumentoOperacion): void {
     this.getOperacionSeleccionada.emit(operacion);
-  }
-
-  setNuevaOperacion(): void {
-    this.getNuevaOperacion.emit();
   }
 }

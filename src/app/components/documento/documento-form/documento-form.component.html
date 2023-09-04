@@ -84,7 +84,7 @@
 </div>
 
 <div class="card flex justify-content-end">
-  <p-button [loading]="savedLoading" (click)="guardarDocumento()" icon="fa-solid fa-floppy-disk"
-    styleClass="p-button-rounded" [hidden]="canSave"></p-button>
+  <p-button [loading]="savedLoading" (onClick)="guardarDocumento()" [disabled]="!canEditDocumento"
+    icon="fa-solid fa-floppy-disk" styleClass="p-button-rounded"></p-button>
 </div>
 <p-toast></p-toast>

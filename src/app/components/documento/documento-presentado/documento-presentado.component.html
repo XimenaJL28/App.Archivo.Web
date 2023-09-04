@@ -25,14 +25,12 @@
             <td>{{ documentoItem.fechaRegistro | date:'dd/MM/yyyy' }}</td>
             <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td style="text-align: center;">
-              <p-button (click)="setDocumentoSeleccionado(documentoItem)" icon="fa-solid fa-list"
-                styleClass="p-button-rounded" class="mr-1" title="Ver Operaciones del documento" *ngIf="permiso(51206)">
+              <p-button (onClick)="setDocumentoSeleccionado(documentoItem)" [disabled]="!canViewOperacion"
+                icon="fa-solid fa-list" styleClass="p-button-rounded" class="mr-1"
+                title="Ver Operaciones del documento">
               </p-button>
-              <p-button (click)="getTarea()" icon="fa-solid fa-list" styleClass="p-button-rounded" class="mr-1"
-                title="Ver Operaciones del documento" *ngIf="!permiso(51206)">
-              </p-button>
-              <p-button (click)="setDocumentoSeleccionado(documentoItem, true)" icon="fa-solid fa-pencil"
-                styleClass="p-button-rounded" title="Modificar Documento">
+              <p-button (onClick)="setDocumentoSeleccionado(documentoItem, true)" [disabled]="!canEditDocumento"
+                icon="fa-solid fa-pencil" styleClass="p-button-rounded" title="Modificar Documento">
               </p-button>
             </td>
           </tr>
@@ -41,4 +39,3 @@
     </div>
   </div>
 </div>
-<p-toast></p-toast>

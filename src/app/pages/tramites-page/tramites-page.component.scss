@@ -5,8 +5,27 @@
     }
 }
 
+.btn-agregar {
+  position: fixed;
+  bottom: 67px;
+  right: 20px;
+  background-color: #0d6efd;
+}
+
 .btn-save {
-    position: fixed;
-    bottom: 10px;
-    right: 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  background-color: #007274;
+}
+
+//clase para agregar una opcaidad al boton y conservar su color
+.btn-agregar:hover {
+  box-shadow: 0 9px 15px rgb(3 243 233 / 30%);
+  background: #0d6efd;
+}
+
+.btn-save:hover {
+  box-shadow: 0 9px 15px #ccbfbf4d;
+  background: #007274;
 }

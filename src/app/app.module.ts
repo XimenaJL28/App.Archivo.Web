@@ -6,21 +6,16 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
-
 //? Custom Modules
 import { PrimengModule } from './primeng.module';
 
-
 //? Routing
 import { AppRoutingModule } from './app-routing.module';
-
 
 //? Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
-
-
 
 //? State management
 import { StoreModule } from '@ngrx/store';
@@ -30,7 +25,6 @@ import { userReducer } from './state/reducers/user.reducer';
 import { environment } from 'src/environments/environment.prod';
 import { estudianteReducer } from './state/reducers/estudiante.reducers';
 import { tramiteReducer } from './state/reducers/tramite.reducers';
-
 
 @NgModule({
   declarations: [

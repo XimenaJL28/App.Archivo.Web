@@ -32,8 +32,7 @@ import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
 import { ImageModule } from 'primeng/image';
 import { StepsModule } from 'primeng/steps';
-
-
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   exports: [
@@ -67,7 +66,8 @@ import { StepsModule } from 'primeng/steps';
     ToastModule,
     TagModule,
     ImageModule,
-    StepsModule
+    StepsModule,
+    InputSwitchModule,
   ]
 })
 export class PrimengModule { }

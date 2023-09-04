@@ -5,12 +5,12 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import * as estudianteActions from '../../state/actions/estudiante.actions';
-import * as tramiteActions from '../../state/actions/tramite.actions';
 import { EstudianteState } from '../../state/reducers/estudiante.reducers';
 
 import { TramiteService } from '../../services/tramite.service';
 
 import { Inscripcion, Persona, TramiteInscripcionCarrera, TramitesRealizados } from '../../interfaces/estudiante.interface';
+import { PermisoGuard } from '../../guards/permiso.guard';
 
 @Component({
   selector: 'app-estudiante-page',
@@ -27,15 +27,22 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
   public tramite?: TramiteInscripcionCarrera = undefined;
   public tramiteActiveIndex: number = 0;
 
-  public noTieneTramites:boolean = false;
+  public noTieneTramites: boolean = false;
+
+  public canViewEstudiante: boolean = false;
+  public canViewTramite: boolean = false;
 
   constructor(
     private readonly tramiteService: TramiteService,
-    private store: Store<{ estudiante: EstudianteState }>,
+    private readonly permisoGuard: PermisoGuard,
     private router: Router,
+    private store: Store<{ estudiante: EstudianteState }>,
   ) { }
 
   ngOnInit(): void {
+    this.canViewEstudiante = this.permisoGuard.canViewEstudiante();
+    this.canViewTramite = this.permisoGuard.canViewTramite();
+
     this.estudianteSubscriptions = this.store.select('estudiante')
       .subscribe((state) => {
         this.persona = state.estudiante;

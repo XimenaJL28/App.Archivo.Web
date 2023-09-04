@@ -4,8 +4,6 @@ import { UserState } from './state/reducers/user.reducer';
 import { ThemeState } from './state/reducers/theme.reducer';
 import { loadTheme } from './state/actions/theme.actions';
 
-//Soy giancarlo
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

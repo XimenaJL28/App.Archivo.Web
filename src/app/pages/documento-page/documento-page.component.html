@@ -16,28 +16,26 @@
 
 <!-- Tabla de tramite inscripcion -->
 <h3 *ngIf="tramite && documentos.length == 0" class="text-700">Sin documentos presentados</h3>
-<h3 *ngIf="tramite != undefined && documentos.length > 0" class="mb-0 mt-2 text-700">Documentos Inscripción</h3>
+<h3 *ngIf="tramite != undefined && documentos.length > 0 && canViewDocumento" class="mb-0 mt-2 text-700">Documentos
+  Inscripción</h3>
 
-<app-documento-presentado [documentos]="documentos" [documento]="documento"
-  (getDocumentoSeleccionado)="setDocumentoSeleccionado($event)">
+<app-documento-presentado *ngIf="canViewDocumento" [documentos]="documentos" [documento]="documento"
+  (getDocumentoSeleccionado)="setDocumentoSeleccionado($event)" [canViewOperacion]="canViewOperacion"
+  [canEditDocumento]="canEditDocumento">
 </app-documento-presentado>
 
 <app-documento-operaciones [documento]="documento" [operaciones]="operaciones"
-  (getOperacionSeleccionada)="setOperacionSeleccionada($event)" (getNuevaOperacion)="setNuevaOperacion()">
+  (getOperacionSeleccionada)="setOperacionSeleccionada($event)">
 </app-documento-operaciones>
 
 <!-- Formulario de documentos -->
-<p-dialog header="Modificar Documentos" [(visible)]="visibleDocumento"
-  [style]="{width: '85vw', height :'100vh'}">
-  <app-documento-form (cerrarDialogModal)="cerrarDocumentoDialogModal()"></app-documento-form>
+<p-dialog header="Modificar Documentos" [(visible)]="visibleDocumento" [style]="{width: '85vw', height :'100vh'}">
+  <app-documento-form (cerrarDialogModal)="cerrarDocumentoDialogModal()" [canEditDocumento]="canEditDocumento">
+  </app-documento-form>
 </p-dialog>
 
 <!-- Formulario de operaciones -->
 <p-dialog header="Operación" [(visible)]="visibleOperacionView" [style]="{width: '70vw', height :'70vh'}">
   <app-operacion-view></app-operacion-view>
-</p-dialog>
-
-<p-dialog header="Crear Operación" [(visible)]="visibleOperacionForm" [style]="{width: '85vw', height :'100vh'}">
-  <app-operacion-form [documento]="documento" (cerrarDialogModal)="cerrarOperacionDialogModal()"></app-operacion-form>
 </p-dialog>
 <p-toast></p-toast>

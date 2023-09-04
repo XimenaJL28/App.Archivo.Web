@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { EventEmitter, Output } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -9,13 +9,12 @@ import { EstudianteState } from '../../../state/reducers/estudiante.reducers';
 import { TramiteState } from '../../../state/reducers/tramite.reducers';
 import * as tramiteActions from '../../../state/actions/tramite.actions';
 
-import { TramiteService } from '../../../services/tramite.service';
-
-import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraFaltantes, DocumentoInscripcionCarreraSave, DocumentoInscripcionCarreraUpdate, DropDownItem } from '../../../interfaces/estudiante.interface';
+import { DocumentoInscripcionCarrera, DocumentoInscripcionCarreraUpdate, DropDownItem } from '../../../interfaces/estudiante.interface';
 import { TramiteInscripcionCarrera } from '../../../interfaces/estudiante.interface';
-import { UserState } from 'src/app/state/reducers/user.reducer';
 import { DocumentoOperacionSave } from '../../../interfaces/tramite.interface';
-import { PermisoGuard } from '../../../guards/permiso.guard';
+
+import { TramiteService } from '../../../services/tramite.service';
+import { UserState } from '../../../state/reducers/user.reducer';
 
 @Component({
   selector: 'app-documento-form',
@@ -25,6 +24,7 @@ import { PermisoGuard } from '../../../guards/permiso.guard';
 })
 export class DocumentoFormComponent implements OnInit {
   @Output() cerrarDialogModal: EventEmitter<void> = new EventEmitter();
+  @Input() canEditDocumento: boolean = false;
 
   public canSave: boolean = false;
   // operaciones
@@ -34,7 +34,6 @@ export class DocumentoFormComponent implements OnInit {
   public nombreFuncionario: string = '';
   public descripcion: string = '';
   public adjuntoOperacion: string = '';
-  private userSubscriptions!: Subscription;
 
   // documento
   public documentoInscripcionCarrera?: DocumentoInscripcionCarrera = undefined;
@@ -53,17 +52,15 @@ export class DocumentoFormComponent implements OnInit {
 
   public dateFormat: string = 'dd-mm-yy'
 
+  private userSubscriptions!: Subscription;
   private estudianteSubscriptions!: Subscription;
   private tramiteSubscriptions!: Subscription;
 
   constructor(
-    private store: Store<{ tramite: TramiteState, estudiante: EstudianteState, user: UserState, }>,
     private tramiteService: TramiteService,
     private messageService: MessageService,
-    private PermisoGuard: PermisoGuard,
-  ) {
-    // this.canSave = this.PermisoGuard.getPermisoComponente('DocumentoFormComponent', 'guardarDocumento');
-  }
+    private store: Store<{ tramite: TramiteState, estudiante: EstudianteState, user: UserState, }>,
+  ) { }
 
   ngOnInit(): void {
     this.tramiteService.getDropDownDocumentoOperacionTipo().then((response: any) => {
@@ -81,7 +78,6 @@ export class DocumentoFormComponent implements OnInit {
 
     this.tramiteSubscriptions = this.store.select('tramite').subscribe(state => {
       this.documentoInscripcionCarrera = state.documento;
-
 
       if (this.documentoInscripcionCarrera) {
         this.documentoTipoId = this.documentoInscripcionCarrera.documentoTipoId;
@@ -105,8 +101,6 @@ export class DocumentoFormComponent implements OnInit {
 
   getDocumentoIndefinido(): boolean {
     // es fecha null
-    console.log();
-
     const nombreDocumento = this.documentoInscripcionCarrera?.vecimiento || '';
     // console.log(nombreDocumento, "ci");
     // console.log(this.documentoInscripcionCarrera?.fechaVencimiento, "fecha");
@@ -177,7 +171,6 @@ export class DocumentoFormComponent implements OnInit {
       return;
     }
 
-
     const response = await this.tramiteService.putDocumentoInscripcionCarrera(documentoDTO);
     if (!response) {
       this.savedLoading = false;
@@ -186,8 +179,6 @@ export class DocumentoFormComponent implements OnInit {
     }
 
     // si al actualiza documento hay error, eliminar la operacion
-
-
     // documentos
     const responseDocumentos = await this.tramiteService.getListDocumentos(this.tramite.id,
       this.documentoInscripcionCarrera?.tramiteSubTipoId || 0)
@@ -220,7 +211,6 @@ export class DocumentoFormComponent implements OnInit {
   _dateToString(date: Date | undefined): string {
     return date ? date.toISOString() : '';
   }
-
 
   _getNombreFuncionario(): string {
     return this.user ? `${this.user.nombre} ${this.user.primerApellido} ${this.user.segundoApellido}` : 'desconocido';

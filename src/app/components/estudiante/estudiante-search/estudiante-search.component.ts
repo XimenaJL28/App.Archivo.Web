@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { EstudianteService } from '../../../services/estudiante.service';
 
@@ -10,8 +10,10 @@ import { Persona } from '../../../interfaces/estudiante.interface';
   styleUrls: ['./estudiante-search.component.scss']
 })
 export class EstudianteSearchComponent {
-  public estudianteEncontrados: Persona[] = [];
   @Output() getEstudianteSeleccionado: EventEmitter<Persona> = new EventEmitter();
+  @Input() canView: boolean = false;
+
+  public estudianteEncontrados: Persona[] = [];
 
   constructor(
     private readonly estudianteService: EstudianteService,

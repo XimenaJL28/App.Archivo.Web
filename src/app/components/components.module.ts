@@ -20,9 +20,9 @@ import { TramiteFaltanteComponent } from './tramite/tramite-faltante/tramite-fal
 import { DocumentoPresentadoComponent } from './documento/documento-presentado/documento-presentado.component';
 import { DocumentoOperacionesComponent } from './documento/documento-operaciones/documento-operaciones.component';
 import { OperacionFormComponent } from './operacion/operacion-form/operacion-form.component';
-import { DialogPlantillaComponent } from './dialog-plantilla/dialog-plantilla.component';
+import { DialogPlantillaComponent } from './tramites/dialog-plantilla/dialog-plantilla.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { DocumentotipoFormComponent } from './tramites/documentotipo-form/documentotipo-form.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { SharedModule } from '../shared/shared.module';
     DocumentoPresentadoComponent,
     DocumentoOperacionesComponent,
     OperacionFormComponent,
-    DialogPlantillaComponent
+    DialogPlantillaComponent,
+    DocumentotipoFormComponent,
   ],
   imports: [
     CommonModule,
@@ -64,7 +65,8 @@ import { SharedModule } from '../shared/shared.module';
     DocumentoPresentadoComponent,
     DocumentoOperacionesComponent,
     OperacionFormComponent,
-    DialogPlantillaComponent
+    DialogPlantillaComponent,
+    DocumentotipoFormComponent
   ]
 })
 export class ComponentsModule { }

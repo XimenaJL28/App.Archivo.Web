@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UnidadAcademica } from '../../interfaces/tramite.interface';
 import { TramiteService } from '../../services/tramite.service';
-import { UnidadAcademica } from 'src/app/interfaces/tramite.interface';
+import { MainService } from '../../services/main.service';
+
+import { PermisoGuard } from '../../guards/permiso.guard';
 
 @Component({
   selector: 'app-tramites-page',
   templateUrl: './tramites-page.component.html',
   styleUrls: ['./tramites-page.component.scss'],
-  // providers: [DialogService]
-
 })
 export class TramitesPageComponent implements OnInit {
   public unidadAcademica: UnidadAcademica[] = [];
@@ -18,12 +19,21 @@ export class TramitesPageComponent implements OnInit {
   public plantillas: any[] = [];
   showplantilla: boolean = false;
 
-  constructor(
-    private readonly tramiteService: TramiteService
+  public canViewPlantilla: boolean = false;
+  public canEditPlantilla: boolean = false;
 
+  public showDocumentoTipo: boolean = false;
+
+  constructor(
+    private readonly tramiteService: TramiteService,
+    private readonly permisoGuard: PermisoGuard,
+    private readonly mainService: MainService,
   ) { }
 
   ngOnInit(): void {
+    this.canEditPlantilla = this.permisoGuard.canEditPlantilla();
+    this.canViewPlantilla = this.permisoGuard.canViewPlantilla();
+
     this.tramiteService.getListUnidadAcademica()
       .then((response) => {
         this.unidadAcademica = response || [];
@@ -56,4 +66,17 @@ export class TramitesPageComponent implements OnInit {
     this.showplantilla = true;
   }
 
+  cerrarPlantillaDialogModal(): void {
+    this.showplantilla = false;
+    this.mainService.mostrarToast({ severity: 'success', summary: 'Success', detail: 'Se ha registrado los documentos a la plantilla' });
+  }
+
+  showDialogDocumentoTipo() {
+    this.showDocumentoTipo = true;
+  }
+
+  cerrarDocumentoTipoDialogModal(): void {
+    this.showDocumentoTipo = false;
+    this.mainService.mostrarToast({ severity: 'success', summary: 'Success', detail: 'Se ha registrado los documentos a la plantilla' });
+  }
 }

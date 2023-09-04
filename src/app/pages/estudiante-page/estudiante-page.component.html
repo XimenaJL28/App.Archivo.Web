@@ -1,5 +1,5 @@
 <div class="flex align-items-center justify-content-center">
-  <app-estudiante-search (getEstudianteSeleccionado)="setEstudianteSeleccionado($event)">
+  <app-estudiante-search (getEstudianteSeleccionado)="setEstudianteSeleccionado($event)" [canView]="canViewEstudiante">
   </app-estudiante-search>
 </div>
 
@@ -8,7 +8,7 @@
   </app-estudiante-view>
 
   <app-estudiante-inscripciones [inscripcion]="inscripcion" [inscripciones]="inscripciones"
-    (getInscripcionSeleccionada)="setInscripcionSeleccionada($event)">
+    (getInscripcionSeleccionada)="setInscripcionSeleccionada($event)" [canView]="canViewTramite">
   </app-estudiante-inscripciones>
 
   <div *ngIf="noTieneTramites">

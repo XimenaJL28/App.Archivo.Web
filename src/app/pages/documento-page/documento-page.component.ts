@@ -12,6 +12,7 @@ import { DocumentoInscripcionCarrera, TramiteInscripcionCarrera } from '../../in
 import { DocumentoOperacion } from '../../interfaces/tramite.interface';
 
 import { TramiteService } from '../../services/tramite.service';
+import { PermisoGuard } from '../../guards/permiso.guard';
 
 @Component({
   selector: 'app-documento-page',
@@ -27,18 +28,25 @@ export class DocumentoPageComponent implements OnInit, OnDestroy {
 
   public visibleDocumento: boolean = false;
   public visibleOperacionView: boolean = false;
-  public visibleOperacionForm: boolean = false;
 
   private tramiteSubscriptions!: Subscription;
   private estudianteSubscriptions!: Subscription;
+  public canViewOperacion: boolean = false;
+  public canEditDocumento: boolean = false;
+  public canViewDocumento: boolean = false;
 
   constructor(
     private readonly tramiteService: TramiteService,
-    private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
+    private readonly permisoGuard: PermisoGuard,
     private messageService: MessageService,
+    private store: Store<{ estudiante: EstudianteState, tramite: TramiteState }>,
   ) { }
 
   ngOnInit(): void {
+    this.canViewOperacion = this.permisoGuard.canViewOperacion();
+    this.canEditDocumento = this.permisoGuard.canEditDocumento();
+    this.canViewDocumento = this.permisoGuard.canViewDocumento();
+
     this.estudianteSubscriptions = this.store.select('estudiante').subscribe(state => {
       this.tramite = state.tramite;
     })
@@ -57,8 +65,11 @@ export class DocumentoPageComponent implements OnInit, OnDestroy {
 
   async setDocumentoSeleccionado(event: { documento: DocumentoInscripcionCarrera, update: boolean }) {
     const { documento, update } = event;
+
     const response = await this.tramiteService.getListOperaciones(documento.documentoInscripcioncarreraId);
-    const operaciones = response || [];
+    let operaciones = response || [];
+
+    if (!this.canViewOperacion) operaciones = [];
 
     this.store.dispatch(
       tramiteActions.setDocumento({ documento: documento, operaciones: operaciones })
@@ -74,22 +85,9 @@ export class DocumentoPageComponent implements OnInit, OnDestroy {
     this.visibleOperacionView = true;
   }
 
-  setNuevaOperacion(): void {
-    this.visibleOperacionForm = true;
-  }
-
   cerrarDocumentoDialogModal(): void {
     console.log('asasa doc mod');
     this.visibleDocumento = false;
     this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Guardado satisfactoriamente' });
-  }
-
-  setVisibleOperacion() {
-    this.visibleOperacionForm = true;
-  }
-
-  cerrarOperacionDialogModal(): void {
-    this.visibleOperacionForm = false;
-    this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Guardado correctamente' });
   }
 }

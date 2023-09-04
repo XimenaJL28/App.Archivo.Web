@@ -67,3 +67,16 @@ export interface NiveldeEstudio {
   id: number;
   nombre: string;
 }
+
+export interface DocumentoTipo {
+  documentoTipoId?: number;
+  nombre: string;
+  estadoExpiracion: boolean;
+  documentoRespaldoId?: number;
+  documentoRespaldo?: string;
+}
+
+export interface DocumentoRespaldo {
+  documentoRespaldoId: number;
+  nombre: string;
+}

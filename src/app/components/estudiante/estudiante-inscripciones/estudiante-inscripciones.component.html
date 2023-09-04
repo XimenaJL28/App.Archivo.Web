@@ -10,7 +10,7 @@
           <th>Modelo Estudio</th>
           <th>Nivel de Estudio </th>
           <th>Sistema de Estudio</th>
-          <th *ngIf="permisoTipo(51201)" style="width: 5%;">Trámites</th>
+          <th style="width: 5%;">Trámites</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-inscripcionItem let-columns="columns">
@@ -22,8 +22,9 @@
           <td>{{ inscripcionItem.nivelEstudio | titlecase}}</td>
           <td>{{ inscripcionItem.sistemaEstudio }}</td>
           <td>
-            <p-button (onClick)="setInscripcionSeleccionada(inscripcionItem)" icon="fa-solid fa-folder-open"
-              styleClass="p-button-rounded p-button-sm" title="Ver trámites del estudiante" *ngIf="permisoTipo(51201)">
+            <p-button (onClick)="setInscripcionSeleccionada(inscripcionItem)" [disabled]="!canView"
+              icon="fa-solid fa-folder-open" styleClass="p-button-rounded p-button-sm"
+              title="Ver trámites del estudiante">
             </p-button>
           </td>
         </tr>
