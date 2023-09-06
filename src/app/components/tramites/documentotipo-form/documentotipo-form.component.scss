@@ -1,0 +1,58 @@
+:host {
+  ::ng-deep .p-dropdown-items-wrapper {
+      // width: 368px;
+      font-size: 15px;
+  }
+
+  ::ng-deep .p-dropdown {
+      width: 100%;
+  }
+
+  ::ng-deep .p-inputnumber-input {
+      border: none;
+      width: 60px;
+  }
+
+  ::ng-deep .prueba .p-dropdown {
+      width: 588px;
+  }
+
+  ::ng-deep .prueba .p-dropdown-items-wrapper {
+      font-size: 12px;
+      max-width: 588px;
+  }
+
+  ::ng-deep .prueba .p-dropdown.p-dropdown-clearable .p-dropdown-label {
+      font-size: 12px;
+  }
+
+  ::ng-deep .table-header {
+      display: flex;
+      justify-content: space-between;
+  }
+}
+
+.btn-agregar {
+  position: fixed;
+  bottom: 67px;
+  right: 20px;
+  background-color: #0d6efd;
+}
+
+.btn-save {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  background-color: #007274;
+}
+
+//clase para agregar una opcaidad al boton y conservar su color
+.btn-agregar:hover {
+  box-shadow: 0 9px 15px rgb(3 243 233 / 30%);
+  background: #0d6efd;
+}
+
+.btn-save:hover {
+  box-shadow: 0 9px 15px #ccbfbf4d;
+  background: #007274;
+}

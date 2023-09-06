@@ -1,60 +1,66 @@
 <div class="grid">
-  <div class="col-12 sm:col-6 md:col-4">
+  <div class="col-12 md:col-4">
     <div class="flex flex-column">
       <label htmlFor="nombre">Nombre</label>
-      <input type="text" [(ngModel)]="documentoTipo.nombre" pInputText class="p-inputtext-sm" />
+      <input type="text" [(ngModel)]="documentoTipo.nombre" pInputText class="p-inputtext" style="width: 90%;"
+        id="nombre" />
     </div>
   </div>
 
-  <div class="col-12 sm:col-6 md:col-3">
+  <div class="col-12 md:col-5">
     <div class="flex flex-column">
-      <label htmlFor="estadoExpiracion">Estado Expiración</label><br>
-      <p-inputSwitch [(ngModel)]="documentoTipo.estadoExpiracion" class="p-inputtext-sm"></p-inputSwitch>
-    </div>
-  </div>
-
-  <div class="col-12 sm:col-6 md:col-5">
-    <div class="flex flex-column">
-      <label htmlFor="documentoRespaldo">Documento respaldo</label>
+      <label htmlFor="documentoRespaldo">Documento Respaldo</label>
       <p-dropdown [options]="documentoRespaldos" optionLabel="nombre" [filter]="true" filterBy="nombre"
-        [showClear]="true" optionValue="documentoTipo.documentoRespaldoId"
-        [(ngModel)]="documentoTipo.documentoRespaldoId" id="float-input" class="p-inputtext-sm prueba">
+        [showClear]="true" optionValue="id" id="float-input" styleClass="w-full"
+        [(ngModel)]="documentoTipo.documentoRespaldoId">
       </p-dropdown>
     </div>
   </div>
-  <div class="col-12 sm:col-6 md:col-4"></div>
-</div>
-<div class="grid">
-  <div class="col-12 flex justify-content-end mt-0">
-    <button (click)="actualizarDocumentoExpiracion()" pButton pRipple type="button" [icon]="'pi pi-pencil'"
-      class="p-button-rounded btn-float p-button-primary btn-save" title="Actualizar estado expiracion"></button>
 
-    <button (click)="guardarDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-save'"
-      class="p-button-rounded btn-float p-button-primary btn-save ml-2" title="Guardar Plantilla"></button>
+  <div class="col-12 md:col-3">
+    <div class="flex flex-column">
+      <label htmlFor="estadoExpiracion">Estado de expiracion</label>
+      <br>
+      <p-inputSwitch class="p-inputtext-sm" [(ngModel)]="documentoTipo.estadoExpiracion"></p-inputSwitch>
+    </div>
   </div>
+</div>
+
+<div class="grid justify-content-end mt-3">
+  <button (click)="nuevoElemento()" pButton pRipple type="button" [icon]="'pi pi-plus'"
+    class="p-button-rounded btn-float p-button-primary" title="Agregar Plantilla"></button>
+  <button (click)="guardarDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-save'"
+    class="p-button-rounded btn-float p-button-primary ml-2" title="Guardar Documento">
+  </button>
 </div>
 
 <div class="grid">
   <div class="col-12">
-    <p-table [value]="documentoTipos" [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-      styleClass="p-datatable p-component p-datatable-sm" responsiveLayout="scroll">
+    <p-table [value]="documentoTipos">
       <ng-template pTemplate="header">
         <tr>
           <th>Nombre</th>
-          <th>Estado Expiración</th>
           <th>Documento respaldo</th>
-          <th></th>
+          <th style="width: 150px;">Expiración</th>
+          <th style="width: 50px;"></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-documentoTipo>
+      <ng-template pTemplate="body" let-item>
         <tr>
-          <td>{{ documentoTipo.nombre }}</td>
-          <td>{{ documentoTipo.estadoExpiracion }}</td>
-          <td>{{ documentoTipo.documentoRespaldo }}</td>
+          <td>{{ item.nombre }}</td>
           <td>
-            <button (click)="seleccionarDocumentoTipo(documentoTipo)" pButton pRipple type="button"
-              [icon]="'pi pi-trash'" class="p-button-rounded btn-float p-button-danger" title="borrar">
-            </button>
+            <p-dropdown [options]="documentoRespaldos" optionLabel="nombre" [filter]="true" filterBy="nombre"
+              [showClear]="true" optionValue="id" id="float-input" styleClass="w-full"
+              [(ngModel)]="item.documentoRespaldoId">
+            </p-dropdown>
+          </td>
+          <td>
+            <p-inputSwitch (onChange)="actualizarDocumentoExpiracion($event, item)"
+            [(ngModel)]="item.estadoExpiracion" class="p-inputtext-sm"></p-inputSwitch>
+          </td>
+          <td>
+            <button (click)="actualizarDocumentoTipo(item)" pButton pRipple type="button" [icon]="'pi pi-save'"
+              class="p-button-rounded btn-float p-button-primary" title="Agregar Documento"></button>
           </td>
         </tr>
       </ng-template>
