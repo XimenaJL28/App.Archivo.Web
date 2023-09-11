@@ -57,7 +57,6 @@ export class PagesComponent implements OnInit {
     //? Load user data when user is logged
     Promise.all([this.accountService.getProfile(), this.obtenerInterfaces()]).then((resp: any) => {
       // Promise.all([this.accountService.getProfile() this.permisoGuard.cargarPermisos()]).then((resp: any) => {
-
       this.appReady = true;
     }).catch((err: any) => {
       this.mainService.logout();

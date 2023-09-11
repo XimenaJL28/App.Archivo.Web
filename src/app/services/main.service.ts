@@ -76,7 +76,7 @@ export class MainService {
         });
       })
     } catch (error: HttpErrorResponse | any) {
-      console.log(error);
+      // console.log(error);
       this.handleError(error.status);
     }
   }
@@ -234,11 +234,10 @@ export class MainService {
   }
 
   verificarPermisos(interfaz: number, tarea: number) {
-    {
-      this.interfazSeleccionada = this.interfaces.filter((x: any) => x.id == interfaz)[0];
-      console.log(this.interfazSeleccionada);
-      return this.interfazSeleccionada.tareas.filter((x: any) => x.id == tarea).length > 0 ? true : false;
-    }
+
+    this.interfazSeleccionada = this.interfaces.filter((x: any) => x.id == interfaz)[0];
+    return this.interfazSeleccionada.tareas.filter((x: any) => x.id == tarea).length > 0 ? true : false;
+
   }
 
 

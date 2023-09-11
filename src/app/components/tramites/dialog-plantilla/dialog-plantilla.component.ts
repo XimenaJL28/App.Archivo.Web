@@ -49,21 +49,18 @@ export class DialogPlantillaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.permisoTipo(41007, 51204)) {
-      Promise.all([
-        this.getCarrera(),
-        this.getTramitesSubTramites(),
-      ]).then(() => {
-      }).catch(err => {
-      }).finally(() => {
-        this.getListTipoDocumento();
-        this.listaEstadoPlantilla();
-        this.dataCargada = true;
-      });
-    }
-    else {
-      this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No tiene permiso para acceder a esta interfaz' });
-    }
+    Promise.all([
+      this.getCarrera(),
+      this.getTramitesSubTramites(),
+    ]).then(() => {
+    }).catch(err => {
+    }).finally(() => {
+      this.getListTipoDocumento();
+      this.listaEstadoPlantilla();
+      this.dataCargada = true;
+
+    });
+
   }
 
   async getCarrera() {
@@ -71,7 +68,6 @@ export class DialogPlantillaComponent implements OnInit {
       .then((carrerer: ListCarreraDTO[]) => {
         this.carrera = carrerer
       }).catch((error: any) => {
-        console.log(error);
         // this.MainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los cursos' });
       }).finally(() => {
       });
@@ -92,9 +88,7 @@ export class DialogPlantillaComponent implements OnInit {
       .then((tramite: tramite[]) => {
         this.ltramite = tramite
       }).catch((error: any) => {
-        console.log(error);
       }).finally(() => {
-        console.log(this.ltramite);
       });
   }
 
@@ -103,7 +97,6 @@ export class DialogPlantillaComponent implements OnInit {
       .then((tdocumento: TipoDocuemntoDTO[]) => {
         this.tipodocumento = tdocumento
       }).catch((error: any) => {
-        console.log(error);
         // this.MainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los cursos' });
       }).finally(() => {
       });
@@ -114,10 +107,8 @@ export class DialogPlantillaComponent implements OnInit {
       .then((EstadoPlantilladto: EstadoPlantillaDTO[]) => {
         this.estadoPlantilla = EstadoPlantilladto
       }).catch((error: any) => {
-        console.log(error);
         // this.MainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los cursos' });
       }).finally(() => {
-        console.log(this.estadoPlantilla);
       });
   }
 
@@ -137,18 +128,17 @@ export class DialogPlantillaComponent implements OnInit {
       listaDocumento: this.listadocument
     };
 
-    console.log('plantilla data', plantilladto);
 
     this.plantillaService.AgregarPlantilla(plantilladto)
       .then((resp: any) => {
-        console.log('plantila save', resp);
         if (resp) {
           this.cerrarDialogModal.emit();
         }
       }).catch((error: any) => {
-        console.log('plantila error', error);
         this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar la plantilla' });
       }).finally(() => {
+        this.limpiar();
+
       });
   }
 
@@ -188,6 +178,12 @@ export class DialogPlantillaComponent implements OnInit {
     this.listadocument.push(nuevoElemento);
     this.tabla = true;
   }
+
+  async limpiar() {
+    this.listadocument.forEach(x => {
+      this.eliminarElemento(x.documentoTipoId);
+    });
+  }
   // agregarElemento() {
   //   const nuevoElemento: ListaDocumento = { cantidadMinima: 2, plazoMaximo: 20, documentoTipoId: 0, estadoId: 0 };
   //   this.listadocument.push(nuevoElemento);
@@ -199,6 +195,11 @@ export class DialogPlantillaComponent implements OnInit {
     // delete this.listadocument[this.listadocument.length - 1];
     const resultado = this.listadocument.filter(x => x.documentoTipoId != doctipo);
     this.listadocument = [...resultado];
+    if (this.listadocument.length == 0) {
+      this.tabla = false;
+    }
+    else
+      this.tabla = true;
   }
 
   // async nombredoc(iddoc: number) {
@@ -206,8 +207,5 @@ export class DialogPlantillaComponent implements OnInit {
   //   let n = await this.tipodocumento.find(x => x.documentoTipoId == iddoc)?.nombre.toString()!;
   //   this.nombredocs = n
   // }
-  permisoTipo(idinterfaz: number, IdTarea: number) {
-    // return this.interfaz.tareas.filter((x: any) => x.id == IdTarea).length > 0 ? true : false;
-    return this.mainService.verificarPermisos(idinterfaz, IdTarea);
-  }
+
 }

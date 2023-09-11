@@ -15,6 +15,7 @@
 
     ::ng-deep .prueba .p-dropdown {
         width: 588px;
+
     }
 
     ::ng-deep .prueba .p-dropdown-items-wrapper {
@@ -30,6 +31,11 @@
         display: flex;
         justify-content: space-between;
     }
+
+    ::ng-deep .p-dropdown .p-dropdown-panel {
+        top: 0px !important;
+    }
+
 }
 
 .btn-agregar {
