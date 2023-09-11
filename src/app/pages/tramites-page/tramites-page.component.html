@@ -63,11 +63,12 @@
   </app-documentotipo-form>
 </p-dialog>
 
-<button (click)="showDialogPlantilla()" [disabled]="!canViewPlantilla" pButton pRipple type="button" [icon]="'pi pi-plus'"
-class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"></button>
+<button (click)="showDialogPlantilla()" [disabled]="!canViewPlantilla" pButton pRipple type="button"
+  [icon]="'pi pi-plus'" class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"
+  *ngIf="permisoTipo(41007,51205)"></button>
 
-<button (click)="showDialogDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-plus'"
-class="p-button-rounded btn-float p-button-primary btn-agregar " title="Agregar Documento Tipo"></button>
+<!-- <button (click)="showDialogDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-plus'"
+  class="p-button-rounded btn-float p-button-primary btn-agregar " title="Agregar Documento Tipo"></button> -->
 
 <div *ngIf="tramiteSubTipos.length == 0" style="text-align: center;">
   <p>Grupo de documentos inexistente</p>

@@ -21,6 +21,7 @@ export class MainService {
   public interfaces = [];
   public persona: any = {};
   themeState$: Observable<ThemeState>;
+  public interfazSeleccionada: any;
 
 
   inscripcionSeleccionada: BehaviorSubject<any> = new BehaviorSubject(0);
@@ -230,6 +231,14 @@ export class MainService {
 
   mostrarToast(obj: { severity: string, summary: string, detail: string }) {
     this.messageService.add(obj);
+  }
+
+  verificarPermisos(interfaz: number, tarea: number) {
+    {
+      this.interfazSeleccionada = this.interfaces.filter((x: any) => x.id == interfaz)[0];
+      console.log(this.interfazSeleccionada);
+      return this.interfazSeleccionada.tareas.filter((x: any) => x.id == tarea).length > 0 ? true : false;
+    }
   }
 
 

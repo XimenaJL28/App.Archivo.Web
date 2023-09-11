@@ -9,7 +9,8 @@
 </div>
 <div style="padding-top: 1rem; text-align: center;">
   <p-autoComplete [suggestions]="estudianteEncontrados" (completeMethod)="buscarEstudiante($event)"
-    [disabled]="!canView" (onSelect)="setEstudianteSeleccionado($event)" field="nombreCompleto" class=".p-autocomplete">
+    [disabled]="!permisoTipo(41006,51200)" (onSelect)="setEstudianteSeleccionado($event)" field="nombreCompleto"
+    class=".p-autocomplete">
   </p-autoComplete>
 
 </div>

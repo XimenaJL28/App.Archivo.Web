@@ -17,11 +17,11 @@ export class PermisoGuard implements CanActivate, CanActivateChild, CanLoad {
     private permisoService: PermisosService,
     private router: Router,
   ) {
-    this.permisoService.getPermisos()
-      .then((responsePermisos) => {
-        const permisos = responsePermisos || [];
-        this.permisos = this._updateUbicacionUrl(permisos);
-      })
+    // this.permisoService.getPermisos()
+    //   .then((responsePermisos) => {
+    //     const permisos = responsePermisos || [];
+    //     this.permisos = this._updateUbicacionUrl(permisos);
+    //   })
   }
 
   async cargarPermisos() {

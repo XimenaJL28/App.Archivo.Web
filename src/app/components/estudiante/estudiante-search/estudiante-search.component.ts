@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EstudianteService } from '../../../services/estudiante.service';
 
 import { Persona } from '../../../interfaces/estudiante.interface';
+import { MainService } from '../../../services/main.service';
 
 @Component({
   selector: 'app-estudiante-search',
@@ -17,6 +18,7 @@ export class EstudianteSearchComponent {
 
   constructor(
     private readonly estudianteService: EstudianteService,
+    private readonly MainService: MainService
   ) { }
 
   async buscarEstudiante(event: any) {
@@ -31,5 +33,10 @@ export class EstudianteSearchComponent {
 
   setEstudianteSeleccionado(persona: Persona): void {
     this.getEstudianteSeleccionado.emit(persona);
+  }
+
+  permisoTipo(idinterfaz: number, IdTarea: number) {
+    // return this.interfaz.tareas.filter((x: any) => x.id == IdTarea).length > 0 ? true : false;
+    return this.MainService.verificarPermisos(idinterfaz, IdTarea);
   }
 }

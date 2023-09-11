@@ -20,10 +20,11 @@
           [ngClass]="{'table-row-select': operacionItem.documentoOperacionId === operacion?.documentoOperacionId || 0 }">
           <td>{{ operacionItem.documentoOperacionId }}</td>
           <td>{{ operacionItem.nombreDocumentoOperacionTipo }}</td>
-          <td pTooltip="{{ operacionItem.nombreFuncionario }}" tooltipPosition="top" class="xj2813">{{ operacionItem.nombreFuncionario | titlecase }}</td>
+          <td pTooltip="{{ operacionItem.nombreFuncionario }}" tooltipPosition="top" class="xj2813">{{
+            operacionItem.nombreFuncionario | titlecase }}</td>
           <td>{{ operacionItem.fechaOperacion | date:'dd/MM/yyyy' }}</td>
           <td pTooltip="{{ operacionItem.descripcion }}" tooltipPosition="top" class="xj2813">
-            {{ operacionItem.descripcion | titlecase }}
+            {{ operacionItem.descripcion }}
           </td>
           <td style="text-align: center;">
             <p-button (click)="setOperacion(operacionItem)" icon="fa-solid fa-eye" styleClass="p-button-rounded"

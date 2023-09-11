@@ -79,4 +79,9 @@ export class TramitesPageComponent implements OnInit {
     this.showDocumentoTipo = false;
     this.mainService.mostrarToast({ severity: 'success', summary: 'Success', detail: 'Se ha registrado los documentos a la plantilla' });
   }
+
+  permisoTipo(idinterfaz: number, IdTarea: number) {
+    // return this.interfaz.tareas.filter((x: any) => x.id == IdTarea).length > 0 ? true : false;
+    return this.mainService.verificarPermisos(idinterfaz, IdTarea);
+  }
 }

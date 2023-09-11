@@ -49,16 +49,21 @@ export class DialogPlantillaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    Promise.all([
-      this.getCarrera(),
-      this.getTramitesSubTramites(),
-    ]).then(() => {
-    }).catch(err => {
-    }).finally(() => {
-      this.getListTipoDocumento();
-      this.listaEstadoPlantilla();
-      this.dataCargada = true;
-    });
+    if (this.permisoTipo(41007, 51204)) {
+      Promise.all([
+        this.getCarrera(),
+        this.getTramitesSubTramites(),
+      ]).then(() => {
+      }).catch(err => {
+      }).finally(() => {
+        this.getListTipoDocumento();
+        this.listaEstadoPlantilla();
+        this.dataCargada = true;
+      });
+    }
+    else {
+      this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No tiene permiso para acceder a esta interfaz' });
+    }
   }
 
   async getCarrera() {
@@ -201,4 +206,8 @@ export class DialogPlantillaComponent implements OnInit {
   //   let n = await this.tipodocumento.find(x => x.documentoTipoId == iddoc)?.nombre.toString()!;
   //   this.nombredocs = n
   // }
+  permisoTipo(idinterfaz: number, IdTarea: number) {
+    // return this.interfaz.tareas.filter((x: any) => x.id == IdTarea).length > 0 ? true : false;
+    return this.mainService.verificarPermisos(idinterfaz, IdTarea);
+  }
 }

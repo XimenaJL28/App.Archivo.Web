@@ -22,9 +22,9 @@
           <td>{{ inscripcionItem.nivelEstudio | titlecase}}</td>
           <td>{{ inscripcionItem.sistemaEstudio }}</td>
           <td>
-            <p-button (onClick)="setInscripcionSeleccionada(inscripcionItem)" [disabled]="!canView"
-              icon="fa-solid fa-folder-open" styleClass="p-button-rounded p-button-sm"
-              title="Ver trámites del estudiante">
+            <p-button (onClick)="setInscripcionSeleccionada(inscripcionItem)" icon="fa-solid fa-folder-open"
+              styleClass="p-button-rounded p-button-sm" title="Ver trámites del estudiante"
+              [disabled]="!permisoTipo(41006,51201)">
             </p-button>
           </td>
         </tr>

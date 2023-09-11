@@ -25,12 +25,12 @@
             <td>{{ documentoItem.fechaRegistro | date:'dd/MM/yyyy' }}</td>
             <td>{{ documentoItem.fechaLimitedeEntrega | date:'dd/MM/yyyy' }}</td>
             <td style="text-align: center;">
-              <p-button (onClick)="setDocumentoSeleccionado(documentoItem)" [disabled]="!canViewOperacion"
-                icon="fa-solid fa-list" styleClass="p-button-rounded" class="mr-1"
-                title="Ver Operaciones del documento">
+              <p-button (onClick)="setDocumentoSeleccionado(documentoItem)" icon="fa-solid fa-list"
+                styleClass="p-button-rounded" class="mr-1" title="Ver Operaciones del documento"
+                [disabled]="!permisoTipo(41006,51206)">
               </p-button>
-              <p-button (onClick)="setDocumentoSeleccionado(documentoItem, true)" [disabled]="!canEditDocumento"
-                icon="fa-solid fa-pencil" styleClass="p-button-rounded" title="Modificar Documento">
+              <p-button (onClick)="setDocumentoSeleccionado(documentoItem, true)" icon="fa-solid fa-pencil"
+                styleClass="p-button-rounded" title="Modificar Documento" [disabled]="!permisoTipo(41006,51203)">
               </p-button>
             </td>
           </tr>
