@@ -83,6 +83,7 @@ export class TramiteService {
     const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=${tramiteId}`;
     const ans = await this.mainService.get<TramiteSubTipo[]>(url);
 
+
     const tramiteSubTipos: TramiteSubTipo[] = ans || [];
 
     const responseData: TramiteSubTipoDocumentoPlantillas[] = [];
