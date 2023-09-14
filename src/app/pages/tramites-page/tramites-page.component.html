@@ -4,10 +4,29 @@
 
 <p-divider></p-divider>
 
-<div class="card flex justify-content-center">
-  <p-dropdown [options]="tramites" [(ngModel)]="tramite" optionLabel="nombre"
-    (ngModelChange)="getSubtramites(tramite.idTramite)">
-  </p-dropdown>
+
+
+<div class="grid">
+  <div class="col-12 md:col-6 ">
+    <span appearance="outline" class="p-float-label">
+      <p-dropdown [options]="carrera" optionLabel="nombre" [filter]="true" filterBy="nombre" [showClear]="true"
+        optionValue="id" id="float-input" styleClass="w-full" [(ngModel)]="selectcarrera"
+        (ngModelChange)="listadocumentos()">
+      </p-dropdown>
+      <label for="float-input">Carreras</label>
+    </span>
+  </div>
+
+  <div class=" col-12 md:col-6 ">
+    <p-dropdown [options]="tramites" optionLabel="nombre" optionValue="idTramite" [(ngModel)]="selectsubtramite"
+      (ngModelChange)="listadocumentos()">
+    </p-dropdown>
+  </div>
+  <!-- <div class="card flex justify-content-center">
+  <p-dropdown [options]="carrera" [(ngModel)]="carrera" optionLabel="nombre"
+  (ngModelChange)="getSubtramites(tramite.idTramite)">
+</p-dropdown>
+</div> -->
 </div>
 
 <!-- Tabla de tramites realizados  -->
@@ -54,7 +73,7 @@
 
 <!-- botonque abre la configuracion del modal -->
 <p-dialog header="Plantilla" [(visible)]="showplantilla" [style]="{width: '90vw', height :'100vh'}">
-  <app-dialog-plantilla [canEdit]="canEditPlantilla" (cerrarDialogModal)="cerrarPlantillaDialogModal()">
+  <app-dialog-plantilla (cerrarDialogModal)="cerrarPlantillaDialogModal()">
   </app-dialog-plantilla>
 </p-dialog>
 
@@ -63,8 +82,8 @@
   </app-documentotipo-form>
 </p-dialog>
 
-<button (click)="showDialogPlantilla()" [disabled]="!canViewPlantilla" pButton pRipple type="button"
-  [icon]="'pi pi-plus'" class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"
+<button (click)="showDialogPlantilla()" pButton pRipple type="button" [icon]="'pi pi-plus'"
+  class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"
   *ngIf="permisoTipo(41007,51205)"></button>
 
 <!-- <button (click)="showDialogDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-plus'"

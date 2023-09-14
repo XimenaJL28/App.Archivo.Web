@@ -79,16 +79,13 @@ export class TramiteService {
     return ans;
   }
 
-  async getListTramiteSubTipo(tramiteId: number) {
+  async getListTramiteSubTipo(tramiteId: number, carreraId: number) {
     const url = `${environment.endPoint}Plantilla/ListaSubtramites?Idtramite=${tramiteId}`;
     const ans = await this.mainService.get<TramiteSubTipo[]>(url);
-
-
     const tramiteSubTipos: TramiteSubTipo[] = ans || [];
-
     const responseData: TramiteSubTipoDocumentoPlantillas[] = [];
     tramiteSubTipos.map(tramiteSubtipo => {
-      const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubtipo.tramiteSubTipoId}`;
+      const url = `${environment.endPoint}Plantilla/ListaDocumentos?IdtramiteSubtipo=${tramiteSubtipo.tramiteSubTipoId}&carreraId=${carreraId}`;
       this.mainService.get<DocumentoPlantilla[]>(url)
         .then((plantilla: any) => {
           const plantillas = plantilla || [];
@@ -98,7 +95,6 @@ export class TramiteService {
           });
         })
     });
-
     return responseData;
   }
   // CRUD Tramites

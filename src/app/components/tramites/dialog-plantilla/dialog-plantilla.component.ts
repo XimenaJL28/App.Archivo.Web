@@ -118,7 +118,7 @@ export class DialogPlantillaComponent implements OnInit {
       !this.selectcarrera ||
       !this.selectramite ||
       !this._isValidListaDocumentos(this.listadocument)) {
-      this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'Datos no validos' });
+      this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'Datos no válidos' });
       return;
     }
 
@@ -131,14 +131,14 @@ export class DialogPlantillaComponent implements OnInit {
 
     this.plantillaService.AgregarPlantilla(plantilladto)
       .then((resp: any) => {
+        console.log(resp.message);
         if (resp) {
           this.cerrarDialogModal.emit();
+          this.limpiar();
         }
       }).catch((error: any) => {
-        this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar la plantilla' });
+        this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se permiten valores duplicados' });
       }).finally(() => {
-        this.limpiar();
-
       });
   }
 
