@@ -26,6 +26,7 @@ export class TramitesPageComponent implements OnInit {
   public selectsubtramite: any;
 
   public showDocumentoTipo: boolean = false;
+  datacargada!: boolean;
 
   constructor(
     private readonly tramiteService: TramiteService,
@@ -38,7 +39,7 @@ export class TramitesPageComponent implements OnInit {
     Promise.all([
       this.getCarrera(),
       this.getListUnidadAcademicas(),
-    ]).then((response) => {
+    ]).then(([resp]) => {
     }).catch(err => {
     }).finally(() => {
     });
@@ -53,6 +54,10 @@ export class TramitesPageComponent implements OnInit {
         this._getTramites()
           .then((request: any) => {
             this.tramites = request;
+            if (this.tramites.length > 0) {
+              this.datacargada = true;
+            }
+
           });
       });
   }
@@ -66,25 +71,27 @@ export class TramitesPageComponent implements OnInit {
   }
 
   async listadocumentos() {
-    // const carreraid = this.selectcarrera;
     await this.getSubtramites(this.selectsubtramite, this.selectcarrera);
   }
 
   async getSubtramites(tramite: any, carreraid: any) {
     const response = await this.tramiteService.getListTramiteSubTipo(tramite, carreraid);
     this.tramiteSubTipos = response || [];
-    console.log(response);
-
-
   }
 
 
   async getCarrera() {
     await this.plantillaService.GetListCarrera()
-      .then((carrerer: ListCarreraDTO[]) => {
+      .then((carrerer: any) => {
         this.carrera = carrerer
+        let resp = carrerer.message
       }).catch((error: any) => {
+        this.mainService.mostrarToast({ severity: 'error', summary: 'Error', detail: 'No se ha podido cargar la lista de carreras y tramites' });
       }).finally(() => {
+        if (this.carrera.length > 0) {
+          this.datacargada = true;
+        }
+
       });
   }
 

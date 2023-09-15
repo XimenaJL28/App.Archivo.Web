@@ -1,94 +1,98 @@
-<div class="flex justify-content-center">
-  <h3 class="mb-0 mt-0">Listado de Trámites</h3>
-</div>
+<div *ngIf="datacargada else spinner" class="fade-in">
 
-<p-divider></p-divider>
-
-
-
-<div class="grid">
-  <div class="col-12 md:col-6 ">
-    <span appearance="outline" class="p-float-label">
-      <p-dropdown [options]="carrera" optionLabel="nombre" [filter]="true" filterBy="nombre" [showClear]="true"
-        optionValue="id" id="float-input" styleClass="w-full" [(ngModel)]="selectcarrera"
-        (ngModelChange)="listadocumentos()">
-      </p-dropdown>
-      <label for="float-input">Carreras</label>
-    </span>
+  <div class="flex justify-content-center">
+    <h3 class="mb-0 mt-0">Listado de Trámites</h3>
   </div>
+  <p-divider></p-divider>
+  <div class="grid">
+    <div class="col-12 md:col-6 ">
+      <span appearance="outline" class="p-float-label">
+        <p-dropdown [options]="carrera" optionLabel="nombre" [filter]="true" filterBy="nombre" [showClear]="true"
+          optionValue="id" id="float-input" styleClass="w-full" [(ngModel)]="selectcarrera"
+          (ngModelChange)="listadocumentos()">
+        </p-dropdown>
+        <label for="float-input">Carreras</label>
+      </span>
+    </div>
+    <div class=" col-12 md:col-6 ">
+      <span appearance="outline" class="p-float-label">
 
-  <div class=" col-12 md:col-6 ">
-    <p-dropdown [options]="tramites" optionLabel="nombre" optionValue="idTramite" [(ngModel)]="selectsubtramite"
-      (ngModelChange)="listadocumentos()">
-    </p-dropdown>
-  </div>
-  <!-- <div class="card flex justify-content-center">
-  <p-dropdown [options]="carrera" [(ngModel)]="carrera" optionLabel="nombre"
-  (ngModelChange)="getSubtramites(tramite.idTramite)">
-</p-dropdown>
-</div> -->
-</div>
+        <p-dropdown [options]="tramites" optionLabel="nombre" optionValue="idTramite" [(ngModel)]="selectsubtramite"
+          (ngModelChange)="listadocumentos()">
+        </p-dropdown>
+        <label for="float-input">Trámites</label>
+      </span>
 
-<!-- Tabla de tramites realizados  -->
-<div *ngIf="tramiteSubTipos.length > 0">
-  <p class="mb-0">Grupo de Documentos</p>
-  <div class="grid mt-2">
-    <div class="col-12">
-      <p-accordion>
-        <p-accordionTab *ngFor="let tramiteSubTipoItem of tramiteSubTipos; index as i">
-          <ng-template pTemplate="header">
-            <div class="flex align-items-center">
-              <span class="vertical-align-middle">{{ tramiteSubTipoItem.nombreSubtramite | titlecase }}</span>
-            </div>
-          </ng-template>
-          <ng-template pTemplate="content">
-            <div *ngIf="tramiteSubTipoItem.documentoPlantillas.length > 0">
-              <p-table [value]="tramiteSubTipoItem.documentoPlantillas" responsiveLayout="scroll"
-                [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
-                styleClass="p-datatable p-component p-datatable-sm">
-                <ng-template pTemplate="header" let-columns>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Cantidad Mínima</th>
-                    <th>Plazo Máximo</th>
-                    <th>Obligatorio</th>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-documentoPlantillaIndex let-columns="columns">
-                  <tr>
-                    <td>{{ documentoPlantillaIndex.nombreDocumento | titlecase }}</td>
-                    <td>{{ documentoPlantillaIndex.cantidadMinima }}</td>
-                    <td>{{ documentoPlantillaIndex.plazoMaximo }}</td>
-                    <td>{{ documentoPlantillaIndex.obligatorio }}</td>
-                  </tr>
-                </ng-template>
-              </p-table>
-            </div>
-          </ng-template>
-        </p-accordionTab>
-      </p-accordion>
     </div>
   </div>
-</div>
 
-<!-- botonque abre la configuracion del modal -->
-<p-dialog header="Plantilla" [(visible)]="showplantilla" [style]="{width: '90vw', height :'100vh'}">
-  <app-dialog-plantilla (cerrarDialogModal)="cerrarPlantillaDialogModal()">
-  </app-dialog-plantilla>
-</p-dialog>
+  <!-- Tabla de tramites realizados  -->
+  <div *ngIf="tramiteSubTipos.length > 0">
+    <p class="mb-0">Grupo de Documentos</p>
+    <div class="grid mt-2">
+      <div class="col-12">
+        <p-accordion>
+          <p-accordionTab *ngFor="let tramiteSubTipoItem of tramiteSubTipos; index as i">
+            <ng-template pTemplate="header">
+              <div class="flex align-items-center">
+                <span class="vertical-align-middle">{{ tramiteSubTipoItem.nombreSubtramite | titlecase }}</span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="content">
+              <div *ngIf="tramiteSubTipoItem.documentoPlantillas.length > 0">
+                <p-table [value]="tramiteSubTipoItem.documentoPlantillas" responsiveLayout="scroll"
+                  [tableStyle]="{ 'min-width': '50rem', 'width': '100%' }"
+                  styleClass="p-datatable p-component p-datatable-sm">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Cantidad Mínima</th>
+                      <th>Plazo Máximo</th>
+                      <th>Obligatorio</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-documentoPlantillaIndex let-columns="columns">
+                    <tr>
+                      <td>{{ documentoPlantillaIndex.nombreDocumento | titlecase }}</td>
+                      <td>{{ documentoPlantillaIndex.cantidadMinima }}</td>
+                      <td>{{ documentoPlantillaIndex.plazoMaximo }}</td>
+                      <td>{{ documentoPlantillaIndex.obligatorio }}</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </ng-template>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </div>
 
-<p-dialog header="Documento tipo" [(visible)]="showDocumentoTipo" [style]="{width: '90vw', height :'100vh'}">
-  <app-documentotipo-form (cerrarDialogModal)="cerrarDocumentoTipoDialogModal()">
-  </app-documentotipo-form>
-</p-dialog>
+  <!-- botonque abre la configuracion del modal -->
+  <p-dialog header="Plantilla" [(visible)]="showplantilla" [style]="{width: '90vw', height :'100vh'}">
+    <app-dialog-plantilla (cerrarDialogModal)="cerrarPlantillaDialogModal()">
+    </app-dialog-plantilla>
+  </p-dialog>
 
-<button (click)="showDialogPlantilla()" pButton pRipple type="button" [icon]="'pi pi-plus'"
-  class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"
-  *ngIf="permisoTipo(41007,51205)"></button>
+  <p-dialog header="Documento tipo" [(visible)]="showDocumentoTipo" [style]="{width: '90vw', height :'100vh'}">
+    <app-documentotipo-form (cerrarDialogModal)="cerrarDocumentoTipoDialogModal()">
+    </app-documentotipo-form>
+  </p-dialog>
 
-<!-- <button (click)="showDialogDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-plus'"
+  <button (click)="showDialogPlantilla()" pButton pRipple type="button" [icon]="'pi pi-plus'"
+    class="p-button-rounded btn-float p-button-primary btn-save" title="Agregar Plantilla"
+    *ngIf="permisoTipo(41007,51205)"></button>
+
+  <!-- <button (click)="showDialogDocumentoTipo()" pButton pRipple type="button" [icon]="'pi pi-plus'"
   class="p-button-rounded btn-float p-button-primary btn-agregar " title="Agregar Documento Tipo"></button> -->
 
-<div *ngIf="tramiteSubTipos.length == 0" style="text-align: center;">
-  <p>Grupo de documentos inexistente</p>
+  <div *ngIf="tramiteSubTipos.length == 0" style="text-align: center;">
+    <p>Grupo de documentos inexistente</p>
+  </div>
 </div>
+
+<ng-template #spinner>
+  <div>
+    <app-loader></app-loader>
+  </div>
+</ng-template>

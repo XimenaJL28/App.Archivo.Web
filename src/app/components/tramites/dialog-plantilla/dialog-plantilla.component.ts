@@ -58,7 +58,6 @@ export class DialogPlantillaComponent implements OnInit {
       this.getListTipoDocumento();
       this.listaEstadoPlantilla();
       this.dataCargada = true;
-
     });
 
   }
@@ -131,7 +130,7 @@ export class DialogPlantillaComponent implements OnInit {
 
     this.plantillaService.AgregarPlantilla(plantilladto)
       .then((resp: any) => {
-        console.log(resp.message);
+        let mensaje = resp.message;
         if (resp) {
           this.cerrarDialogModal.emit();
           this.limpiar();
