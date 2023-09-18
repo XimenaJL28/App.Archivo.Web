@@ -1,0 +1,47 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-2022
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Instalar Node.js'
+
+- script: npm install -g @angular/cli
+  displayName: 'Instalar Angular CLI'
+
+- script: npm install
+  displayName: 'Instalar dependencias de Angular'
+
+- powershell: |
+    $configFile = "$(System.DefaultWorkingDirectory)/src/app-angular/environment.prod.ts"
+    $apiEndpoint = "$(apiEndpoint)"
+    $apiKey = "$(apiKey)"
+    $urlLogin = "$(urlLogin)"
+    $urlAccess = "$(urlAccess)"
+    $urlFile = "$(urlFile)"
+
+    (Get-Content $configFile) |
+    ForEach-Object { $_ -replace "#apiEndpoint#", $apiEndpoint } |
+    ForEach-Object { $_ -replace "#urlLogin#", $urlLogin } |
+    ForEach-Object { $_ -replace "#urlAccess#", $urlAccess } |
+    ForEach-Object { $_ -replace "#urlFile#", $urlFile } |
+    ForEach-Object { $_ -replace "#apiKey#", $apiKey } |
+    Set-Content $configFile
+  displayName: 'Reemplazar tokens en environment.prod.ts'
+
+- script: ng build --prod
+  displayName: 'Compilar la aplicación Angular'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publicar artefactos'
+  inputs:
+    pathtoPublish: 'dist' # Ruta de la carpeta de compilación de Angular
