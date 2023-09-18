@@ -23,7 +23,7 @@ steps:
 
 - powershell: |
     $configFile = "$(System.DefaultWorkingDirectory)/src/environments/environment.prod.ts"
-    $endpoint = "$(endpoint)"
+    $endPoint = "$(endPoint)"
     $apiKey = "$(apiKey)"
     $urlLogin = "$(urlLogin)"
     $urlAccess = "$(urlAccess)"
