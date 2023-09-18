@@ -36,9 +36,9 @@ steps:
     ForEach-Object { $_ -replace "#urlFile#", $urlFile } |
     ForEach-Object { $_ -replace "#apiKey#", $apiKey } |
     Set-Content $configFile
-  displayName: 'Reemplazar tokens en environment.prod.ts'
+  displayName: 'Reemplazar variables en environment.prod.ts'
 
-- script: ng build --prod
+- script: ng build
   displayName: 'Compilar la aplicación Angular'
 
 - task: PublishBuildArtifacts@1
