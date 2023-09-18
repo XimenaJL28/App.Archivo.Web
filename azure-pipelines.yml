@@ -23,14 +23,14 @@ steps:
 
 - powershell: |
     $configFile = "$(System.DefaultWorkingDirectory)/src/environments/environment.prod.ts"
-    $apiEndpoint = "$(apiEndpoint)"
+    $endpoint = "$(endpoint)"
     $apiKey = "$(apiKey)"
     $urlLogin = "$(urlLogin)"
     $urlAccess = "$(urlAccess)"
     $urlFile = "$(urlFile)"
 
     (Get-Content $configFile) |
-    ForEach-Object { $_ -replace "#apiEndpoint#", $apiEndpoint } |
+    ForEach-Object { $_ -replace "#endpoint#", $endpoint } |
     ForEach-Object { $_ -replace "#urlLogin#", $urlLogin } |
     ForEach-Object { $_ -replace "#urlAccess#", $urlAccess } |
     ForEach-Object { $_ -replace "#urlFile#", $urlFile } |
