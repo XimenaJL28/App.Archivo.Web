@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  endPoint: "#{apiEndpoint}#",
+  endPoint: "#{endPoint}#",
   urlLogin: '#{urlLogin}#',
   urlAccess: '#{urlAccess}#',
   urlFile: '#{urlFile}#',
