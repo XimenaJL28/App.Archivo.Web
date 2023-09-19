@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MainService } from 'src/app/services/main.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -37,5 +38,6 @@ export class HomeComponent implements OnInit {
     //toast de alerta
     this.mainService.mostrarToast({ severity: 'success', summary: 'Success', detail: 'Prueba de alerta' });
   }
+
 
 }
