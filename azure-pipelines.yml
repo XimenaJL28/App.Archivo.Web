@@ -31,13 +31,17 @@ steps:
 
     $ Get-Content $configFile
 
-    (Get-Content $configFile) |
-    ForEach-Object { $_ -replace "#{endpoint}#", $endpoint } |
-    ForEach-Object { $_ -replace "#{urlLogin}#", $urlLogin } |
-    ForEach-Object { $_ -replace "#{urlAccess}#", $urlAccess } |
-    ForEach-Object { $_ -replace "#{urlFile}#", $urlFile } |
-    ForEach-Object { $_ -replace "#{apiKey}#", $apiKey } |
-    Set-Content $configFile    
+    #reemplazar
+    $contenido =  Get-Content $configFile
+    $contenido =  $contenido -replace "#{endPoint}#", $endpoint
+    $contenido =  $contenido -replace "#{urlLogin}#", $urlLogin
+    $contenido =  $contenido -replace "#{urlAccess}#", $urlAccess
+    $contenido =  $contenido -replace "#{urlFile}#", $urlFile
+    $contenido =  $contenido -replace "#{apiKey}#", $apiKey
+
+    #guardar contenido
+    $contenido | set-Content $configFile
+  
   displayName: 'Reemplazar variables en environment.prod.ts'
 
 - script: ng build
