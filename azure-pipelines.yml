@@ -28,8 +28,8 @@ steps:
     $urlLogin = "$(urlLogin)"
     $urlAccess = "$(urlAccess)"
     $urlFile = "$(urlFile)"
-
-    $ Get-Content $configFile
+    
+    Get-Content $configFile
 
     #reemplazar
     $contenido =  Get-Content $configFile
