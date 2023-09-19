@@ -23,22 +23,22 @@ steps:
 
 - powershell: |
     $configFile = "$(System.DefaultWorkingDirectory)/src/environments/environment.prod.ts"
-    $apiEndpoint = "$(apiEndpoint)"
+    $endPoint = "$(endPoint)"
     $apiKey = "$(apiKey)"
     $urlLogin = "$(urlLogin)"
     $urlAccess = "$(urlAccess)"
     $urlFile = "$(urlFile)"
 
     (Get-Content $configFile) |
-    ForEach-Object { $_ -replace "#apiEndpoint#", $apiEndpoint } |
+    ForEach-Object { $_ -replace "#endpoint#", $endpoint } |
     ForEach-Object { $_ -replace "#urlLogin#", $urlLogin } |
     ForEach-Object { $_ -replace "#urlAccess#", $urlAccess } |
     ForEach-Object { $_ -replace "#urlFile#", $urlFile } |
     ForEach-Object { $_ -replace "#apiKey#", $apiKey } |
     Set-Content $configFile
-  displayName: 'Reemplazar tokens en environment.prod.ts'
+  displayName: 'Reemplazar variables en environment.prod.ts'
 
-- script: ng build --prod
+- script: ng build
   displayName: 'Compilar la aplicación Angular'
 
 - task: PublishBuildArtifacts@1
