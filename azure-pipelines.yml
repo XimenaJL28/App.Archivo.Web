@@ -37,10 +37,7 @@ steps:
     ForEach-Object { $_ -replace "#{urlAccess}#", $urlAccess } |
     ForEach-Object { $_ -replace "#{urlFile}#", $urlFile } |
     ForEach-Object { $_ -replace "#{apiKey}#", $apiKey } |
-    Set-Content $configFile
-
-    $ Get-Content $configFile
-    
+    Set-Content $configFile    
   displayName: 'Reemplazar variables en environment.prod.ts'
 
 - script: ng build
