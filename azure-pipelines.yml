@@ -29,6 +29,8 @@ steps:
     $urlAccess = "$(urlAccess)"
     $urlFile = "$(urlFile)"
 
+    Get-Content $configFile
+
     (Get-Content $configFile) |
     ForEach-Object { $_ -replace "#endpoint#", $endpoint } |
     ForEach-Object { $_ -replace "#urlLogin#", $urlLogin } |
