@@ -15,11 +15,11 @@ steps:
     versionSpec: '18.x'
   displayName: 'Instalar Node.js'
 
-#- script: npm install -g @angular/cli
-#  displayName: 'Instalar Angular CLI'
+- script: npm install -g @angular/cli
+  displayName: 'Instalar Angular CLI'
 
-- script: npm install
-  displayName: 'Instalar dependencias de Angular'
+#- script: npm install
+#  displayName: 'Instalar dependencias de Angular'
 
 - powershell: |
     $configFile = "$(System.DefaultWorkingDirectory)/src/environments/environment.prod.ts"
