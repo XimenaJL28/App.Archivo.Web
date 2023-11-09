@@ -64,7 +64,13 @@ export class DocumentoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tramiteService.getDropDownDocumentoOperacionTipo().then((response: any) => {
-      this.documentoOperacionTipos = response || [];
+    let newop = {
+        id : 0,
+        nombre: "Seleccione el tipo de Operación"
+    }
+    let documentoOperacionTipos2 = response || []; 
+    documentoOperacionTipos2.unshift(newop)
+      this.documentoOperacionTipos = documentoOperacionTipos2      
     });
 
     this.userSubscriptions = this.store.select('user').subscribe(state => {
@@ -165,8 +171,16 @@ export class DocumentoFormComponent implements OnInit {
 
     // Operacion
     const responseOperacion = await this.tramiteService.postDocumentoOperacion(operacionDTO);
+    console.log(responseOperacion);
+    
     if (!responseOperacion) {
       this.savedLoading = false;
+      if(this.documentoOperacionTipoSelected.id == 0)
+      {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Seleccione el tipo de operacion antes de guardar' });
+
+      }
+      else
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepción al guardar operación' });
       return;
     }

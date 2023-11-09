@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  endPoint: "https://localhost:7061/api/",
+  endPoint: "https://localhost:44383/api/",
   // endPoint: "https://api-saads-dev.upds.edu.bo/archivo/api/",
   urlLogin: 'https://login-dev.upds.edu.bo/SAADS-WEB?returnUrlLogin=http://localhost:4200/%23/login',
   urlAccess: 'https://api-saads-dev.upds.edu.bo/access/api/',

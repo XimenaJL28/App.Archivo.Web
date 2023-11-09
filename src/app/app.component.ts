@@ -16,7 +16,7 @@ export class AppComponent {
     private readonly store: Store<{ theme: ThemeState, user: UserState }>
   ) {
     this.store.dispatch(loadTheme())
-    this.traer();
+    // this.traer();
   }
 
   traer() {
