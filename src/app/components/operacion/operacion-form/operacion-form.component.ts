@@ -70,7 +70,7 @@ export class OperacionFormComponent implements OnInit {
       !this.documentoOperacionTipoSelected ||
       !this.documento
     ) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores insertados' });
+      this.messageService.add({ severity: 'error', summary: 'Datos Inválidos', detail: 'Revisar valores insertados' });
       this.savedLoading = false;
       return;
     }

@@ -126,12 +126,13 @@ export class DocumentoFormComponent implements OnInit {
     this.savedLoading = true;
 
     // Validaciones de documento
-    if (this.adjunto.trim().length < 1 ||
+    if (
+      //this.adjunto.trim().length < 1 ||
       !this.fechaLimitedeEntrega ||
       this.fechaLimitedeEntrega < new Date() ||
       (!this.fechaVencimiento && this.getDocumentoIndefinido()) ||
       !this.tramite) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no validos', detail: 'Revisar valores del documento' });
+      this.messageService.add({ severity: 'error', summary: 'Datos Inválidos', detail: 'Revisar valores del documento' });
       this.savedLoading = false;
       return;
     }
@@ -144,7 +145,7 @@ export class DocumentoFormComponent implements OnInit {
       !this.documentoOperacionTipoSelected ||
       !this.documentoInscripcionCarrera
     ) {
-      this.messageService.add({ severity: 'error', summary: 'Datos no válidos', detail: 'Revisar valores de la operación' });
+      this.messageService.add({ severity: 'error', summary: 'Datos Inválidos', detail: 'Revisar valores de la operación' });
       this.savedLoading = false;
       return;
     }
@@ -177,7 +178,7 @@ export class DocumentoFormComponent implements OnInit {
       this.savedLoading = false;
       if(this.documentoOperacionTipoSelected.id == 0)
       {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Seleccione el tipo de operacion antes de guardar' });
+        this.messageService.add({ severity: 'error', summary: 'Seleccione Operación', detail: 'Seleccione el tipo de operación antes de guardar' });
 
       }
       else
