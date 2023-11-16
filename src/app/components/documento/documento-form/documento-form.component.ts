@@ -125,7 +125,7 @@ export class DocumentoFormComponent implements OnInit {
   async guardarDocumento() {
     this.savedLoading = true;
 
-    // Validaciones de documento
+    // Validaciones al momento de subir documento
     if (
       //this.adjunto.trim().length < 1 ||
 
