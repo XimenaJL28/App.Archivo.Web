@@ -51,6 +51,7 @@ export class DocumentoFormComponent implements OnInit {
   public fechaVencimiento: Date | undefined;
 
   public dateFormat: string = 'dd-mm-yy'
+  public hoy: Date = new Date();
 
   private userSubscriptions!: Subscription;
   private estudianteSubscriptions!: Subscription;
@@ -64,13 +65,13 @@ export class DocumentoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tramiteService.getDropDownDocumentoOperacionTipo().then((response: any) => {
-    let newop = {
-        id : 0,
+      let newop = {
+        id: 0,
         nombre: "Seleccione el tipo de Operación"
-    }
-    let documentoOperacionTipos2 = response || []; 
-    documentoOperacionTipos2.unshift(newop)
-      this.documentoOperacionTipos = documentoOperacionTipos2      
+      }
+      let documentoOperacionTipos2 = response || [];
+      documentoOperacionTipos2.unshift(newop)
+      this.documentoOperacionTipos = documentoOperacionTipos2
     });
 
     this.userSubscriptions = this.store.select('user').subscribe(state => {
@@ -172,17 +173,14 @@ export class DocumentoFormComponent implements OnInit {
 
     // Operacion
     const responseOperacion = await this.tramiteService.postDocumentoOperacion(operacionDTO);
-    console.log(responseOperacion);
-    
     if (!responseOperacion) {
       this.savedLoading = false;
-      if(this.documentoOperacionTipoSelected.id == 0)
-      {
+      if (this.documentoOperacionTipoSelected.id == 0) {
         this.messageService.add({ severity: 'error', summary: 'Seleccione Operación', detail: 'Seleccione el tipo de operación antes de guardar' });
 
       }
       else
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepción al guardar operación' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepción al guardar operación' });
       return;
     }
 
