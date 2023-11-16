@@ -17,6 +17,7 @@ export class TramitePresentadoComponent {
     return setColorDocumentoEstado(documento);
   }
 
+  //Contador dias faltantes 
   getDiasFaltantes(documento: DocumentoInscripcionCarrera): string {
     const fechaLimite = new Date(documento.fechaLimitedeEntrega).getTime();
     const fechaActual = new Date().getTime();

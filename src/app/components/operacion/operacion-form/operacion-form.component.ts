@@ -70,7 +70,7 @@ export class OperacionFormComponent implements OnInit {
       !this.documentoOperacionTipoSelected ||
       !this.documento
     ) {
-      this.messageService.add({ severity: 'error', summary: 'Datos Inválidos', detail: 'Revisar valores insertados' });
+      this.messageService.add({ severity: 'error', summary: 'Datos Incorrectos', detail: 'Revise e intente nuevamente' });
       this.savedLoading = false;
       return;
     }
@@ -87,7 +87,7 @@ export class OperacionFormComponent implements OnInit {
     const response = await this.tramiteService.postDocumentoOperacion(operacionDTO);
     if (!response) {
       this.savedLoading = false;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Se produjo un error al guardar' });
+      this.messageService.add({ severity: 'error', summary: 'Error al guardar', detail: 'Por favor intente nuevamente' });
       return;
     }
 
