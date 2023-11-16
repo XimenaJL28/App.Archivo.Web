@@ -66,7 +66,7 @@ export class DocumentoFormComponent implements OnInit {
     this.tramiteService.getDropDownDocumentoOperacionTipo().then((response: any) => {
       let newop = {
         id: 0,
-        nombre: "Seleccione el tipo de Operación"
+        nombre: "Seleccione el tipo de operación"
       }
       let documentoOperacionTipos2 = response || [];
       documentoOperacionTipos2.unshift(newop)
@@ -152,6 +152,7 @@ export class DocumentoFormComponent implements OnInit {
     }
 
     const documentoInscripcioncarreraId = this.documentoInscripcionCarrera?.documentoInscripcioncarreraId || 0;
+
     // documento
     const documentoDTO: DocumentoInscripcionCarreraUpdate = {
       documentoInscripcionCarreraId: documentoInscripcioncarreraId,
@@ -182,7 +183,7 @@ export class DocumentoFormComponent implements OnInit {
 
       }
       else
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha sucedido una excepción al guardar operación' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un problema al guardar la operación' });
       return;
     }
 
