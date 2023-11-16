@@ -21,6 +21,7 @@ export class EstudianteSearchComponent {
     private readonly MainService: MainService
   ) { }
 
+  // Metodo Busqueda Estudiante por nombre o carné
   async buscarEstudiante(event: any) {
     const textSearch = event.query.trim() as string;
     if (textSearch.length === 0) {
