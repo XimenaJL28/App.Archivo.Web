@@ -81,7 +81,7 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
     this.noTieneTramites = false;
   }
 
-  // Inscripciones
+  // Inscripciones del estudiante 
   async setInscripcionSeleccionada(inscripcion: Inscripcion) {
     const response = await this.tramiteService.getListTramites(inscripcion.idInscripcionSede);
     const tramites = response || [];
@@ -138,7 +138,7 @@ export class EstudiantePageComponent implements OnInit, OnDestroy {
     return tramitesGroup;
   }
 
-  // Tramites
+  // Tramites pendientes del estudiante 
   async setTramiteSeleccionado(event: { tramite: TramiteInscripcionCarrera, index: number }) {
     const { tramite, index } = event;
 
